@@ -6,7 +6,7 @@
 name: Durga Swaroop
 
 # Short bio or description (displayed in the header)
-description: Blogger, Software Engineer and a Vim Evangelist
+description: Data Science Engineer, Blogger and Vim Evangelist
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://avatars2.githubusercontent.com/u/8543652?v=3&u=e0dbcb7737a59598dbbd9743b231e7b073d6c5f7&s=140
@@ -21,14 +21,14 @@ footer-links:
   email:
   facebook:
   flickr:
-  github: barryclark/jekyll-now
+  github: durgaswaroop
   instagram:
   linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: jekyllrb
+  twitter: durgaswaroop
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
-  youtube: # channel/<your_long_string> or user/<user-name>
+  youtube: user/durgaswaroop
   googleplus: # anything in your profile username that comes after plus.google.com/
 
 
