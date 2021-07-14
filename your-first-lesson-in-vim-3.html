@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Navigating in Vim I | Your First Lesson In Vim</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/your-first-lesson-in-vim-3" rel="bookmark"
+           title="Permalink to Navigating in Vim I | Your First Lesson In Vim">Navigating in Vim I | Your First Lesson In Vim</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-09T00:00:00+05:30">
+                Published: Sun 09 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->      <p>This is the third article in a series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. Hopefully this series will put those fears to bed.</p>
+<p><img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"></p>
+<p>In the last article <a href="/your-first-lesson-in-vim-2">How To Exit Vim</a>, we have seen what Vim modes are and what they do. So, If you know about Visual Mode, Insert Mode, Command Mode and Normal Mode, then continue with this article. Otherwise take a look again at the previous article. Vim modes are really important to understand this article and the upcoming ones.</p>
+<p>I wanted this to be a part of the previous article but since this is really important and has a lot of potential information to discuss, I decided to give this its own full article. We will be spending most of our time in Normal mode here as that is where we will navigate in the file. You have seen how you navigate in Vim using <code>h j k l</code>. If you haven't figured out already, Vim's main philosophy is increasing your productivity and because of this some of the things Vim does might seem different compared to the usual way you are used to in other editors. Using <code>h j k l</code> is one of those things.</p>
+<p><img alt="vim navigation" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_navigation_hjkl.png" width="450"></p>
+<p>We have covered this in the last article but as promised I will expand about it here. If you look at your keyboard you will see that <code>h j k l</code> are on your Home Row (unless you are using Dvorak Keyboard, in which case this article probably won't help you much). Having the navigation keys on the home row is such an advantage as you don't have to move your fingers at all to access them. Going to the arrow keys for navigating is tiresome and time consuming. Don't think so? Well try it out yourself. Rest your fingers on their normal positions on the Home row (<code>a s d f - j k l ;</code>) and try to hit the UP arrow and come back. Did you see the travel involved in that? Do it again and see how you have moved your hand away from the keys and came back. Do it 5 more times and tell me If i am wrong when I say its just unnecessary travel, Especially since you have the navigation keys right on the home row in Vim. This is one of the reasons why Vim users are usually pretty fast. They don't keep moving their hands on and off the keyboard every time you have to go up or down. And again this could save you from potential RSI injuries.</p>
+<p><img alt="qwerty keyboard" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/qwerty_time_waste_small.png" width="600"></p>
+<p>So, I strongly advise you to stop using UP and DOWN arrow keys. To use the <code>h j k l</code> keys more, try playing <a href="http://vim-adventures.com/">Vim Adventures</a>. Its a fun game where you go around the textland collecting characters using Vim's navigation controls. It will help you use the <code>h j k l</code> keys and just after a couple of tries it becomes muscle memory.</p>
+<p>One more thing that you won't see Vim users (#VimRocks) using is Mouse. The argument against using Mouse is the same one as that for the arrow keys. You are taking your hands off your main row which not only breaks your typing flow but also is just plain annoying. Its the same for mouse except you're moving your hand even further which makes it that much worse.</p>
+<p>Getting rid of Arrow keys and Mouse is not an easy thing. This is cert ainly something that takes time to get used to. But once you do, you will be that much faster in your work flow.</p>
+<h3 id="vim-motions">Vim Motions</h3>
+<p>Vim Motions are the amazing things that make Vim users so fast. You already know about <code>h j k l</code>. Motions are just about anything that moves your cursor from one place to another. Apart from that you also have <code>w W b B e E H M L</code>. Let's see what they do.</p>
+<p>Command                                                                                    What it does?</p>
+<hr>
+<p>w                                                                                          Move the cursor to the starting of the next word
+  W                                                                                          Move the cursor to the starting of the next WORD
+  b                                                                                          Move the cursor to the starting of the previous word (Mnemonic - <strong>b</strong>ack)
+  B                                                                                          Move the cursor to the starting of the previous WORD
+  e                                                                                          Move the cursor to the end of the current word (Mnemonic - <strong>e</strong>nd)
+  E                                                                                          Move the cursor to the end of the current WORD
+  H                                                                                          Move the cursor to the First line of the current visible screen (Mnemonic - <strong>H</strong>igh)
+  M                                                                                          Move the cursor to the Middle line of the current visible screen (Mnemonic - <strong>M</strong>iddle)
+  L                                                                                          Move the cursor to the Last line of the current visible screen (Mnemonic - <strong>L</strong>ow)</p>
+<p>The usage of <code>H M L</code> commands should be clear with this image below. They move your cursor to first, middle and last line of the screen respectively.</p>
+<p><img alt="vim hml motions" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/hml_vim.png" width="450"></p>
+<p>To understand about <code>w b e</code> and their upper case variants we have to understand how <em>word</em> and <em>WORD</em> are defined in Vim. From the official documentation (<code>:help word</code>),</p>
+<blockquote>
+<p>A <strong>word</strong> consists of a sequence of letters, digits and underscores, or a sequence of other non-blank characters, separated with white space (spaces, tabs, <eol>)</p>
+<p>A <strong>WORD</strong> consists of a sequence of non-blank characters, separated with white space</p>
+</blockquote>
+<p>In short, a group of characters with out a space between them is a <em>WORD</em> and there can be multiple <em>words</em> in that. With that definition let's take a look at some examples and identify the number of words and the number of WORDS in them.</p>
+<p>Word                   # of words                           # of WORDS</p>
+<hr>
+<p>hello world            2 (hello,world)                       2 (hello,world)
+  hello-world            3 (hello,-,world)                     1 (hello-world)
+  hello_world           1 (hello_world)                      1 (hello_world)</p>
+<p>Once you understood the difference between <em>word</em> and <em>WORD</em>, all the motions explained in the first table would be clear. Just to make the foundation firm, try them out yourself. Type something in a file and try to see what each of the <code>w b e W B E H M L</code> commands are doing and how they are moving the cursor. All the motions we have covered in this article are called <em>Word motions</em> (<code>:help word-motions</code>). There are some more Vim motion commands that you need to know to quickly navigate with ease. To keep this article simple, we will end this discussion here and will pickup again in the next article where we will discuss about the other motion commands. So, Keep practicing these motions combined with other commands discussed in <a href="/your-first-lesson-in-vim-2">How To Exit Vim</a> and you would be really fast already. Fast like a Puma!</p>
+<p>Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!</p>
+<p><a class="navlinkleft" href="/your-first-lesson-in-vim-2">← Prev</a> <a class="navlinkright" href="/your-first-lesson-in-vim-4">Next →</a></p>
+<hr>
+<p>For more Vim stuff : <a href="/tags/vim">Vim</a></p>
+<h4 id="attributions">Attributions:</h4>
+<p>Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

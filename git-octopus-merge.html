@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Understanding Git Octopus Merge</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/git-octopus-merge" rel="bookmark"
+           title="Permalink to Understanding Git Octopus Merge">Understanding Git Octopus Merge</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-12-21T05:00:00+05:30">
+                Published: Wed 21 December 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/git">Git</a> <a href="/tags/octopus-merge">Octopus Merge</a> <a href="/tags/merge-conflicts">Merge Conflicts</a> <a href="/tags/source-control">Source Control</a> </p>
+</footer><!-- /.post-info -->      <p>The Code for Git merge is one of the most sophisticated pieces of software ever written. There is so much stuff that goes inside during a merge that its just mind boggling. Just for that alone, Linus could be considered a programming genius. Too bad for other geniuses, he also has "Linux kernel" on his resume :-D.</p>
+<p><img alt="Git Logo" class="aligncenter" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="200"></p>
+<p>As the title suggests this article is about <em>Octopus Merge</em> in Git. For this, I hope you know what a basic Git merge is and what it means to merge. If you're completely unfamiliar with Git, then I've no idea what you're doing here. You better read up on some Git 101 before jumping in to this article.</p>
+<p>Anyway, Just to brush up, this is how a simple/familiar Git merge goes ..</p>
+<p>We have a branch called <em>feature</em> that diverged from <em>master</em> at the second commit and went to have two commits of its own.</p>
+<p><img alt="Master and Feature branches in Git" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_branches_master_feature.png" width="500"></p>
+<blockquote>
+<p><em>Note</em>: For the branch pictures in this article I am using a Git GUI tool called <a href="https://www.gitkraken.com/">Git Kraken</a>. I have been trying it a few days now and it looks quite promising. I am a fan of its clean and minimalist UI and have been using it extensively for the beautiful visualization of branches. And above all, It is free for personal non-commercial use. So, you can try it out for free.</p>
+</blockquote>
+<p>Now you want to add those cool new changes on the feature branch to master. The way you do it is by merging (Let's not talk about Rebasing for now. We will look at it another time). So, when you merge this is how it looks like.</p>
+<p><img alt="Git merge master feature" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_merge_master_feature.png" width="500"></p>
+<p>This is all the usual stuff that we are all familiar with.</p>
+<p>Now there is another type of merge called the <strong>The Octopus Merge</strong>. At least some of you must have heard about it either from an online video or from a colleague in your office that seems to know everything. Either way the Octopus merge is a really fun way of Merging. You probably won't get to do this at your work as a lot of companies think this complicates things and we all know how much Companies hate complexity. Anyway, Let's see what it looks like. I have a local git repository with three branches <em>branch1</em>, <em>branch2</em>, <em>branch3</em> along with <em>master</em>. All four of these branches have two extra commits from the point they diverged.</p>
+<p><img alt="Git octopus pre image" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_pre_octopus_merge.png" width="500"></p>
+<p>Now if you want to merge them, the usual way would be to merge two branches at a time to finally get to the final combination after three merges like so.</p>
+<p><img alt="The usual way to merge branches in Git" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_usual_merge.png" width="500"></p>
+<p>This may seem fine and might actually be the only way you would think about this if not for the Octopus merge. You have three merge commits here and as we know merge commits are noise. They pollute the history of your repository and interrupt the story told by your Git history. So, how about keeping the noise low by just having one Merge commit instead of three. How you ask? Octopus, My friend. All hail the great and mighty Octopus. So, the way you perform an Octopus is by merging all the branches at once on to the master. To do that you give a command like this</p>
+<p><img alt="Git merge octopus" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_octopus_merge_output.png" width="500"></p>
+<p>This will merge all the three branches to master. The branches will look something like this. Do you see the reference of Octopus now?</p>
+<p><img alt="Octopus Git merge" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_post_octopus_merge.png" width="500"></p>
+<p>Now, if you know anything about octopuses, you might be wondering that we only have four legs here while an Octopus has 8. Well you are right. Octopuses do have 8 legs (technically 6 as two of them are used as hands) but 4 is good enough. Actually any merge can be called Octopus if you're merging three or more branches.</p>
+<p>If you are using Git for sometime, you might be wondering, If Octopus is so freaking cool, why haven't more people heard about it and Why are more people not using it. Well, you are right my friend. Octopus is awesome for sure, but as I said it certainly does complicate things a lot especially when dealing with merge conflicts. Merge is hard enough as it is when dealing with just two branches. But if you are merging 5 or 10 branches together it feels like you're doing a complex surgery. You have to be really careful in that case and I am not even sure if any modern GUI tools support diffing 10-way. Also a lot of people tend to go overboard with Octopus.</p>
+<p>Look at this <a href="http://marc.info/?l=linux-kernel&amp;m=139033182525831">message</a> where Linus Torvalds yells (pleasantly) at a guy for creating an Octopus with 66 branches. Imagine that for a second. 66 branches! I wouldn't want to be the guy that handles merge conflicts on that one! Linux aptly says</p>
+<blockquote>
+<p>that's not an octopus, that's a <strong>Cthulhu</strong> merge</p>
+</blockquote>
+<p><img alt="Cthulu Image" class="aligncenter" src="https://upload.wikimedia.org/wikipedia/commons/6/62/Cthulhu_and_R%27lyeh.jpg" width="300"></p>
+<p>So, a lot of companies don't really use this. A lot of people won't even consider this for their merge strategies.</p>
+<p>A rule of thumb to follow with <strong>Octopus</strong> is to never overdo it. An 8-way octopus merge though borders on crazy hard and insane, is fine but more than that is an overkill. The situations where you have to merge more than 5 or 6 branches tend to be very rare and in those cases may be you can go for an Octopus on a subset of branches at a time and do a Octopus for those. Or may be rethink your merging strategy.</p>
+<p>Either way, I hope this article helped you in understanding something new and gives you some ideas for dealing with complex merges. I hope you will educate your peers and colleagues about this new merge and share this article with them</p>
+<p>Well, That is all for this article folks. See you again in the next one. Until then, Good Bye.</p>
+<hr>
+<p>Special Thanks to <a href="https://www.gitkraken.com/">Git Kraken</a> team at Axosoft for developing a great tool like Kraken.</p>
+<p>You can find me as <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a> on Twitter.</p>
+<h4 id="attributions">Attributions:</h4>
+<p>Cthulhu Image  - CC BY-SA 3.0 -https://commons.wikimedia.org/wiki/File:Cthulhu_and_R'lyeh.jpg</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - spark</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/apache-spark-map-vs-flatmap">Apache Spark | Map and FlatMap</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2016-06-19T03:12:00+05:30">
+                Published: Sun 19 June 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/java">java</a> <a href="/tags/spark">spark</a> <a href="/tags/map">map</a> <a href="/tags/flatmap">flatmap</a> </p>
+</footer><!-- /.post-info --><p>Map and FlatMap functions transform one collection in to another just like the map and flatmap functions in several other functional languages. In the context of Apache Spark, they transform one RDD in to another RDD.</p>
+<p><img alt="Apache Spark Logo" height="212" src="https://spark.apache.org/images/spark-logo-trademark.png" width="400"></p>
+<p>Here is how they differ from each other.  </p>
+<h2 id="map">Map</h2>
+<p>Map converts an RDD of size ’n’ in to another RDD of size ‘n’. The input and output size of the RDD's will be the same. Or to put it in another way, [one element in input gets mapped to only one element in the output.</p>
+<p><img alt="Map venn diagram" height="125" src="https://qphs.fs.quoracdn.net/main-qimg-0cb8323fcae6acb7b6206bd000e0fd14.webp" width="320"></p>
+<p>So, for example let’s say I have an array [1,2,3,4] and I want to increment each element by 10. The input size and output size are same, so we can use map for this transformation.</p>
+<p>Required :</p>
+<div class="highlight"><pre><span></span>[1,2,3,4] -&gt; [11,12,13,14]
+</pre></div>
+
+
+<p>Spark code :</p>
+<div class="highlight"><pre><span></span>myRdd.map(x -&gt; x+10)
+</pre></div>
+
+
+<p>So, that is what <em>map</em> function does. While using map, you can be sure that the size of input and output will remain the same and so even if you put a hundred map functions in series, the output and the input will have the same number of elements.</p>
+<h3 id="flatmap">FlatMap</h3>
+<p>Coming to FlatMap, it does a similar job. Transforming one collection to another. Or in spark terms, one RDD to another RDD. But there is no condition that output size has to be equal to the input size. Or to put it in another way, [one element in input can map to zero or more elements in the output.</p>
+<p><img alt="Flatmap venn diagram" height="174" src="https://qphs.fs.quoracdn.net/main-qimg-90a70c401636ad8d53ad0821a1deec95.webp" width="320"></p>
+<p>Also, the output of flatMap is flattened . Though the function in flatMap returns a list of element(s) for each individual element of the input, the output of FlatMap will be an RDD which has all the elements flattened to a single list.</p>
+<p>Let’s see this with an example.</p>
+<p>Say you have a text file as follows</p>
+<div class="highlight"><pre><span></span>Hello World
+Who are you
+</pre></div>
+
+
+<p>Now, if you run a flatMap on the textFile rdd,</p>
+<div class="highlight"><pre><span></span>words = linesRDD.flatMap(x -&gt; List(x.split(“ “)))
+</pre></div>
+
+
+<p>And, the value in the words RDD would be,</p>
+<div class="highlight"><pre><span></span>[“Hello”, “World”, “Who”, “are”, “you”]
+</pre></div>
+
+
+<p>so, the transformation process looks like this,</p>
+<div class="highlight"><pre><span></span> linesRDD -&gt; [ [“Hello”, “World”],[“Who”,”are”,”you”] ]
+          -&gt; [“Hello”, “World”, “Who”, “are”, “you”]
+</pre></div>
+
+
+<p>So, those are the differences between Map and FlatMap of Apache Spark.<br>
+Keep Practicing and Keep Learning!</p>
+<hr>
+<p>If you have liked this article and would like to see more, subscribe to our Facebook and G+ pages.<br>
+Facebook page @ <a href="https://www.facebook.com/freblogg">Facebook.com/freblogg</a></p>
+<p>Google Plus Page @ <a href="https://plus.google.com/102904658212987164302">Google.com/freblogg</a></p>
+<p>Image Credits : http://spark.apache.org/images/spark-logo-trademark.png</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

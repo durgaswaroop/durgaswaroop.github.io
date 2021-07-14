@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - Java</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/spark-word-count-with-java">Word Count application with Apache Spark and Java</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2016-06-23T05:30:00+05:30">
+                Published: Thu 23 June 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/programming">Programming</a> <a href="/tags/java">Java</a> <a href="/tags/wordcount">Wordcount</a> <a href="/tags/apache-spark">Apache Spark</a> <a href="/tags/maven">Maven</a> <a href="/tags/hadoop">Hadoop</a> </p>
+</footer><!-- /.post-info --><p>Apache Spark is becoming ubiquitous by day and has been dubbed the next big thing in the Big Data world. Spark has been replacing MapReduce with its speed and scalability. In this series of articles on Spark we will try to solve various problems using <a href="/tags/spark">Spark</a> and <a href="/tags/java">Java</a>.  </p>
+<p><img alt="spark-java-freblogg" src="http://www.datanami.com/wp-content/uploads/2014/12/spark-and-java-8.png"></p>
+<p>Word count program is the big data equivalent of the classic <em>Hello world</em> program. The aim of this program is to scan a text file and display the number of times a word has occurred in that particular file. And for this word count application we will be using Apache spark 1.6 with Java 8.  </p>
+<p>For this program, we will be running spark in a stand alone mode. So you don't need to setup a cluster. Even Hadoop is not required for this exercise. Assuming you have Spark, Java and Maven installed properly, let's proceed.</p>
+<h3 id="creating-pomxml">Creating pom.xml</h3>
+<p>To compile Java programs with Maven, you will need a pom.xml file with the required dependencies. Use this pom.xml file if you don't have one available with you.  </p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;project&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.freblogg.sparklearning<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>freblogg-spark-tutorial<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+  <span class="nt">&lt;name&gt;</span>example<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+  <span class="nt">&lt;version&gt;</span>0.0.1<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="c">&lt;!-- Spark dependency --&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.spark<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spark-core_2.10<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.6.1<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+  <span class="nt">&lt;properties&gt;</span>
+    <span class="nt">&lt;java.version&gt;</span>1.8<span class="nt">&lt;/java.version&gt;</span>
+    <span class="nt">&lt;encoding&gt;</span>UTF-8<span class="nt">&lt;/encoding&gt;</span>
+    <span class="nt">&lt;spark.version&gt;</span>1.6.1<span class="nt">&lt;/spark.version&gt;</span>
+  <span class="nt">&lt;/properties&gt;</span>
+  <span class="nt">&lt;build&gt;</span>
+    <span class="nt">&lt;pluginManagement&gt;</span>
+      <span class="nt">&lt;plugins&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>3.3<span class="nt">&lt;/version&gt;</span>
+          <span class="nt">&lt;configuration&gt;</span>
+            <span class="nt">&lt;source&gt;</span>${java.version}<span class="nt">&lt;/source&gt;</span>
+            <span class="nt">&lt;target&gt;</span>${java.version}<span class="nt">&lt;/target&gt;</span>
+          <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>maven-plugin-plugin<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>3.3<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+      <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/pluginManagement&gt;</span>
+  <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+
+
+<p>Now, save this file as pom.xml and put it in the same folder as your <strong>src</strong> directory.  </p>
+<h3 id="input-file">Input File</h3>
+<p>After creating the POM file, you will need an input file on which we will run our Wordcount program, to count the number of occurrences of each word. This is the file I will be using. </p>
+<blockquote>
+<div class="highlight"><pre><span></span>It is close to midnight and something evil is lurking in the dark
+Under the moonlight you see a sight that almost stops your heart
+You try to scream but terror takes the sound before you make it
+You start to freeze as horror looks you right between the eyes
+You are paralyzed
+</pre></div>
+
+
+</blockquote>
+<h3 id="java-program">Java Program</h3>
+<p>Once we have the pom file ready, we can start with the code.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.apache.spark.api.java.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.SparkConf</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">scala.Tuple2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WordCount</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+  <span class="n">SparkConf</span> <span class="n">conf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SparkConf</span><span class="o">().</span><span class="na">setMaster</span><span class="o">(</span><span class="s">&quot;local&quot;</span><span class="o">).</span><span class="na">setAppName</span><span class="o">(</span><span class="s">&quot;wordCount&quot;</span><span class="o">);</span>
+  <span class="n">JavaSparkContext</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JavaSparkContext</span><span class="o">(</span><span class="n">conf</span><span class="o">);</span>
+
+  <span class="c1">// Load our input data.</span>
+  <span class="n">String</span> <span class="n">inputFile</span> <span class="o">=</span> <span class="s">&quot;file:///home/dsp/Desktop/sparkExamples/sample_testing/resources/inputFile&quot;</span><span class="o">;</span>
+
+  <span class="n">JavaRDD</span> <span class="o">&lt;</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">input</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">textFile</span><span class="o">(</span><span class="n">inputFile</span><span class="o">);</span>
+  <span class="c1">// Split in to list of words</span>
+  <span class="n">JavaRDD</span> <span class="o">&lt;</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">words</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">l</span> <span class="o">-&gt;</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">l</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">)));</span>
+
+  <span class="c1">// Transform into pairs and count.</span>
+  <span class="n">JavaPairRDD</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">Integer</span> <span class="o">&gt;</span> <span class="n">pairs</span> <span class="o">=</span> <span class="n">words</span><span class="o">.</span><span class="na">mapToPair</span><span class="o">(</span><span class="n">w</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Tuple2</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="mi">1</span><span class="o">));</span>
+
+  <span class="n">JavaPairRDD</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">Integer</span> <span class="o">&gt;</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">pairs</span><span class="o">.</span><span class="na">reduceByKey</span><span class="o">((</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">);</span>
+
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">counts</span><span class="o">.</span><span class="na">collect</span><span class="o">());</span>
+ <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="execution">Execution</h3>
+<p>Once we have everything ready, its time to execute our program and see the output.<br>
+To compile it, first execute this in the directory with the pom file.  </p>
+<div class="highlight"><pre><span></span> mvn clean &amp;&amp; mvn compile &amp;&amp; mvn package 
+</pre></div>
+
+
+<p>This will take sometime to run the first time because maven will have to download and install the dependencies. After successful compilation, It creates the <em>target</em> folder and a jar file named freblogg-spark-tutorial-0.0.1.jar.  </p>
+<p>Then to execute the program you need to run the spark-submit script in your SPARK_HOME folder.  </p>
+<div class="highlight"><pre><span></span> $SPARK_HOME/bin/spark-submit --class &quot;WordCount&quot; target/freblogg-spark-tutorial-0.0.1.jar
+</pre></div>
+
+
+<p>Once this command is executed your screen will be completely filled with spark logs. If you scroll a bit to the top, you will see the following output, which is the output we are interested in.  </p>
+<blockquote>
+<p><code>{.prettyprint}
+ [(freeze,1), (are,1), (Under,1), (it,1), (is,2), (you,3), (takes,1), (lurking,1), (right,1), (that,1), (a,1), (You,3), (terror,1), (start,1), (dark,1), (between,1), (scream,1), (before,1), (to,3), (as,1), (in,1), (moonlight,1), (sound,1), (midnight,1), (see,1), (stops,1), (sight,1), (try,1), (something,1), (paralyzed,1), (evil,1), (It,1), (eyes,1), (make,1), (almost,1), (but,1), (and,1), (close,1), (heart,1), (looks,1), (your,1), (horror,1), (the,4)]</code></p>
+</blockquote>
+<p>That is the counts of each word in the file. So, there you go. You have successfully written your first Spark application. Congratulations. You're officially a Spark programmer now!  </p>
+<h3 id="understanding-the-code">Understanding the code</h3>
+<p>Now that we have our application set up, let's see what the program is doing, step by step.</p>
+<p>First we have the spark variables sc and conf. Don't worry too much about them right now. All you need to know is that every Spark program needs those two lines.</p>
+<div class="highlight"><pre><span></span> SparkConf conf = new SparkConf().setMaster(&quot;local&quot;)                                                        .setAppName(&quot;wordCount&quot;);
+  JavaSparkContext sc = new JavaSparkContext(conf); 
+</pre></div>
+
+
+<p>So, just copy paste the lines in every application you are going to work on.</p>
+<p>Next we are reading the input file using RDD's. RDD's are essentially blob's of text that you read from various sources and you can transform them in to whatever you want using various operations.  Here we are reading the input file from our local file system. If you want to read from HDFS, then replace the <strong>file:///</strong> with <strong>hdfs:///</strong></p>
+<div class="highlight"><pre><span></span> <span class="nt">String</span> <span class="nt">inputFile</span> <span class="o">=</span> <span class="s2">&quot;file:///home/dsp/Desktop/sparkExamples/sample_testing/resources/inputFile&quot;</span><span class="o">;</span>
+<span class="nt">JavaRDD</span><span class="o">&lt;</span><span class="nt">String</span><span class="o">&gt;</span> <span class="nt">input</span> <span class="o">=</span> <span class="nt">sc</span><span class="p">.</span><span class="nc">textFile</span><span class="o">(</span><span class="nt">inputFile</span><span class="o">);</span>
+</pre></div>
+
+
+<p>Then we have our first transformation operation on the input RDD we have created in the above step.</p>
+<p>Flat Map is an inbuilt function that takes one input and can provide any number of outputs depending on the operations used inside it.</p>
+<div class="highlight"><pre><span></span> JavaRDD &lt;String&gt; words = input.flatMap(l -&gt; Arrays.asList(l.split(&quot; &quot;))); 
+</pre></div>
+
+
+<p>Here we are splitting the sentence on white space characters. So, the flatmap function here returns a list of all the words in the input document and that will be stored in the RDD named words. For more about Flatmap, read this : <a href="/apache-spark-map-vs-flatmap">Spark FlatMap and Map</a></p>
+<p>Next, we have another transformation <em>mapToPair</em> that returns a Tuple of word and the number 1.</p>
+<p>And, a Tuple is very similar to ordered pairs in Cartesian coordinate system. Tuple2 looks like (x,y), where x is the Key. Similarly Tuple3 will be (x,y,z) and so on.</p>
+<div class="highlight"><pre><span></span> JavaPairRDD&lt;String, Integer&gt; pairs = words.mapToPair(w -&gt; new Tuple2(w, 1));
+</pre></div>
+
+
+<p>As an example, the word <strong><em>you </em></strong>in the input will be mapped to <strong><em>(you,1)</em></strong> by <code>mapToPair</code> function. And, since the result is a pair, we have to store it in a <code>JavaPairRDD</code> which supports pairs.</p>
+<p>And, then we are doing the final transformation on the pairs that will add up individual counts of each word.  </p>
+<div class="highlight"><pre><span></span>JavaPairRDD &lt;String, Integer&gt; counts = pairs.reduceByKey((x, y) -&gt; x + y);
+</pre></div>
+
+
+<p><code>ReduceByKey</code> method groups all the Tuple pairs with the same key. We have the word 'you' repeated thrice and so we have (you,1) three times. Now, <strong><em>(you,1)</em></strong> , <strong><em>(you,1)</em></strong>, <strong><em>(you,1)</em></strong> will become <em>(you,3) </em> because of<em> </em> the sum we are doing inside the function<em>.</em> And similarly for the other words. </p>
+<p>Then finally we are performing an action on the RDD which is where the actual computation of all the above steps takes place. <em>collect()</em> will return all the elements in the RDD and we are printing that using <code>println</code>, giving us the output we want.  </p>
+<p>So there you go, Your first Spark application completed. To learn more go through the documentation and examples given on the Spark's webpage and subscribe to Freblogg for more tutorials.  </p>
+<p>Happy Sparking! </p>
+<p>Image : http://www.datanami.com/wp-content/uploads/2014/12/spark-and-java-8.png  </p>
+<hr>
+<p>Self Promotion:  </p>
+<p>If you have liked this article and would like to see more, subscribe to our Facebook and G+ pages.  </p>
+<p>Facebook page @ <a href="https://www.facebook.com/freblogg">Facebook.com/freblogg</a>  </p>
+<p>Google Plus Page @ <a href="https://plus.google.com/102904658212987164302">Google.com/freblogg</a></p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/apache-spark-map-vs-flatmap" rel="bookmark"
+                           title="Permalink to Apache Spark | Map and FlatMap">Apache Spark | Map and FlatMap</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-06-19T03:12:00+05:30">
+                Published: Sun 19 June 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/java">java</a> <a href="/tags/spark">spark</a> <a href="/tags/map">map</a> <a href="/tags/flatmap">flatmap</a> </p>
+</footer><!-- /.post-info -->                <p>Map and FlatMap functions transform one collection in to another just like the map and flatmap functions in several other functional languages. In the context of Apache Spark, they transform one RDD in to another RDD.</p>
+<p><img alt="Apache Spark Logo" height="212" src="https://spark.apache.org/images/spark-logo-trademark.png" width="400"></p>
+<p>Here is how they differ from each other.  </p>
+<h2 id="map">Map</h2>
+<p>Map converts an RDD of …</p>
+                <a class="readmore" href="/apache-spark-map-vs-flatmap">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

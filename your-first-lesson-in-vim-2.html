@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>How to Exit Vim? | Your First Lesson In Vim</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/your-first-lesson-in-vim-2" rel="bookmark"
+           title="Permalink to How to Exit Vim? | Your First Lesson In Vim">How to Exit Vim? | Your First Lesson In Vim</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-02T17:00:00+05:30">
+                Published: Sun 02 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/linux">Linux</a> <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->      <p>This is the second article in the series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. This series is going to put an end to all of that.</p>
+<p><img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"></p>
+<p>In the last article <a href="/your-first-lesson-in-vim-1">Introduction &amp; Installation</a> we have seen why Vim is the best and coolest editor ever. Hopefully after watching Damian Conway's YouTube video given at the end of that article, you would agree. In this article we will experience Vim for the first time. We will learn about the various modes of operations in Vim. And, most importantly as the title of the article suggests, we will learn <strong>How to Exit Vim</strong>.</p>
+<p>First thing's first, You have to open Vim. Duh!. You can do that either by directly searching for <code>Vim</code> in your Search box or by typing <code>vim</code> in to your terminal. If you want to start off with <code>gvim</code> then open that instead. Your Gvim or Mac Vim would look something like this.</p>
+<p><img alt="Gvim startup picture" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/gvim_start.png" width="450"></p>
+<p>If you have already tried to type something, you would observe that there is something shady going on here. For example, if you type <code>hello world</code> you might observe that only <code>world</code> is displayed and <code>hello</code> is no where to be seen. Try it out for yourself. This happens because of the infamous Vim modes. One of the first things you have to realize while using Vim is that its not like your typical run of the mill text editor. Vim works a bit differently and <em>Modes</em> is one of the key things that makes vim different. So, let's take a look at them.</p>
+<p>Broadly speaking Vim has Four major modes of operation. That number keeps changing depending on who you're talking to because there are a few more modes that can technically be called sub-modes but some people insist on treating them as Seperate modes. But to keep things simple here <strong>4</strong> is the magic number for you and <strong>4</strong> is the answer to Life, Universe and Everything. Not <em>42</em>, <em>4</em>!</p>
+<p>The modes are :</p>
+<h3 id="normal-mode">Normal Mode</h3>
+<p>Normal mode is the default mode you will be in when you open Vim. Normal mode is used for altering, deleting and formatting text. You won't be <em>inserting</em> any new text into the document in this mode. Normal Mode is the mode you will be spending most of your time in. You can get to Normal mode by pressing <code>ESC</code> from any other mode. One of the main things you will be doing in this mode is moving around your document.</p>
+<p>To move around the file in the window you might usually be using arrow keys. In Vim they will work the way you expect them to, but instead vim advises to use <code>h .. j .. k .. l</code> for moving the cursor. The reason why this came to be and the advantages of this will be apparent in the <a href="/your-first-lesson-in-vim-3">next article</a> but for now let's see how this works.</p>
+<blockquote>
+<p><code>h</code> moves the cursor left, <code>l</code> moves it right</p>
+<p><code>j</code> moves the cursor down, <code>k</code> moves it up</p>
+</blockquote>
+<p>This following picture would make the idea clear.</p>
+<p><img alt="vim navigation" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_navigation_hjkl.png" width="450"></p>
+<p>If you are thinking to stick with the arrow keys instead of <code>h j k l</code>, it is fine. There are a lot of people who use vim this way. But trust me when I say using <code>h j k l</code> speeds up you work flow a lot. Once you get used to this you wouldn't want to use arrow keys anymore. But anyway we will discuss more about the this in the next article.</p>
+<p>Working in Normal mode, you will see how everything you do get's easy in Vim. For a quick sneak peak of some commands.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dd</td>
+<td>Copy (<em>yank</em>) the current line</td>
+</tr>
+<tr>
+<td>p</td>
+<td>paste the copied text below the current line</td>
+</tr>
+<tr>
+<td>u</td>
+<td>Undo your previous change</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>Go to the beginning of the file</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Go to the end of the file</td>
+</tr>
+</tbody>
+</table>
+<p>From now on you don't have to awkwardly select the full line with your mouse to delete it. All you have to do is press <code>dd</code> and that sucker goes away.</p>
+<p>Didn't mean to delete it? No problem. Just hit <code>u</code> and it undoes the delete. No more holding down <code>Ctrl</code> and <code>z</code>. Also<code>u</code> for <code>undo</code> is so simple to remember. What does <code>Z</code> even mean in <code>Ctrl + z</code>? And how did that become synonymous to Undo?</p>
+<p>Similarly no more <code>Ctrl + c</code> and <code>Ctrl + v</code> to copy and paste. <code>yy</code> and <code>p</code> got you covered.</p>
+<p>So you see, Vim sticks to its philosophy of making you productive. Imagine all the keystrokes you save per day, per year. So, switching to Vim doesn't just improve your productivity, it take care of your health too. With every Key you saved keeps you a key away from getting Carpel Tunnels and RSI. So, Use Vim - Stay healthy. :]</p>
+<p>You might be happy with using <code>Ctrl+c</code> to copy and <code>Ctrl+v</code> to paste in your plain old editor. Its absolutely fine but Vim offers a simple and easy alternative and honestly the choice is pretty clear.</p>
+<p>Anyways, that is about Normal mode for now. We will discuss more later when required. Let's look at Insert mode.</p>
+<h3 id="insert-mode">Insert Mode</h3>
+<p>As the name suggests Insert mode is where you will inserting text and that is all you will be doing in here. You enter Insert mode by pressing <code>i</code> in Normal mode . And in almost all Vim distributions you should see a noticeable change in the cursor right away. It would have changed from a block type cursor (<code>█</code>) to an I-beam (|). That's your indication that you're in Insert mode. In another tutorial we will see how you make that even more apparent. Whatever you type in Insert mode would be displayed on the file literally. If you type <code>a b c</code>, it types in those characters in to the file as you would expected. Contrast this from pressing <code>dd</code> in Normal mode which doesn't print them on the file but instead does something to the file (In this case, a delete operation).</p>
+<p>Unlike other editors you wont be spending much time here and Infact I'd advise you to get out of Insert mode once you are done typing. To go out of Insert mode you just have to press <code>Esc</code> and you will be back in Normal Mode.</p>
+<p>Now, Let's get to the fun part of insert mode. Remember before when I said you go from Normal mode to Insert mode by pressing <code>i</code>, well, It turns out it is just one of the ways to get in to Insert mode. There are five more ways in which you can enter Insert mode and you can choose the best one based on what you need. Sounds complicated? Let's list them down first.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>Enters Insert mode with the cursor placed <em>before</em> the current character</td>
+</tr>
+<tr>
+<td>a</td>
+<td>Enters Insert mode with the cursor placed <em>after</em> the current character (Remember a - after)</td>
+</tr>
+<tr>
+<td>o</td>
+<td>Enters Insert mode by opening a new line below the current line (Remember o - open)</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Enters Insert mode by placing the cursor at the beginning of the line (Remember big I - bigger version of i)</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Enters Insert mode by placing the cursor at the end of the line (Remember big A - bigger version of a)</td>
+</tr>
+<tr>
+<td>O</td>
+<td>Enters Insert mode by opening a new line above the current line (Remember O - bigger version of o)</td>
+</tr>
+</tbody>
+</table>
+<p>As explained each one has a specific purpose.</p>
+<p>If you want to quickly create a new line above the current line and start typing - You press <code>O</code></p>
+<p>If you want to insert a new line below the current line - You press <code>o</code></p>
+<p>To add something quickly at the end of a line - You press <code>A</code></p>
+<p>To add something at the beginning of a line - You press <code>I</code></p>
+<p>Could that be any more simpler? Surprisingly none of the other popular text editors do this. I can promise you that you won't be able to move so quickly in any other editor. This is Vim's power.</p>
+<p>Let's look at another easy mode that will help you visualize things better, Enter Visual Mode.</p>
+<h3 id="visual-mode">Visual Mode</h3>
+<p>If you have carefully looked at things till now you might have started to feel that Vim favours Keyboard commands using a mouse. If you thought so, you would be absolutely correct. So, in the spirit of <em>No Mouse</em>, Visual mode tries to emulate Visual selections of your text similar to the way a mouse selects on Screen but instead with completely with the keyboard.</p>
+<p>To enter in to Visual mode, just press <code>v</code> and move your cursor with either <code>h j k l</code> or the arrow keys and you will see that the text is getting highlighted indicating that it has been selected. Now, what can you do on this selected text? You can press <code>d</code> and delete it completely or you can press <code>y</code> and copy it. Notice that these are <code>d</code> and <code>y</code> and not <code>dd</code> and <code>yy</code> like in Normal mode. With <code>v</code>, Visual selection happens character by character. But if you want to select the full line, press <code>V</code> instead and you have the whole line highlighted and you can delete, copy or run any other command on the highlighted text.</p>
+<p>This is how it looks like when you've something selected in Visual mode.</p>
+<p><img alt="Vim visual mode selection" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/visual_mode_selection.png" width="450"></p>
+<p>And to exit out of Visual mode or to cancel the selection, just press <code>ESC</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v</td>
+<td>Visual selection by character</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Visual selection by line</td>
+</tr>
+</tbody>
+</table>
+<p>We are finally down to the last mode, which is the Command mode <em>(You don't take Command, Son)</em></p>
+<h3 id="command-mode">Command Mode</h3>
+<p>Vim command mode is very powerful and one of the reasons why Vim is so versatile. Command mode is where you type Vim's commands, Vim configurations, Plugin settings, Open new files, close existing files and also access Vim's builtin help documentation. You enter to Command mode by typing <code>:</code> and then you type in the command you want. After you press <code>:</code> you will see the cursor at the bottom of the screen (called the <em>last line</em> appropriately) and you type the command.</p>
+<p><img alt="vim command mode example" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/command_mode_vim.png" width="450"></p>
+<p>To open a file, you type in <code>:e file_name</code> (<code>:e</code> is short for <code>:edit</code>)and hit <code>Enter</code>. If the file exists Vim will open it for you and if doesn't exist Vim will open blank file for you and the file will be created when you save it.</p>
+<p>To save or rather to <em>write</em> the file to disk, you do <code>:w</code> and hit <code>Enter</code> for it to be saved. If the file doesn't yet have a name, You type <code>:w file_name</code> and it will save the contents of the window with that file name.</p>
+<p>And Now for the most important question in all of Vim's History and the given title of this article, <strong>How to exit Vim</strong>! If you are using a Graphical version of Vim, then closing Vim is the same as closing the window and <em>poof</em>, its gone. But If you're using a terminal (works in gvim and macvim too) then you quit Vim by typing <code>:q</code> (short for <code>:quit</code>) and that closes the current window. If you have unsaved changes in your buffer Vim will give an error saying <code>No Write Since Last Change</code>. If you don't mind discarding unsaved changes, you append a <code>!</code> and so the command becomes <code>:q!</code>. That is all there is about how you exit Vim. The bang(<code>!</code>) at the end is similar to <code>-f</code> or <code>--force</code> option in a lot of linux commands. It forces Vim to quit even when there are unsaved changes.</p>
+<p>From now on if you ever saw a meme like this, you know what they are talking about.</p>
+<p><img alt="vim how to exit meme" class="aligncenter" src="https://comic.browserling.com/vim.png" width="450"></p>
+<p>Another important Vim command is <code>:help</code>. It contains the full help manual for Vim and so should be one of your most used commands in the initial days of learning.</p>
+<p>And similar to other modes, you exit command mode by pressing the <code>Esc</code> key and you will be back in the Normal mode.</p>
+<p>This image illustrates how you switch from one mode to another</p>
+<p><img alt="Vim_modes" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_modes_small.png" width="450"></p>
+<p>Okay. That's a lot of information for one article. Let's do a quick review.</p>
+<h3 id="story-recap">Story Recap</h3>
+<p>There are four modes of operations in Vim.</p>
+<ul>
+<li><a href="/your-first-lesson-in-vim-2#normal-mode">Normal Mode</a> : moving around the document, deleting, copying, formatting are some of the common things you do in this mode</li>
+<li><a href="#insert-mode">Insert Mode</a>: Inserts text in to the document. Go into Insert mode by typing any one of <code>a A i I o O</code> in Normal mode. Come out with <code>Esc</code></li>
+<li><a href="#visual-mode">Visual Mode</a> : For visually selecting the text. Enter with <code>v</code> or <code>V</code> and exit with <code>Esc</code></li>
+<li><a href="#command-mode">Command Mode</a> : To execute commands. <code>:w</code> to save, <code>:help</code> for documentation and <code>:q</code> to quit.</li>
+</ul>
+<p>Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!</p>
+<p><a class="navlinkleft" href="/your-first-lesson-in-vim-1">← Prev</a> <a class="navlinkright" href="/your-first-lesson-in-vim-3">Next →</a></p>
+<h4 id="attributions">Attributions:</h4>
+<p>Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)</p>
+<p>Vim Comic image - https://comic.browserling.com/vim.png</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

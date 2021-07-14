@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - Twiiter</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/tweeting-with-python-and-tweepy">Tweeting with Python and Tweepy</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-25T19:00:00+05:30">
+                Published: Mon 25 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/programming">Programming</a> <a href="/tags/pip">Pip</a> <a href="/tags/python">Python</a> <a href="/tags/how-to">How To</a> <a href="/tags/tweepy">Tweepy</a> <a href="/tags/twiiter">Twiiter</a> <a href="/tags/api">API</a> <a href="/tags/scraping">Scraping</a> </p>
+</footer><!-- /.post-info --><p>Programmers love to automate things and I'm no exception. I always like automate my common tasks. Whether it is checking for stock prices or checking to see when the next episode of my favorite show is coming, I've automated scripts for that. Today I am going to add one more thing in that list i.e., automated tweeting. I tweet quite frequently and I would love to have a way of automating this as well. And that's exactly what we're going to do today. We are tweeting using python.</p>
+<p><img alt="twitter and python" class="centeralign" src="https://s-media-cache-ak0.pinimg.com/600x315/a8/b5/ae/a8b5aea9cabee52dc57abdc8338fc80c.jpg" width="450"></p>
+<p>We'll use a python library called <code>tweepy</code> for this. <code>Tweepy</code> is a simple, easy to use library for accessing Twitter API.</p>
+<p>Accessing twitter API's programmatically is not only just an accessibility feature but can be of enormous value too. Mining the twitter verse data is one of the key steps in sentimental analysis. Twitter chat bots have also become quite popular now a days with hundreds and thousands of bot accounts. This article, although, only barely scratches the surface, hopefully will helping in building yourself towards that.</p>
+<h3 id="settingup">Setting Up</h3>
+<p>First thing's first, install tweepy by running <code>pip install tweepy</code>. The latest version at the time of the writing this article is <code>3.5.0</code>.</p>
+<p>Then we need to have our Twitter API credentials. Go to <a href="https://apps.twitter.com/">Twitter Apps</a>. If you don't have any apps registered already, go ahead and click the <code>Create New App</code> button.</p>
+<p>To register your app you have to provide the following three things</p>
+<ol>
+<li>Name of your application</li>
+<li>Description</li>
+<li>Your website url</li>
+</ol>
+<p>There is one more option which is <code>callback URL</code>. You can ignore that for now. Then after reading the Twitter developer agreement (wink wink), click on <code>Create your Twitter application</code> button to create a new app.</p>
+<p>Once the app is created you should see that in your twitter apps page. Click on it and GOTO the <code>Keys and Access Tokens</code> tab.</p>
+<p><img alt="twitter apps tabs" class="centeralign" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/Twitter-apps-page-tabs.png" width="600"></p>
+<p>There you will see four pieces of information. First you have your app API keys which are <code>consumer key</code> and <code>consumer secret</code>. Then you have your <code>access token</code> and <code>access token secret</code>.</p>
+<p>We'll need all of them to access twitter API's. So, have them ready. I have copied all of them and exported them as system variables. You could do the same or if you'd like, you can read them from a file as well.</p>
+<h3 id="letsgetstarted">Let's get started</h3>
+<p>First you have to import <code>tweepy</code> and <code>os</code>(only if you are accessing system variables).</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tweepy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+
+
+<p>Then I'll populate the access variables by reading them environment variables.</p>
+<div class="highlight"><pre><span></span>consumer_key = os.environ[&quot;t_consumer_key&quot;]
+consumer_secret = os.environ[&quot;t_consumer_secret&quot;]
+access_token = os.environ[&quot;t_access_token&quot;]
+access_token_secret = os.environ[&quot;t_access_token_secret&quot;]
+</pre></div>
+
+
+<p>With the keys ready, we setup the authorization.</p>
+<div class="highlight"><pre><span></span>authorization = tweepy.OAuthHandler(consumer_key, consumer_secret)
+authorization.set_access_token(access_token, access_token_secret)
+</pre></div>
+
+
+<p>After authorization we create an API object <code>twitter</code></p>
+<div class="highlight"><pre><span></span>twitter = tweepy.API(authorization)
+</pre></div>
+
+
+<p>And now you can tweet from python using this <code>twitter</code> object like this.</p>
+<div class="highlight"><pre><span></span>twitter.update_status(&quot;Tweet using #tweepy&quot;)
+</pre></div>
+
+
+<p>That is all you have to do. Just five lines of code and you can already tweet. You should try it out and check your twitter account. I just ran this command and this is the tweet.</p>
+<blockquote>
+<p>Tweet using <a href="https://twitter.com/hashtag/tweepy?src=hash&amp;ref_src=twsrc%5Etfw">#tweepy</a></p>
+<p>— Durga Swaroop Perla (@durgaswaroop) <a href="https://twitter.com/durgaswaroop/status/945047842485280768?ref_src=twsrc%5Etfw">December 24, 2017</a></p>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Not just this, you can also tweet media. Let's tweet again, this time with a picture attached.</p>
+<div class="highlight"><pre><span></span>image = os.environ[&#39;USERPROFILE&#39;] + &quot;\\Pictures\\cubes.jpg&quot;
+twitter.update_with_media(image, &quot;Tweet with media using #tweepy&quot;)
+</pre></div>
+
+
+<p>And this is the media tweet.</p>
+<blockquote>
+<p>Tweet with media using <a href="https://twitter.com/hashtag/tweepy?src=hash&amp;ref_src=twsrc%5Etfw">#tweepy</a> <a href="https://t.co/9bDuw9DDJI">pic.twitter.com/9bDuw9DDJI</a></p>
+<p>— Durga Swaroop Perla (@durgaswaroop) <a href="https://twitter.com/durgaswaroop/status/945049796238118912?ref_src=twsrc%5Etfw">December 24, 2017</a></p>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>When you run the previous commands, you'll see that there is a lot of output that is printed on the terminal. This is a <code>status</code> object with a lot of useful data like the number of followers you got, your profile picture URL, your location etc., pretty much everything you get from your twitter page. We can make use of this information, If we are building something more comprehensive.</p>
+<p>Apart from sending regular tweets, you can also reply to existing tweets. To reply to a tweet you'd first need its <code>tweet_id</code> which you can get from the tweet's URL.</p>
+<p>For example the URL for previous tweet is <a href="https://twitter.com/durgaswaroop/status/945049796238118912">https://twitter.com/durgaswaroop/status/945049796238118912</a> and the <code>tweet_id</code> is <code>945049796238118912</code>.</p>
+<p>Using that id, we can send another tweet as reply.</p>
+<div class="highlight"><pre><span></span>id_of_tweet_to_reply = &quot;945049796238118912&quot;
+twitter.update_status(&quot;Reply to a tweet using #tweepy&quot;, in_reply_to_status_id=id_of_tweet_to_reply)
+</pre></div>
+
+
+<p>The only change in the syntax is <code>in_reply_to_status_id=id_of_tweet_to_reply</code> that is passed as the second argument. And with that our new tweet will be added as reply to the original tweet.</p>
+<p>The new reply tweet is this:</p>
+<blockquote>
+<p>Reply to a tweet using <a href="https://twitter.com/hashtag/tweepy?src=hash&amp;ref_src=twsrc%5Etfw">#tweepy</a></p>
+<p>— Durga Swaroop Perla (@durgaswaroop) <a href="https://twitter.com/durgaswaroop/status/945053630129881088?ref_src=twsrc%5Etfw">December 24, 2017</a></p>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>That's how easy it is to access Twitter API with tweepy. We now know how to tweet and how to reply to a tweet. Building up from this knowledge, In a later tutorial, I can show you how to create your own twitter chat-bot and also twitter streaming analysis.</p>
+<p>The full code of things covered in this article is available as gist at</p>
+<script src="https://gist.github.com/durgaswaroop/d16cad3f4e3f8d1976a124aac602f5d2.js"></script>
+
+<hr>
+<p>For more programming and Python articles, checkout <a href="http://freblogg.com">Freblogg</a> and <a href="/tags/python">Freblogg/Python</a></p>
+<p><a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053">Web Scraping For Beginner with Python</a></p>
+<hr>
+<p>This is the third article as part of my twitter challenge <a href="https://twitter.com/durgaswaroop/status/944503750340702208">#30DaysOfBlogging</a>. Twenty-seven more articles on various topics including but not limited to <a href="/tags/java">Java</a>, <a href="/tags/git">Git</a>, <a href="/tags/vim">Vim</a>, <a href="/tags/software">Software Development</a>, <a href="/tags/python">Python</a>, to come.</p>
+<p>If you are interested in this, make sure to follow me on Twitter <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a>. While you're at it, Go ahead and subscribe to this blog and my <a href="https://medium.com/@durgaswaroop/">blog on Medium</a> as well.</p>
+<hr>
+<p>If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, <a href="https://github.com/durgaswaroop/delorean">Delorean</a> which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in the functionality.</p>
+<hr>
+<p>Thanks for reading. See you again in the next article.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

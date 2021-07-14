@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - Gvim</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/your-first-lesson-in-vim-4">Navigating In Vim II | Your First Lesson in Vim</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2016-10-13T12:00:00+05:30">
+                Published: Thu 13 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info --><p>This is the fourth article in the series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. This series is going to put an end to all of that.</p>
+<p><img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"></p>
+<p>In the last article <a href="/your-first-lesson-in-vim-3">Navigating in Vim I</a>, we have seen a lot of Vim motions. Most of these fall under the category of word-motions (<code>:help word-motions</code>). We will learn some more motions in this article. And in case you still haven't tried <a href="http://vim-adventures.com/">Vim Adventures</a> you should do it. It will help you a lot with getting the hang of Vim motions and getting around in vim.</p>
+<p>[]{#linemotions} Here are the list of Vim motions for this article.</p>
+<p>Motion                                                                                                                            What it does?</p>
+<hr>
+<p>0                                                                                                                                 Go to the <em>STARTING</em> of the <em>CURRENT LINE</em>
+  \^                                                                                                                                Go to the <em>FIRST NBC*</em> of the <em>CURRENT LINE</em>
+  -                                                                                                                                 Go to the <em>FIRST NBC*</em> of the <em>PREVIOUS LINE</em>
+  +                                                                                                                                 Go to the <em>FIRST NBC*</em> of the <em>NEXT LINE</em>
+    \$                                                                                                                                Go to the <em>END</em> of the <em>CURRENT LINE</em>
+    g_                                                                                                                               Go to the <em>LAST NBC*</em> of the <em>CURRENT LINE</em>
+    f{char}                                                                                                                           Find a character <em>FORWARD</em> in the current line (Usage: to go to first occurance of c, you type <code>fc</code>)
+    F{char}                                                                                                                           Find a character <em>BACKWARD</em> in the current line (Usage: to go to first occurance of c to the left of the cursor, you type <code>Fc</code>)
+    t{char}                                                                                                                           Like <code>f</code> but places the cursor before the character (Mnemonic : t - till)
+    T{char}                                                                                                                           Like <code>T</code> but places the cursor after the character
+    gg                                                                                                                                Move the cursor to the first line (compare this with <code>H</code>)
+    G                                                                                                                                 Move the cursor to the last line (compare this with <code>L</code>)</p>
+<p>* NBC - Non Blank Character</p>
+<p><img alt="Line motions Vim picture" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/line_motions.png" width="600"></p>
+<p>These motions let you move very fast between lines. You can go to any character you want on the current line with just 2 or at 3 keys, which is insanely fast compared to any other text editor. The last two motions (gg, G) are super useful and are certainly two of my most used commands.</p>
+<p>Now we have one final set of motions to learn called Text Object motions (<code>:help object-motions</code>). Text objects is an important concept in Vim and we will cover that in depth in a future article. For now let's look at these motions.</p>
+<h3 id="textmotionstext-object-motions">[]{#textmotions}Text Object Motions</h3>
+<p>Motion                                           What it does?</p>
+<hr>
+<p>(                                                Go to the beginning of the <em>PREVIOUS</em> sentence
+  )                                                Go to the beginning of the <em>NEXT</em> sentence
+  {                                                Go one paragraph <em>BACKWARD</em>
+  }                                                Go one paragraph <em>FORWARD</em></p>
+<p>These four motions are very useful too. Especially if you're a programmer, the <code>{</code> and <code>}</code> will make navigating the code base a breeze.</p>
+<p>And with that, we have covered all the basic Vim motions for you to get started. There is just one more important thing you need to know in conjunction with Motions. I haven't told you about this till now because I wanted you to get a full grasp of Vim motions before I explain this. Anyway, here it goes ..</p>
+<blockquote>
+<p><strong>Every Vim Motion takes a count before it</strong></p>
+</blockquote>
+<p>That's it. It might seem simple and it is simple, but its usefulness is just immeasurable.</p>
+<p>Let's say you have to move eight lines down. To go eight lines down you don't have to frantically type <code>jjjjjjjj</code>. Just simply type <code>*8j*</code>. Similarly <code>4k</code> to go four lines above, <code>6w</code> to go to the sixth word from the cursor and so on. This is just such a useful feature that quite literally <em>Sky is the limit</em> for what you can do with this. Want to go to the second <code>e</code> after the cursor? Try <code>2fe</code> and your cursor lands directly on <code>e</code>. Similarly to go to the ending of the 5th line below just do <code>5$</code> and B.A.M!</p>
+<p>This opens up a whole new world of combinations for you to use and I hope you will make use of all of them. With these motions you can move to any place you want in the file with minimal number of keystrokes and your ultimate aim should be to accomplish everything with the minimum possible number of keystrokes. Be a Vim Ninja and conquer the world!</p>
+<p><img alt="Vim ninja image" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_text_motions.png" width="600px"></p>
+<p>Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!</p>
+<p><a class="navlinkleft" href="/your-first-lesson-in-vim-3">← Prev</a></p>
+<hr>
+<p>For more Vim stuff : <a href="/tags/vim">Vim</a></p>
+<h4 id="attributions">Attributions:</h4>
+<p>Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)</p>
+<p>Vim Ninja image - https://goo.gl/QgTrsY (Originally from Practical Vim by Drew Neal)</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/your-first-lesson-in-vim-3" rel="bookmark"
+                           title="Permalink to Navigating in Vim I | Your First Lesson In Vim">Navigating in Vim I | Your First Lesson In Vim</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-09T00:00:00+05:30">
+                Published: Sun 09 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->                <p>This is the third article in a series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor there by extending the Vim community. Vim though quite powerful, has a bad rep for …</p>
+                <a class="readmore" href="/your-first-lesson-in-vim-3">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/your-first-lesson-in-vim-2" rel="bookmark"
+                           title="Permalink to How to Exit Vim? | Your First Lesson In Vim">How to Exit Vim? | Your First Lesson In Vim</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-02T17:00:00+05:30">
+                Published: Sun 02 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/linux">Linux</a> <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->                <p>This is the second article in the series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep …</p>
+                <a class="readmore" href="/your-first-lesson-in-vim-2">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/your-first-lesson-in-vim-1" rel="bookmark"
+                           title="Permalink to Introduction & Installation | Your First Lesson In Vim">Introduction & Installation | Your First Lesson In Vim</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-09-24T21:20:00+05:30">
+                Published: Sat 24 September 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vim">vim</a> <a href="/tags/gvim">gvim</a> <a href="/tags/vimfirstlesson">VimFirstLesson</a> </p>
+</footer><!-- /.post-info -->                <p>This is the first article in a series of articles titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a …</p>
+                <a class="readmore" href="/your-first-lesson-in-vim-1">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

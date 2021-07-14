@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - VCS</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/git-merge-vs-git-rebase">Git Merge Vs. Git Rebase</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-01-31T09:00:00+05:30">
+                Published: Tue 31 January 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/git-merge">Git merge</a> <a href="/tags/rebase">Rebase</a> <a href="/tags/vcs">VCS</a> <a href="/tags/git">Git</a> <a href="/tags/merge-conflicts">Merge Conflicts</a> </p>
+</footer><!-- /.post-info --><p>Merge and Rebase are two strategies available in Git to combine two ( or more) branches into one branch.<br>
+Let’s say we have two branches <em>feature1</em> and <em>feature2</em> that have diverged from a common commit “<em>a</em>” to have four commits each.  </p>
+<p><img alt="git two branches" src="https://qphs.fs.quoracdn.net/main-qimg-27b4c373471ccb22663c3189b051dcc3.webp">  </p>
+<p>Now we want to combine both the features into a single branch. Merge and Rebase are our options. Let’s see what each of them can do.  </p>
+<h3 id="git-merge">Git Merge</h3>
+<p>Merge will seem like a fairly obvious thing, if you look at the end result. It is pretty much like taking two threads and tying them up in a knot.  </p>
+<p><img alt="git branches wit merge commit" src="https://qphs.fs.quoracdn.net/main-qimg-5c246cb7872aaed9c1243d3fea96b467?convert_to_webp=true">  </p>
+<p>Here the commit ‘b’, has the information regarding all the commits in feature1 and feature2. So, Merge preserves the history of the repository.  </p>
+<h3 id="git-rebase">Git Rebase</h3>
+<p><em>Rebase</em> on the other hand doesn’t preserve the history. It quite literally <em>re-bases</em> one branch on top of the other i.e., it changes the <em>base</em> of the branch. Let’s see rebasing with the same example.<br>
+Let’s say I want to <em>rebase feature1 onto feature2,</em> what that means is that I want all the commits in the branch feature1 on top of the commits of feature2. So, after rebase your commit history would look like the following.  </p>
+<p><img alt="git branches rebased" src="https://qphs.fs.quoracdn.net/main-qimg-531720271c7a9e5ada9047c751c6ab27?convert_to_webp=true">  </p>
+<p>As you see in the picture, the base of feature1 which was previously the commit “a”, has been shifted to the green commit “4”. Hence the name <strong>Re-Base.</strong> Here feature1 is sitting on top of feature2 as opposed to being on “a”.  </p>
+<p>Do note that I have added a <strong><em>‘</em></strong> next to the numbers of feature branch making them 1’, 2′ and so on, to indicate that the <em>orange 1′</em> commit is different from the <em>orange 1</em> commit. This is because each commit, apart from storing the changes to the files, stores the information regarding its parent. So, If a parent to a commit changes, even it has the exact sames modifications to the files, will be treated as a different commit by Git, which means we have changed the Git commit history.  </p>
+<p>Also Anyone who looks at the commit history now, would think that feature1 was added after feature2 which is not what actually happened. If this is the end result you’re going for, then it’s absolutely fine but if you want to show that feature1 and feature2 both started off simultaneously, then you need to use Merge.  </p>
+<p>Both Merge and Rebase have their pros and cons. Merge keeps the history of the repository but can make it hard for someone to understand and follow what’s going on at a particular stage when there are multiple merges. Rebase on the other hand ‘rewrites’ history (read - creates new history) but makes the repo look cleaner and is much easier to look at.  </p>
+<p>What you want to use depends on your need. A lot of companies make merges mandatory when adding stuff to master branch because they want to see the history of all changes. And a few companies/Open source projects mandate rebasing as it keeps the flow simple and easy to follow. Use the one that suits your workflow.  </p>
+<p>Fun Fact:<br>
+There is a merge strategy called Octopus merge, where you merge multiple branches into one. For more info on this: <a href="/git-octopus-merge">Understanding Git Octopus Merge</a> </p>
+<hr>
+<p>For more interesting articles,  follow me <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a> on Twitter</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

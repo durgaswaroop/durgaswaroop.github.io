@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>FreBlogg - Software</title><link href="/" rel="alternate"></link><link href="/feeds/software.atom.xml" rel="self"></link><id>/</id><updated>2018-01-12T23:54:00+05:30</updated><entry><title>Build A Web Application With Flask In Python Part I</title><link href="/webapp-with-flask-1" rel="alternate"></link><published>2018-01-12T23:54:00+05:30</published><updated>2018-01-12T23:54:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2018-01-12:/webapp-with-flask-1</id><summary type="html">&lt;p&gt;Flask is a popular micro web application framework for Python using which you can create web apps. Unlike another popular framework like Django, Flask keeps its foot print to a minimum providing only the basic functionality required instead of picking out the entire stack for you the way Django does …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Flask is a popular micro web application framework for Python using which you can create web apps. Unlike another popular framework like Django, Flask keeps its foot print to a minimum providing only the basic functionality required instead of picking out the entire stack for you the way Django does. And we call it a micro framework for this very reason. Using flask's extensibility at the core, you can build any type of applications by picking the components you want to use. Several big name companies like LinkedIn, Pinterest use Flask for their products.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Flask Logo" class="aligncenter" height="300" src="https://avatars1.githubusercontent.com/u/18305767"&gt;  &lt;/p&gt;
+&lt;p&gt;In this tutorial we will get started with using &lt;code&gt;Flask&lt;/code&gt; and create a simple web application with it.&lt;/p&gt;
+&lt;h3 id="prerequisites"&gt;Prerequisites&lt;/h3&gt;
+&lt;p&gt;To follow along with this series you should have some knowledge of Python language. I'm using &lt;code&gt;3.6&lt;/code&gt; for these tutorials and if you would like to follow along without any issues, I would suggest you to use the same version. For any of the previous versions, there might be a couple of changes in the syntax but the ideas and concepts will remain same.&lt;/p&gt;
+&lt;p&gt;You will also need to install &lt;code&gt;Flask&lt;/code&gt;. You can do that with &lt;code&gt;pip&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install -U flask
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will install flask if you don't already have it and update the version to latest if you have a previous version installed.&lt;/p&gt;
+&lt;p&gt;With those two things, you are good to go.&lt;/p&gt;
+&lt;h3 id="getting-started"&gt;Getting Started&lt;/h3&gt;
+&lt;p&gt;Just like with anything else you start by importing the stuff you want.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And this will make &lt;code&gt;Flask&lt;/code&gt; ready for you to use. After this you have to create an &lt;code&gt;app&lt;/code&gt; object by calling the &lt;code&gt;Flask&lt;/code&gt; constructor like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;app = Flask(&amp;quot;hello&amp;quot;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will create our &lt;code&gt;app&lt;/code&gt; object. The name &lt;code&gt;hello&lt;/code&gt; I've specified in the constructor can be anything. But the usual convention is to keep it &lt;code&gt;__main__&lt;/code&gt;. Also, the app is just a variable. So, you can name it anything you want.&lt;/p&gt;
+&lt;p&gt;Next you have to define the routes. Using routes you configure your server to do different actions. Let's say when you type in some website URL in to your browser, you will be taken to its home page. Now if you do a &lt;code&gt;&amp;lt;website&amp;gt;/info&lt;/code&gt; it will take you to the info page. So, this mapping of the call to &lt;code&gt;/info&lt;/code&gt; URL to the &lt;code&gt;info&lt;/code&gt; page is what we call as a route. For the home page the route is simply &lt;code&gt;/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Let's say we want our server's homepage to display &lt;code&gt;Hello World&lt;/code&gt;. You can configure that with a method like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@app.route(&amp;#39;/&amp;#39;)
+def index():
+    return &amp;quot;Hello World&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With the &lt;code&gt;@app.route('/')&lt;/code&gt;, we are defining a route on our server. So, when ever somebody opens that route, which for us i the homepage, the &lt;code&gt;index()&lt;/code&gt; method associated with that route annotation will be called. And when the &lt;code&gt;index()&lt;/code&gt; method is called it will return &lt;code&gt;Hello World&lt;/code&gt; just as we expect it to.&lt;/p&gt;
+&lt;p&gt;And there is one final command to start and run our server which is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;app.run(debug=True)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And that's it. This will run the app that we have created when you run the python file. The &lt;code&gt;debug=True&lt;/code&gt; option is useful while developing and testing applications. So, we'll keep that for now.&lt;/p&gt;
+&lt;p&gt;Just run your python script and you should output like this on the console:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* Debugger is active!
+* Debugger PIN: 127-398-124
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now If you go to &lt;a href="http://localhost:5000"&gt;http://localhost:5000&lt;/a&gt;, you can see &lt;code&gt;Hello World&lt;/code&gt; displayed.&lt;/p&gt;
+&lt;p&gt;That's it. You have successfully created your first web application with flask in just 3 lines of code. Now, that is awesome. Stay tuned for the next part.&lt;/p&gt;
+&lt;p&gt;That is all for this article.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more programming articles, checkout &lt;a href="http://freblogg.com"&gt;Freblogg&lt;/a&gt; &lt;a href="/tags/python"&gt;Freblogg/Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Some articles on automation:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053"&gt;Web Scraping For Beginners with Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901"&gt;Publish articles to Blogger automatically&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="/publish-articles-to-your-medium-blog"&gt;Publish articles to Medium automatically&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This is the 21st article as part of my twitter challenge &lt;a href="https://twitter.com/durgaswaroop/status/944503750340702208"&gt;#30DaysOfBlogging&lt;/a&gt;. Nine more articles on various topics, including but not limited to, &lt;a href="/tags/java"&gt;Java&lt;/a&gt;, &lt;a href="/tags/git"&gt;Git&lt;/a&gt;, &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;, &lt;a href="/tags/software"&gt;Software Development&lt;/a&gt;, &lt;a href="/tags/python"&gt;Python&lt;/a&gt;, to come.&lt;/p&gt;
+&lt;p&gt;If you are interested in this, make sure to follow me on Twitter &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt;. &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, &lt;a href="https://github.com/durgaswaroop/delorean"&gt;Delorean&lt;/a&gt; which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in its functionality.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks for reading. See you again in the next article.&lt;/p&gt;</content><category term="Flask"></category><category term="Python"></category><category term="Web Framework"></category><category term="Webapp"></category></entry><entry><title>Json Parsing With Python</title><link href="/json-parsing-with-python" rel="alternate"></link><published>2018-01-10T23:56:00+05:30</published><updated>2018-01-10T23:56:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2018-01-10:/json-parsing-with-python</id><summary type="html">&lt;p&gt;JSON has become an ubiquitous data exchange format everywhere. Pretty much every service has a JSON API. And since it is so popular, most of the programming languages have built-in JSON parsers. And Of course, Python is no exception. In this article, I'll show you how you can parse JSON …&lt;/p&gt;</summary><content type="html">&lt;p&gt;JSON has become an ubiquitous data exchange format everywhere. Pretty much every service has a JSON API. And since it is so popular, most of the programming languages have built-in JSON parsers. And Of course, Python is no exception. In this article, I'll show you how you can parse JSON with Python's &lt;code&gt;json&lt;/code&gt; library.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Python Logo" class="aligncenter" src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"&gt;  &lt;/p&gt;
+&lt;p&gt;JSON parsing in Python is quite straight forward and easy unlike in some languages, where it is unnecessarily cumbersome. Like everything else in Python, You start by importing the library you want.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In this article, I am going to use the following JSON I got from &lt;a href="http://json.org/example.html"&gt;json.org&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{
+  &amp;quot;menu&amp;quot;: {
+    &amp;quot;id&amp;quot;: &amp;quot;file&amp;quot;,
+    &amp;quot;value&amp;quot;: &amp;quot;File&amp;quot;,
+    &amp;quot;popup&amp;quot;: {
+      &amp;quot;menuitem&amp;quot;: [
+        {&amp;quot;value&amp;quot;: &amp;quot;New&amp;quot;, &amp;quot;onclick&amp;quot;: &amp;quot;CreateNewDoc()&amp;quot;},
+        {&amp;quot;value&amp;quot;: &amp;quot;Open&amp;quot;, &amp;quot;onclick&amp;quot;: &amp;quot;OpenDoc()&amp;quot;},
+        {&amp;quot;value&amp;quot;: &amp;quot;Close&amp;quot;, &amp;quot;onclick&amp;quot;: &amp;quot;CloseDoc()&amp;quot;}
+      ]
+    }
+  }
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We have got a good set of dictionaries and arrays to work with in this data. If you want to follow along, you can use the same JSON or you can use anything else as well.&lt;/p&gt;
+&lt;p&gt;The first thing to do is to get this json string into a variable.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;json_string = &amp;quot;&amp;quot;&amp;quot;{&amp;quot;menu&amp;quot;: {
+  &amp;quot;id&amp;quot;: &amp;quot;file&amp;quot;,
+  &amp;quot;value&amp;quot;: &amp;quot;File&amp;quot;,
+  &amp;quot;popup&amp;quot;: {
+    &amp;quot;menuitem&amp;quot;: [
+      {&amp;quot;value&amp;quot;: &amp;quot;New&amp;quot;, &amp;quot;onclick&amp;quot;: &amp;quot;CreateNewDoc()&amp;quot;},
+      {&amp;quot;value&amp;quot;: &amp;quot;Open&amp;quot;, &amp;quot;onclick&amp;quot;: &amp;quot;OpenDoc()&amp;quot;},
+      {&amp;quot;value&amp;quot;: &amp;quot;Close&amp;quot;, &amp;quot;onclick&amp;quot;: &amp;quot;CloseDoc()&amp;quot;}
+    ]
+  }
+}}&amp;quot;&amp;quot;&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And now we parse this string into a &lt;code&gt;dictionary&lt;/code&gt; object with the help of the &lt;code&gt;json&lt;/code&gt; library's &lt;code&gt;loads()&lt;/code&gt; method.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;json_dict = json.loads(json_string)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And you're done. The JSON is parsed and is stored in the &lt;code&gt;json_dict&lt;/code&gt; object. The &lt;code&gt;json_dict&lt;/code&gt; here is a python dictionary object. If you want to verify, you can do that by calling the &lt;code&gt;type()&lt;/code&gt; on it with&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;print(type(json_dict))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And it will show that it is &lt;code&gt;&amp;lt;class 'dict'&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Getting back, We have the entire json object as a dictionary in &lt;code&gt;json_dict&lt;/code&gt; object and you can just drill down into the dictionary with the keys. On the top level, We just have one key in the dictionary which is &lt;code&gt;menu&lt;/code&gt;. We get can get that by indexing the dictionary with that key.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;menu = json_dict[&amp;#39;menu&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And of course &lt;code&gt;menu&lt;/code&gt; is a dictionary too with the keys &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;value&lt;/code&gt;, and &lt;code&gt;popup&lt;/code&gt;. We can access them and print them as well.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;print(menu[&amp;#39;id&amp;#39;])            ## =&amp;gt; &amp;#39;file&amp;#39;
+print(menu[&amp;#39;value&amp;#39;])         ## =&amp;gt; &amp;#39;File&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And then finally we've got &lt;code&gt;popup&lt;/code&gt; which is another dictionary as well with the key &lt;code&gt;menuitem&lt;/code&gt; which is a list. We can verify this by checking the types of these objects.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;popup = menu[&amp;#39;popup&amp;#39;]
+print(type(popup))           ## =&amp;gt; &amp;lt;class &amp;#39;dict&amp;#39;&amp;gt;
+
+menuitem = popup[&amp;#39;menuitem&amp;#39;]
+print(type(menuitem))        ## =&amp;gt; &amp;lt;class &amp;#39;list&amp;#39;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And Since &lt;code&gt;menuitem&lt;/code&gt; is a list, we can iterate on it and print the values.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;for item in menuitem:
+    print(item)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And the output is&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{&amp;#39;value&amp;#39;: &amp;#39;New&amp;#39;, &amp;#39;onclick&amp;#39;: &amp;#39;CreateNewDoc()&amp;#39;}
+{&amp;#39;value&amp;#39;: &amp;#39;Open&amp;#39;, &amp;#39;onclick&amp;#39;: &amp;#39;OpenDoc()&amp;#39;}
+{&amp;#39;value&amp;#39;: &amp;#39;Close&amp;#39;, &amp;#39;onclick&amp;#39;: &amp;#39;CloseDoc()&amp;#39;}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And of course each of these elements are dictionaries and so you can go further inside and access those keys and values.&lt;/p&gt;
+&lt;p&gt;For example, If you want to access &lt;code&gt;New&lt;/code&gt; from the above output, you can do this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;print(menuitem[0][&amp;#39;value&amp;#39;])  ## =&amp;gt; New
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And so on and so forth to get any value in the JSON.&lt;/p&gt;
+&lt;p&gt;And not only that, &lt;code&gt;json&lt;/code&gt; library can also accept JSON responses from web services. One cool thing here is that, web server responses are &lt;code&gt;byte&lt;/code&gt; strings which means that if you want to use them in your program you'd have convert them to regular strings by using the &lt;code&gt;decode()&lt;/code&gt; method. But for &lt;code&gt;json&lt;/code&gt; you don't have to do that. You can directly feed in the &lt;code&gt;byte&lt;/code&gt; string and it will give you a parsed object. That's pretty cool!&lt;/p&gt;
+&lt;p&gt;That is all for this article.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more programming articles, checkout &lt;a href="http://freblogg.com"&gt;Freblogg&lt;/a&gt; &lt;a href="/tags/python"&gt;Freblogg/Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Some of my other articles on automation:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053"&gt;Web Scraping For Beginners with Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901"&gt;Publish articles to Blogger automatically&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="/publish-articles-to-your-medium-blog"&gt;Publish articles to Medium automatically&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This is the 19th article as part of my twitter challenge &lt;a href="https://twitter.com/durgaswaroop/status/944503750340702208"&gt;#30DaysOfBlogging&lt;/a&gt;. Eleven more articles on various topics, including but not limited to, &lt;a href="/tags/java"&gt;Java&lt;/a&gt;, &lt;a href="/tags/git"&gt;Git&lt;/a&gt;, &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;,  &lt;a href="/tags/python"&gt;Python&lt;/a&gt;, to come.&lt;/p&gt;
+&lt;p&gt;If you are interested in this, make sure to follow me on Twitter &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt;. While you're at it, Go ahead and subscribe &lt;a href="https://medium.com/@durgaswaroop/"&gt;on medium&lt;/a&gt; and my &lt;a href="http://freblogg.com"&gt;blog&lt;/a&gt; as well.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, &lt;a href="https://github.com/durgaswaroop/delorean"&gt;Delorean&lt;/a&gt; which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in its functionality.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks for reading. See you again in the next article.&lt;/p&gt;</content><category term="Programming"></category><category term="Data"></category><category term="Python"></category><category term="How To"></category><category term="JSON"></category><category term="Parsing"></category></entry><entry><title>My (Almost) Fully Automated Blogging Workflow</title><link href="/my-automated-blogging-workflow" rel="alternate"></link><published>2017-12-31T18:07:00+05:30</published><updated>2017-12-31T18:07:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2017-12-31:/my-automated-blogging-workflow</id><summary type="html">&lt;p&gt;In the article &lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;, I have outlined what my blogging process is like and how I've started to automate it. Ofcourse, at the time of that article, the process was still in early stages and I hadn't automated everything I do. And, that's where this …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In the article &lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;, I have outlined what my blogging process is like and how I've started to automate it. Ofcourse, at the time of that article, the process was still in early stages and I hadn't automated everything I do. And, that's where this article comes in. This is the second attempt at automating my entire Blogging workflow.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Medium blogger python logo" class="aligncenter" src="https://cdn-images-1.medium.com/max/800/1*dUMvQW8ynuO4qw2ceGF0BA.png"&gt;&lt;/p&gt;
+&lt;p&gt;Just to give you some context, here are the things that I do when I'm blogging.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open a markdown file in Vim with the title of the article as the name along with some template text&lt;/li&gt;
+&lt;li&gt;Open a browser with the html of the newly created markdown file&lt;/li&gt;
+&lt;li&gt;Convert markdown to html with pandoc several times during the writing process&lt;/li&gt;
+&lt;li&gt;Once the article is done and html is produced, edit the html to make some changes specific based on whether I'm publishing on &lt;a href="https://medium.com/@durgaswaroop/"&gt;Medium&lt;/a&gt; or if I'm publishing on &lt;a href="http://freblogg.com"&gt;Blogger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Read the tags/labels and other attributes from the file and Publish the code as draft on Medium or Blogger.&lt;/li&gt;
+&lt;li&gt;Once it looks good, Schedule or Publish it (This is a manual process. There's no denying it.)&lt;/li&gt;
+&lt;li&gt;Finally tweet about the post with the link to the article&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I have the individual pieces of this process ready. I have already written about them in the following articles.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;Semi Automated Blogging Workflow&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901"&gt;Publish Articles To Blogger In One Second&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="/publish-articles-to-your-medium-blog"&gt;Publish Articles To Medium In One Second&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="/tweeting-with-python-and-tweepy"&gt;Tweeting With Python &amp;amp; Tweepy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now, since the individual pieces are ready, it might seem that everything is done. But, as it turns out (unsurprisingly), the integration is of-course a big deal and took a lot more effort than I was expecting. And I am documenting that in this article along with the complete flow.&lt;/p&gt;
+&lt;p&gt;It starts with the script &lt;code&gt;blog-it&lt;/code&gt; which opens vim for me, opens chrome and also sets up a process for converting markdown to html, continuously.&lt;/p&gt;
+&lt;script src="https://gist.github.com/durgaswaroop/8ed9a5a55b8629f2180880665866f30e.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;That script calls &lt;code&gt;blog.py&lt;/code&gt; which is what opens the vim along with the default text template. I would like to put the &lt;a href="https://gist.github.com/durgaswaroop/78c51da2d74944d9e5a936cd18733f85"&gt;complete gist&lt;/a&gt; here, but it is just too long and so instead I'm showing the meat of the script.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;article_title = title.replace(&amp;quot;_&amp;quot;, &amp;quot; &amp;quot;).title()
+
+# Create the markdown file and add the title
+f = open(md_file, &amp;quot;w+&amp;quot;)
+f.write(generate_comments_header(article_title))
+f.write(article_title)  # Replace underscores and title case it
+f.write(&amp;quot;\n&amp;quot;)
+f.write(&amp;quot;-&amp;quot; * len(title))
+f.write(&amp;quot;\n&amp;quot;)
+f.write(generate_footer_text())
+f.close()
+
+# Now, create the html file
+html_file = title + &amp;quot;.html&amp;quot;
+open(html_file, &amp;quot;w&amp;quot;).close()
+
+# Start vim with the markdown file open on line #10
+subprocess.run([&amp;#39;C:/Program Files (x86)/Vim/vim80/gvim.exe&amp;#39;, &amp;#39;+10&amp;#39;, md_file])
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then comes &lt;code&gt;m2h&lt;/code&gt; which continuously converts markdown to html.&lt;/p&gt;
+&lt;script src="https://gist.github.com/durgaswaroop/356c3aac4f8ce8f89501693b4d9bcb27.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;This ends one flow. Next comes, publishing. I have broken this down because publishing is a manual process for me unless I can complete the entire article in one sitting, which is never going to be possible. So, Once I'm doing with writing it, I'll start the publishing.&lt;/p&gt;
+&lt;p&gt;I'll run &lt;code&gt;publish.py&lt;/code&gt; which depending on the comments in the html publishes it to either &lt;code&gt;Blogger&lt;/code&gt; or &lt;code&gt;Medium&lt;/code&gt;. Again, I'm only showing a part of it. The full gist is available &lt;a href="https://gist.github.com/durgaswaroop/4a81aabeca3bd91cccb0ceb9bda31663"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;with open(html_file) as file:
+    html_file_contents = file.read()
+
+re_comments = re.compile(&amp;#39;\s*&amp;lt;!--(.*)--&amp;gt;&amp;#39;, re.DOTALL)
+comments_text = re_comments.search(html_file_contents).group(1).strip()
+comments_parser = CommentParser.parse_comments(comments_text)
+
+if comments_parser.destination.lower() == &amp;#39;blogger&amp;#39;:
+    blogger_publish.publish(html_file, comments_parser.title, comments_parser.labels, comments_parser.post_id)
+elif comments_parser.destination.lower() == &amp;#39;medium&amp;#39;:
+    medium_publish.publish(html_file, comments_parser.title, comments_parser.labels)
+else:
+    print(
+        &amp;#39;Unknown destination: &amp;#39; + comments_parser.destination + &amp;#39;. Supported destinations are Blogger and Medium.&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then comes the individual publishing scripts that publish to blogger and medium.&lt;/p&gt;
+&lt;p&gt;For &lt;code&gt;blogger-publish.py&lt;/code&gt; (Gist &lt;a href="https://gist.github.com/durgaswaroop/20bef02450137907d01f794ba99b965c"&gt;here&lt;/a&gt;), I do any required modifications with &lt;code&gt;blogger_modifications.py&lt;/code&gt; (Gist &lt;a href="https://gist.github.com/durgaswaroop/dd9dcb1e592751c1aced5f0f42aeedc1"&gt;here&lt;/a&gt;) which converts some tags as expected my blogger page.&lt;/p&gt;
+&lt;p&gt;Then for &lt;code&gt;medium-publish.py&lt;/code&gt; (Gist &lt;a href="https://gist.github.com/durgaswaroop/f6fbcc910ddcc5b3fa7a0c1cdbd57401"&gt;here&lt;/a&gt;), I take the parameters and publish to blogger as html. No, modifications needed to be done here.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;access_token_file = &amp;#39;~/.medium-access-token&amp;#39;
+expanded_path = os.path.expanduser(access_token_file)
+with open(expanded_path) as file:
+  access_token = file.read().strip()
+
+headers = get_headers(access_token)
+user_url = get_user_url(headers)
+
+# Publish new post
+posts_url = user_url + &amp;#39;posts/&amp;#39;
+payload = generate_payload(title, labels, html_file)
+response = requests.request(&amp;#39;POST&amp;#39;, posts_url, data=payload, headers=headers)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Actually this publishing does send it to the site as a draft instead of actually publishing it. This is a step that I don't know how to automate as I have to manually take a look at how the article looks in preview. May be I should try doing this with selenium or something like that.&lt;/p&gt;
+&lt;p&gt;Once, I've verified that the post looks good, I will publish it and take the URL of the published article and call the &lt;code&gt;tweeter.py&lt;/code&gt; (Gist &lt;a href="https://gist.github.com/durgaswaroop/2169cd8c89cc6a9d89134a414bb49b9c"&gt;here&lt;/a&gt;) which then opens a Vim file with some default text for title, and URL already filled in along with some hashtags. I'll complete the tweet and once, I close it, It gets published on Twitter.&lt;/p&gt;
+&lt;p&gt;And that completes the process. Obviously there are still a couple of manual steps. Although I can't eliminate all of them, I might be able to minimize them as well. But, so far it looks pretty good especially with just the little effort I've put into this in just one week. Of course, I'll keep on tuning it as needed to make it even better and may be I'll publish one final article for that.&lt;/p&gt;
+&lt;p&gt;That is all for this article.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more programming articles, checkout &lt;a href="http://freblogg.com"&gt;Freblogg&lt;/a&gt;, &lt;a href="/tags/python"&gt;Freblogg/Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Some articles on automation:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053"&gt;Web Scraping For Beginners with Python&lt;/a&gt; 
+&lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt; 
+&lt;a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901"&gt;Publish articles to Blogger automatically&lt;/a&gt; 
+&lt;a href="/publish-articles-to-your-medium-blog"&gt;Publish articles to Medium automatically&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This is the 9th article as part of my twitter challenge &lt;a href="https://twitter.com/durgaswaroop/status/944503750340702208"&gt;#30DaysOfBlogging&lt;/a&gt;. Twenty one more articles on various topics, including but not limited to, &lt;a href="/tags/java"&gt;Java&lt;/a&gt;, &lt;a href="/tags/git"&gt;Git&lt;/a&gt;, &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;, &lt;a href="/tags/software"&gt;Software Development&lt;/a&gt;, &lt;a href="/tags/python"&gt;Python&lt;/a&gt;, to come.&lt;/p&gt;
+&lt;p&gt;If you are interested in this, make sure to follow me on Twitter &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt;. &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, &lt;a href="https://github.com/durgaswaroop/delorean"&gt;Delorean&lt;/a&gt; which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in its functionality.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks for reading. See you again in the next article.&lt;/p&gt;</content><category term="Automation"></category><category term="Medium"></category><category term="Python"></category><category term="Blogging"></category><category term="How To"></category><category term="Vim"></category><category term="Tweepy"></category><category term="Twitter"></category></entry><entry><title>Publish Articles To Your Medium Blog In One Second</title><link href="/publish-articles-to-your-medium-blog" rel="alternate"></link><published>2017-12-29T19:57:00+05:30</published><updated>2017-12-29T19:57:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2017-12-29:/publish-articles-to-your-medium-blog</id><summary type="html">&lt;p&gt;In my article &lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;, I have talked about my blogging workflow. There were two main things (actually one thing) in that flow that were not automated. i.e., automatically Uploading to Blogger and automatically Uploading to Medium. I have talked about the first one &lt;a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901"&gt;here …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;In my article &lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;, I have talked about my blogging workflow. There were two main things (actually one thing) in that flow that were not automated. i.e., automatically Uploading to Blogger and automatically Uploading to Medium. I have talked about the first one &lt;a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901"&gt;here&lt;/a&gt;. This article is about uploading posts to Medium automatically.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Medium Logo" class="aligncenter" src="https://cdn.hashnode.com/res/hashnode/image/upload/w_400,h_300,c_thumb/z6odfvngwx1gp60murhe/1473332149.png"&gt; &lt;/p&gt;
+&lt;p&gt;Developer documentation for Medium is a breath of fresh air after the mess that is Google API’s. Of course, Google API’s are complex because they have so many different services, but they could’ve done a better job at organizing all that stuff. Anyway, Let’s see how you can use Medium API’s.&lt;/p&gt;
+&lt;h3 id="setting-up"&gt;Setting Up&lt;/h3&gt;
+&lt;p&gt;We don’t really need any specific dependencies for what we’re doing in this article. You can do everything with &lt;code&gt;urllib&lt;/code&gt; which is already part of the python standard library. I’ll be using &lt;code&gt;requests&lt;/code&gt; as well to make it a bit more simpler but you can achieve the same without it.&lt;/p&gt;
+&lt;h3 id="getting-the-access-token"&gt;Getting the access token&lt;/h3&gt;
+&lt;p&gt;To authenticate yourself with Medium, you need to get an access token that you’ll pass along to every request. There are two ways to get that token.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Browser-based authentication&lt;/li&gt;
+&lt;li&gt;Self-issues access tokens&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Which one you should go with, depends on what kind of application you’re trying to build. As you can probably guess based on the title, we’ll be covering the second method in this article. The first method needs an authentication server setup which can accept callback from Medium. But, since at this moment, I don’t have that setup, I’m going with the second option.&lt;/p&gt;
+&lt;p&gt;The Self-issued access tokens method is quite easy to work with as you directly take the &lt;code&gt;access token&lt;/code&gt; without having to have the user authenticate via the browser.&lt;/p&gt;
+&lt;p&gt;To get the access token, Go to &lt;a href="https://medium.com/me/settings"&gt;Profile Settings&lt;/a&gt; and scroll down till you see &lt;code&gt;Integration tokens&lt;/code&gt; section.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Medium Integration tokens" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/7.Medium-integration-tokens-section.png"&gt; &lt;/p&gt;
+&lt;p&gt;There enter some description for what you’re going to use this token and click on &lt;code&gt;Get integration token&lt;/code&gt;. Copy that generated token which looks something like &lt;code&gt;181d415f34379af07b2c11d144dfbe35d&lt;/code&gt; and save it some where to be used in your program.&lt;/p&gt;
+&lt;h3 id="using-access-token-to-access-medium"&gt;Using Access token to access Medium&lt;/h3&gt;
+&lt;p&gt;Once you have the access token, you’ll use that token as your password and send it along with every request to get the required data.&lt;/p&gt;
+&lt;p&gt;Let’s get started then. As, I’ve said we’ll be using &lt;code&gt;requests&lt;/code&gt; library for url connections. We’ll also be using the &lt;code&gt;json&lt;/code&gt; libary for parsing the responses. So, Let’s import them.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then use &lt;code&gt;access_token&lt;/code&gt; you’ve got and put it in a &lt;code&gt;headers&lt;/code&gt; dictionary.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;access_token = &amp;#39;181d415f34379af07b2c11d144dfbe35d&amp;#39;
+headers = {
+    &amp;#39;Authorization&amp;#39;: &amp;quot;Bearer &amp;quot; + access_token,
+    &amp;#39;User-Agent&amp;#39;: &amp;#39;Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36&amp;#39;
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;User-Agent&lt;/code&gt; in the above dictionary is required as Medium won’t accept your request otherwise. You don’t have to have the same value as I did.&lt;/p&gt;
+&lt;h4 id="validating-the-access-token"&gt;Validating the access token&lt;/h4&gt;
+&lt;p&gt;First thing to check is if the access_token is valid. You can do that by making a &lt;code&gt;GET&lt;/code&gt; request to &lt;code&gt;https://api.medium.com/v1/me&lt;/code&gt; and checking the response.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;me_url = base_url + &amp;#39;me&amp;#39;
+me_req = ureq.Request(me_url, headers=headers)
+me_response = ureq.urlopen(me_req).read()
+json_me_response = json.loads(me_response)
+print(json_me_response)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And, when I print the &lt;code&gt;json_me_response&lt;/code&gt;, which is a json object, I get the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{
+&amp;quot;data&amp;quot;: {
+  &amp;quot;id&amp;quot;:&amp;quot;5303d74c64f66366f00cb9b2a94f3251bf5adskak7623as&amp;quot;,
+  &amp;quot;username&amp;quot;:&amp;quot;durgaswaroop&amp;quot;, 
+  &amp;quot;name&amp;quot;:&amp;quot;Durga swaroop Perla&amp;quot;, 
+  &amp;quot;url&amp;quot;:&amp;quot;https://medium.com/@durgaswaroop&amp;quot;,
+  &amp;quot;imageUrl&amp;quot;:&amp;quot;https://cdn-images-1.medium.com/fit/c/400/400/0*qVDXEHT9DDYUOcrj.&amp;quot;
+  }
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If we got that response like above, then we know that the access token we have is valid.&lt;/p&gt;
+&lt;p&gt;From there, I extract, the &lt;code&gt;user_id&lt;/code&gt; from the JSON string, with&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;user_id = json_me_response[&amp;#39;data&amp;#39;][&amp;#39;id&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4 id="get-users-publications"&gt;Get User’s Publications&lt;/h4&gt;
+&lt;p&gt;From the above request, we’ve validated that the access token is correct and we also have got the &lt;code&gt;user_id&lt;/code&gt;. Using that we can get access to the publications of a user. For that, we’ve to make a &lt;code&gt;GET&lt;/code&gt; to &lt;code&gt;https://api.medium.com/v1/users/{{userId}}/publications&lt;/code&gt; and you’ll see the list of the publications by that user.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;user_url = base_url + &amp;#39;users/&amp;#39; + user_id
+publications_url = user_url + &amp;#39;publications/&amp;#39;
+publications_req = ureq.Request(publications_url, headers=headers)
+publications_response = ureq.urlopen(publications_req).read()
+print(publications_response)  
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I don’t have any publications on my medium account, and so I got an empty array as response. But, if you have some publications, the response will be something like this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s"&gt;&amp;quot;data&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;b969ac62a46b&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;About Medium&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;description&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;What is this thing and how does it work?&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;url&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://medium.com/about&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;imageUrl&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://cdn-images-1.medium.com/fit/c/200/200/0*ae1jbP_od0W6EulE.jpeg&amp;quot;&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;b45573563f5a&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Developers&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;description&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Medium’s Developer resources&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;url&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://medium.com/developers&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;imageUrl&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://cdn-images-1.medium.com/fit/c/200/200/1*ccokMT4VXmDDO1EoQQHkzg@2x.png&amp;quot;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now, one weird thing about Medium’s API is that they don’t have a &lt;code&gt;GET&lt;/code&gt; for posts. From the API’s we can get a list of all the publications but you can’t get a user’s posts. You can only publish a new post. Although, it is odd for that to be missing, It is not something I’m looking for anyway, as I am only interested in publishing an article. But if you need that, you probably should check to see if there are any hacky ways of achieving the same (at your own volition).&lt;/p&gt;
+&lt;h4 id="create-a-new-post"&gt;Create a New Post&lt;/h4&gt;
+&lt;p&gt;To create a new post, we have to make a &lt;code&gt;POST&lt;/code&gt; request to &lt;code&gt;https://api.medium.com/v1/users/{{authorId}}/posts&lt;/code&gt;. The &lt;code&gt;authorId&lt;/code&gt; here would be the same as the &lt;code&gt;userId&lt;/code&gt; of the user whose access-token you have.&lt;/p&gt;
+&lt;p&gt;I’m using &lt;code&gt;requests&lt;/code&gt; library for this as making a &lt;code&gt;POST&lt;/code&gt; request becomes easy with it. Of course, first you need to create a payload to be uploaded. The payload should look something like the following, as described &lt;a href="https://github.com/Medium/medium-api-docs#33-posts"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    {
+      &amp;quot;title&amp;quot;: &amp;quot;Liverpool FC&amp;quot;,
+      &amp;quot;contentFormat&amp;quot;: &amp;quot;html&amp;quot;,
+      &amp;quot;content&amp;quot;: &amp;quot;&lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Liverpool FC&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&amp;lt;p&amp;gt;&lt;/span&gt;You’ll never walk alone.&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;&amp;quot;,
+      &amp;quot;tags&amp;quot;: [&amp;quot;football&amp;quot;, &amp;quot;sport&amp;quot;, &amp;quot;Liverpool&amp;quot;],
+      &amp;quot;publishStatus&amp;quot;: &amp;quot;public&amp;quot;
+    }
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, for this, I did the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;posts_url = user_url + &amp;#39;posts/&amp;#39;
+
+payload = {
+    &amp;#39;title&amp;#39;: &amp;#39;Medium Test Post&amp;#39;,
+    &amp;#39;contentFormat&amp;#39;: &amp;#39;markdown&amp;#39;,
+    &amp;#39;tags&amp;#39;: [&amp;#39;medium&amp;#39;, &amp;#39;test&amp;#39;, &amp;#39;python&amp;#39;],
+    &amp;#39;publishStatus&amp;#39;: &amp;#39;draft&amp;#39;,
+    &amp;#39;content&amp;#39;: open(&amp;#39;7.Test_post.md&amp;#39;).read()
+}
+
+response = requests.request(&amp;#39;POST&amp;#39;, posts_url, data=payload, headers=headers)
+print(response.text)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you see, for &lt;code&gt;contentFormat&lt;/code&gt;, I’ve set &lt;code&gt;markdown&lt;/code&gt; and for &lt;code&gt;content&lt;/code&gt; I read it straight from the file. I didn’t want to publish this as it is just a dummy post and so I’ve set the &lt;code&gt;publishStatus&lt;/code&gt; to &lt;code&gt;draft&lt;/code&gt;. And sure enough, it works as expected and I can see this draft added on my account.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Draft post" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/7.Medium-draft-posts.png"&gt; &lt;/p&gt;
+&lt;p&gt;Do note that the &lt;code&gt;title&lt;/code&gt; in the payload object won’t actually be the title of the article. If you want to have a title, you add it in the &lt;code&gt;content&lt;/code&gt; itself as a &lt;code&gt;&amp;lt;h*&amp;gt;&lt;/code&gt; tag.&lt;/p&gt;
+&lt;p&gt;The full code is available as a gist.&lt;/p&gt;
+&lt;script src="https://gist.github.com/durgaswaroop/a0c5e1f772ec231d2254db43e2b26b93.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;That is all for this article.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more programming and Python articles, checkout &lt;a href="http://freblogg.com"&gt;Freblogg&lt;/a&gt; and &lt;a href="/tags/python"&gt;Freblogg/Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Some articles on automation:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053"&gt;Web Scraping For Beginners with Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986"&gt;My semi automated workflow for blogging&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This is the seventh article as part of my twitter challenge &lt;a href="https://twitter.com/durgaswaroop/status/944503750340702208"&gt;#30DaysOfBlogging&lt;/a&gt;. Twenty-three more articles on various topics including but not limited to &lt;a href="/tags/java"&gt;Java&lt;/a&gt;, &lt;a href="/tags/git"&gt;Git&lt;/a&gt;, &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;, &lt;a href="/tags/software"&gt;Software Development&lt;/a&gt;, &lt;a href="/tags/python"&gt;Python&lt;/a&gt;, to come.&lt;/p&gt;
+&lt;p&gt;If you are interested in this, make sure to follow me on Twitter &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt;. While you’re at it, Go ahead and subscribe to this blog and my &lt;a href="https://medium.com/@durgaswaroop/"&gt;blog on Medium&lt;/a&gt; as well.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you are interested in contributing to any open source projects and haven’t found the right project or if you were unsure on how to begin, I would like to suggest my own project, &lt;a href="https://github.com/durgaswaroop/delorean"&gt;Delorean&lt;/a&gt; which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in the functionality.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks for reading. See you again in the next article.&lt;/p&gt;</content><category term="Blogging tips"></category><category term="Programming"></category><category term="Python"></category><category term="API"></category></entry><entry><title>Tweeting with Python and Tweepy</title><link href="/tweeting-with-python-and-tweepy" rel="alternate"></link><published>2017-12-25T19:00:00+05:30</published><updated>2017-12-25T19:00:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2017-12-25:/tweeting-with-python-and-tweepy</id><summary type="html">&lt;p&gt;Programmers love to automate things and I'm no exception. I always like automate my common tasks. Whether it is checking for stock prices or checking to see when the next episode of my favorite show is coming, I've automated scripts for that. Today I am going to add one more …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Programmers love to automate things and I'm no exception. I always like automate my common tasks. Whether it is checking for stock prices or checking to see when the next episode of my favorite show is coming, I've automated scripts for that. Today I am going to add one more thing in that list i.e., automated tweeting. I tweet quite frequently and I would love to have a way of automating this as well. And that's exactly what we're going to do today. We are tweeting using python.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="twitter and python" class="centeralign" src="https://s-media-cache-ak0.pinimg.com/600x315/a8/b5/ae/a8b5aea9cabee52dc57abdc8338fc80c.jpg" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;We'll use a python library called &lt;code&gt;tweepy&lt;/code&gt; for this. &lt;code&gt;Tweepy&lt;/code&gt; is a simple, easy to use library for accessing Twitter API.&lt;/p&gt;
+&lt;p&gt;Accessing twitter API's programmatically is not only just an accessibility feature but can be of enormous value too. Mining the twitter verse data is one of the key steps in sentimental analysis. Twitter chat bots have also become quite popular now a days with hundreds and thousands of bot accounts. This article, although, only barely scratches the surface, hopefully will helping in building yourself towards that.&lt;/p&gt;
+&lt;h3 id="settingup"&gt;Setting Up&lt;/h3&gt;
+&lt;p&gt;First thing's first, install tweepy by running &lt;code&gt;pip install tweepy&lt;/code&gt;. The latest version at the time of the writing this article is &lt;code&gt;3.5.0&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Then we need to have our Twitter API credentials. Go to &lt;a href="https://apps.twitter.com/"&gt;Twitter Apps&lt;/a&gt;. If you don't have any apps registered already, go ahead and click the &lt;code&gt;Create New App&lt;/code&gt; button.&lt;/p&gt;
+&lt;p&gt;To register your app you have to provide the following three things&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Name of your application&lt;/li&gt;
+&lt;li&gt;Description&lt;/li&gt;
+&lt;li&gt;Your website url&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;There is one more option which is &lt;code&gt;callback URL&lt;/code&gt;. You can ignore that for now. Then after reading the Twitter developer agreement (wink wink), click on &lt;code&gt;Create your Twitter application&lt;/code&gt; button to create a new app.&lt;/p&gt;
+&lt;p&gt;Once the app is created you should see that in your twitter apps page. Click on it and GOTO the &lt;code&gt;Keys and Access Tokens&lt;/code&gt; tab.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="twitter apps tabs" class="centeralign" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/Twitter-apps-page-tabs.png" width="600"&gt;&lt;/p&gt;
+&lt;p&gt;There you will see four pieces of information. First you have your app API keys which are &lt;code&gt;consumer key&lt;/code&gt; and &lt;code&gt;consumer secret&lt;/code&gt;. Then you have your &lt;code&gt;access token&lt;/code&gt; and &lt;code&gt;access token secret&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We'll need all of them to access twitter API's. So, have them ready. I have copied all of them and exported them as system variables. You could do the same or if you'd like, you can read them from a file as well.&lt;/p&gt;
+&lt;h3 id="letsgetstarted"&gt;Let's get started&lt;/h3&gt;
+&lt;p&gt;First you have to import &lt;code&gt;tweepy&lt;/code&gt; and &lt;code&gt;os&lt;/code&gt;(only if you are accessing system variables).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tweepy&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then I'll populate the access variables by reading them environment variables.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;consumer_key = os.environ[&amp;quot;t_consumer_key&amp;quot;]
+consumer_secret = os.environ[&amp;quot;t_consumer_secret&amp;quot;]
+access_token = os.environ[&amp;quot;t_access_token&amp;quot;]
+access_token_secret = os.environ[&amp;quot;t_access_token_secret&amp;quot;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With the keys ready, we setup the authorization.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;authorization = tweepy.OAuthHandler(consumer_key, consumer_secret)
+authorization.set_access_token(access_token, access_token_secret)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After authorization we create an API object &lt;code&gt;twitter&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;twitter = tweepy.API(authorization)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And now you can tweet from python using this &lt;code&gt;twitter&lt;/code&gt; object like this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;twitter.update_status(&amp;quot;Tweet using #tweepy&amp;quot;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That is all you have to do. Just five lines of code and you can already tweet. You should try it out and check your twitter account. I just ran this command and this is the tweet.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tweet using &lt;a href="https://twitter.com/hashtag/tweepy?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#tweepy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;— Durga Swaroop Perla (@durgaswaroop) &lt;a href="https://twitter.com/durgaswaroop/status/945047842485280768?ref_src=twsrc%5Etfw"&gt;December 24, 2017&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;Not just this, you can also tweet media. Let's tweet again, this time with a picture attached.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;image = os.environ[&amp;#39;USERPROFILE&amp;#39;] + &amp;quot;\\Pictures\\cubes.jpg&amp;quot;
+twitter.update_with_media(image, &amp;quot;Tweet with media using #tweepy&amp;quot;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And this is the media tweet.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tweet with media using &lt;a href="https://twitter.com/hashtag/tweepy?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#tweepy&lt;/a&gt; &lt;a href="https://t.co/9bDuw9DDJI"&gt;pic.twitter.com/9bDuw9DDJI&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;— Durga Swaroop Perla (@durgaswaroop) &lt;a href="https://twitter.com/durgaswaroop/status/945049796238118912?ref_src=twsrc%5Etfw"&gt;December 24, 2017&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;When you run the previous commands, you'll see that there is a lot of output that is printed on the terminal. This is a &lt;code&gt;status&lt;/code&gt; object with a lot of useful data like the number of followers you got, your profile picture URL, your location etc., pretty much everything you get from your twitter page. We can make use of this information, If we are building something more comprehensive.&lt;/p&gt;
+&lt;p&gt;Apart from sending regular tweets, you can also reply to existing tweets. To reply to a tweet you'd first need its &lt;code&gt;tweet_id&lt;/code&gt; which you can get from the tweet's URL.&lt;/p&gt;
+&lt;p&gt;For example the URL for previous tweet is &lt;a href="https://twitter.com/durgaswaroop/status/945049796238118912"&gt;https://twitter.com/durgaswaroop/status/945049796238118912&lt;/a&gt; and the &lt;code&gt;tweet_id&lt;/code&gt; is &lt;code&gt;945049796238118912&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Using that id, we can send another tweet as reply.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;id_of_tweet_to_reply = &amp;quot;945049796238118912&amp;quot;
+twitter.update_status(&amp;quot;Reply to a tweet using #tweepy&amp;quot;, in_reply_to_status_id=id_of_tweet_to_reply)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The only change in the syntax is &lt;code&gt;in_reply_to_status_id=id_of_tweet_to_reply&lt;/code&gt; that is passed as the second argument. And with that our new tweet will be added as reply to the original tweet.&lt;/p&gt;
+&lt;p&gt;The new reply tweet is this:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Reply to a tweet using &lt;a href="https://twitter.com/hashtag/tweepy?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#tweepy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;— Durga Swaroop Perla (@durgaswaroop) &lt;a href="https://twitter.com/durgaswaroop/status/945053630129881088?ref_src=twsrc%5Etfw"&gt;December 24, 2017&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;That's how easy it is to access Twitter API with tweepy. We now know how to tweet and how to reply to a tweet. Building up from this knowledge, In a later tutorial, I can show you how to create your own twitter chat-bot and also twitter streaming analysis.&lt;/p&gt;
+&lt;p&gt;The full code of things covered in this article is available as gist at&lt;/p&gt;
+&lt;script src="https://gist.github.com/durgaswaroop/d16cad3f4e3f8d1976a124aac602f5d2.js"&gt;&lt;/script&gt;
+
+&lt;hr&gt;
+&lt;p&gt;For more programming and Python articles, checkout &lt;a href="http://freblogg.com"&gt;Freblogg&lt;/a&gt; and &lt;a href="/tags/python"&gt;Freblogg/Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053"&gt;Web Scraping For Beginner with Python&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This is the third article as part of my twitter challenge &lt;a href="https://twitter.com/durgaswaroop/status/944503750340702208"&gt;#30DaysOfBlogging&lt;/a&gt;. Twenty-seven more articles on various topics including but not limited to &lt;a href="/tags/java"&gt;Java&lt;/a&gt;, &lt;a href="/tags/git"&gt;Git&lt;/a&gt;, &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;, &lt;a href="/tags/software"&gt;Software Development&lt;/a&gt;, &lt;a href="/tags/python"&gt;Python&lt;/a&gt;, to come.&lt;/p&gt;
+&lt;p&gt;If you are interested in this, make sure to follow me on Twitter &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt;. While you're at it, Go ahead and subscribe to this blog and my &lt;a href="https://medium.com/@durgaswaroop/"&gt;blog on Medium&lt;/a&gt; as well.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, &lt;a href="https://github.com/durgaswaroop/delorean"&gt;Delorean&lt;/a&gt; which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in the functionality.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks for reading. See you again in the next article.&lt;/p&gt;</content><category term="Programming"></category><category term="Pip"></category><category term="Python"></category><category term="How To"></category><category term="Tweepy"></category><category term="Twiiter"></category><category term="API"></category><category term="Scraping"></category></entry><entry><title>Git Merge Vs. Git Rebase</title><link href="/git-merge-vs-git-rebase" rel="alternate"></link><published>2017-01-31T09:00:00+05:30</published><updated>2017-01-31T09:00:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2017-01-31:/git-merge-vs-git-rebase</id><summary type="html">&lt;p&gt;Merge and Rebase are two strategies available in Git to combine two ( or more) branches into one branch.&lt;br&gt;
+Let’s say we have two branches &lt;em&gt;feature1&lt;/em&gt; and &lt;em&gt;feature2&lt;/em&gt; that have diverged from a common commit “&lt;em&gt;a&lt;/em&gt;” to have four commits each.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="git two branches" src="https://qphs.fs.quoracdn.net/main-qimg-27b4c373471ccb22663c3189b051dcc3.webp"&gt;  &lt;/p&gt;
+&lt;p&gt;Now we want to combine both the features into …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Merge and Rebase are two strategies available in Git to combine two ( or more) branches into one branch.&lt;br&gt;
+Let’s say we have two branches &lt;em&gt;feature1&lt;/em&gt; and &lt;em&gt;feature2&lt;/em&gt; that have diverged from a common commit “&lt;em&gt;a&lt;/em&gt;” to have four commits each.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="git two branches" src="https://qphs.fs.quoracdn.net/main-qimg-27b4c373471ccb22663c3189b051dcc3.webp"&gt;  &lt;/p&gt;
+&lt;p&gt;Now we want to combine both the features into a single branch. Merge and Rebase are our options. Let’s see what each of them can do.  &lt;/p&gt;
+&lt;h3 id="git-merge"&gt;Git Merge&lt;/h3&gt;
+&lt;p&gt;Merge will seem like a fairly obvious thing, if you look at the end result. It is pretty much like taking two threads and tying them up in a knot.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="git branches wit merge commit" src="https://qphs.fs.quoracdn.net/main-qimg-5c246cb7872aaed9c1243d3fea96b467?convert_to_webp=true"&gt;  &lt;/p&gt;
+&lt;p&gt;Here the commit ‘b’, has the information regarding all the commits in feature1 and feature2. So, Merge preserves the history of the repository.  &lt;/p&gt;
+&lt;h3 id="git-rebase"&gt;Git Rebase&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Rebase&lt;/em&gt; on the other hand doesn’t preserve the history. It quite literally &lt;em&gt;re-bases&lt;/em&gt; one branch on top of the other i.e., it changes the &lt;em&gt;base&lt;/em&gt; of the branch. Let’s see rebasing with the same example.&lt;br&gt;
+Let’s say I want to &lt;em&gt;rebase feature1 onto feature2,&lt;/em&gt; what that means is that I want all the commits in the branch feature1 on top of the commits of feature2. So, after rebase your commit history would look like the following.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="git branches rebased" src="https://qphs.fs.quoracdn.net/main-qimg-531720271c7a9e5ada9047c751c6ab27?convert_to_webp=true"&gt;  &lt;/p&gt;
+&lt;p&gt;As you see in the picture, the base of feature1 which was previously the commit “a”, has been shifted to the green commit “4”. Hence the name &lt;strong&gt;Re-Base.&lt;/strong&gt; Here feature1 is sitting on top of feature2 as opposed to being on “a”.  &lt;/p&gt;
+&lt;p&gt;Do note that I have added a &lt;strong&gt;&lt;em&gt;‘&lt;/em&gt;&lt;/strong&gt; next to the numbers of feature branch making them 1’, 2′ and so on, to indicate that the &lt;em&gt;orange 1′&lt;/em&gt; commit is different from the &lt;em&gt;orange 1&lt;/em&gt; commit. This is because each commit, apart from storing the changes to the files, stores the information regarding its parent. So, If a parent to a commit changes, even it has the exact sames modifications to the files, will be treated as a different commit by Git, which means we have changed the Git commit history.  &lt;/p&gt;
+&lt;p&gt;Also Anyone who looks at the commit history now, would think that feature1 was added after feature2 which is not what actually happened. If this is the end result you’re going for, then it’s absolutely fine but if you want to show that feature1 and feature2 both started off simultaneously, then you need to use Merge.  &lt;/p&gt;
+&lt;p&gt;Both Merge and Rebase have their pros and cons. Merge keeps the history of the repository but can make it hard for someone to understand and follow what’s going on at a particular stage when there are multiple merges. Rebase on the other hand ‘rewrites’ history (read - creates new history) but makes the repo look cleaner and is much easier to look at.  &lt;/p&gt;
+&lt;p&gt;What you want to use depends on your need. A lot of companies make merges mandatory when adding stuff to master branch because they want to see the history of all changes. And a few companies/Open source projects mandate rebasing as it keeps the flow simple and easy to follow. Use the one that suits your workflow.  &lt;/p&gt;
+&lt;p&gt;Fun Fact:&lt;br&gt;
+There is a merge strategy called Octopus merge, where you merge multiple branches into one. For more info on this: &lt;a href="/git-octopus-merge"&gt;Understanding Git Octopus Merge&lt;/a&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more interesting articles,  follow me &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt; on Twitter&lt;/p&gt;</content><category term="Git merge"></category><category term="Rebase"></category><category term="VCS"></category><category term="Git"></category><category term="Merge Conflicts"></category></entry><entry><title>Understanding Git Octopus Merge</title><link href="/git-octopus-merge" rel="alternate"></link><published>2016-12-21T05:00:00+05:30</published><updated>2016-12-21T05:00:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-12-21:/git-octopus-merge</id><summary type="html">&lt;p&gt;The Code for Git merge is one of the most sophisticated pieces of software ever written. There is so much stuff that goes inside during a merge that its just mind boggling. Just for that alone, Linus could be considered a programming genius. Too bad for other geniuses, he also …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Code for Git merge is one of the most sophisticated pieces of software ever written. There is so much stuff that goes inside during a merge that its just mind boggling. Just for that alone, Linus could be considered a programming genius. Too bad for other geniuses, he also has "Linux kernel" on his resume :-D.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Git Logo" class="aligncenter" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="200"&gt;&lt;/p&gt;
+&lt;p&gt;As the title suggests this article is about &lt;em&gt;Octopus Merge&lt;/em&gt; in Git. For this, I hope you know what a basic Git merge is and what it means to merge. If you're completely unfamiliar with Git, then I've no idea what you're doing here. You better read up on some Git 101 before jumping in to this article.&lt;/p&gt;
+&lt;p&gt;Anyway, Just to brush up, this is how a simple/familiar Git merge goes ..&lt;/p&gt;
+&lt;p&gt;We have a branch called &lt;em&gt;feature&lt;/em&gt; that diverged from &lt;em&gt;master&lt;/em&gt; at the second commit and went to have two commits of its own.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Master and Feature branches in Git" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_branches_master_feature.png" width="500"&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: For the branch pictures in this article I am using a Git GUI tool called &lt;a href="https://www.gitkraken.com/"&gt;Git Kraken&lt;/a&gt;. I have been trying it a few days now and it looks quite promising. I am a fan of its clean and minimalist UI and have been using it extensively for the beautiful visualization of branches. And above all, It is free for personal non-commercial use. So, you can try it out for free.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now you want to add those cool new changes on the feature branch to master. The way you do it is by merging (Let's not talk about Rebasing for now. We will look at it another time). So, when you merge this is how it looks like.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Git merge master feature" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_merge_master_feature.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;This is all the usual stuff that we are all familiar with.&lt;/p&gt;
+&lt;p&gt;Now there is another type of merge called the &lt;strong&gt;The Octopus Merge&lt;/strong&gt;. At least some of you must have heard about it either from an online video or from a colleague in your office that seems to know everything. Either way the Octopus merge is a really fun way of Merging. You probably won't get to do this at your work as a lot of companies think this complicates things and we all know how much Companies hate complexity. Anyway, Let's see what it looks like. I have a local git repository with three branches &lt;em&gt;branch1&lt;/em&gt;, &lt;em&gt;branch2&lt;/em&gt;, &lt;em&gt;branch3&lt;/em&gt; along with &lt;em&gt;master&lt;/em&gt;. All four of these branches have two extra commits from the point they diverged.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Git octopus pre image" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_pre_octopus_merge.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;Now if you want to merge them, the usual way would be to merge two branches at a time to finally get to the final combination after three merges like so.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="The usual way to merge branches in Git" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_usual_merge.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;This may seem fine and might actually be the only way you would think about this if not for the Octopus merge. You have three merge commits here and as we know merge commits are noise. They pollute the history of your repository and interrupt the story told by your Git history. So, how about keeping the noise low by just having one Merge commit instead of three. How you ask? Octopus, My friend. All hail the great and mighty Octopus. So, the way you perform an Octopus is by merging all the branches at once on to the master. To do that you give a command like this&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Git merge octopus" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_octopus_merge_output.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;This will merge all the three branches to master. The branches will look something like this. Do you see the reference of Octopus now?&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Octopus Git merge" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/git_post_octopus_merge.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;Now, if you know anything about octopuses, you might be wondering that we only have four legs here while an Octopus has 8. Well you are right. Octopuses do have 8 legs (technically 6 as two of them are used as hands) but 4 is good enough. Actually any merge can be called Octopus if you're merging three or more branches.&lt;/p&gt;
+&lt;p&gt;If you are using Git for sometime, you might be wondering, If Octopus is so freaking cool, why haven't more people heard about it and Why are more people not using it. Well, you are right my friend. Octopus is awesome for sure, but as I said it certainly does complicate things a lot especially when dealing with merge conflicts. Merge is hard enough as it is when dealing with just two branches. But if you are merging 5 or 10 branches together it feels like you're doing a complex surgery. You have to be really careful in that case and I am not even sure if any modern GUI tools support diffing 10-way. Also a lot of people tend to go overboard with Octopus.&lt;/p&gt;
+&lt;p&gt;Look at this &lt;a href="http://marc.info/?l=linux-kernel&amp;amp;m=139033182525831"&gt;message&lt;/a&gt; where Linus Torvalds yells (pleasantly) at a guy for creating an Octopus with 66 branches. Imagine that for a second. 66 branches! I wouldn't want to be the guy that handles merge conflicts on that one! Linux aptly says&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;that's not an octopus, that's a &lt;strong&gt;Cthulhu&lt;/strong&gt; merge&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img alt="Cthulu Image" class="aligncenter" src="https://upload.wikimedia.org/wikipedia/commons/6/62/Cthulhu_and_R%27lyeh.jpg" width="300"&gt;&lt;/p&gt;
+&lt;p&gt;So, a lot of companies don't really use this. A lot of people won't even consider this for their merge strategies.&lt;/p&gt;
+&lt;p&gt;A rule of thumb to follow with &lt;strong&gt;Octopus&lt;/strong&gt; is to never overdo it. An 8-way octopus merge though borders on crazy hard and insane, is fine but more than that is an overkill. The situations where you have to merge more than 5 or 6 branches tend to be very rare and in those cases may be you can go for an Octopus on a subset of branches at a time and do a Octopus for those. Or may be rethink your merging strategy.&lt;/p&gt;
+&lt;p&gt;Either way, I hope this article helped you in understanding something new and gives you some ideas for dealing with complex merges. I hope you will educate your peers and colleagues about this new merge and share this article with them&lt;/p&gt;
+&lt;p&gt;Well, That is all for this article folks. See you again in the next one. Until then, Good Bye.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Special Thanks to &lt;a href="https://www.gitkraken.com/"&gt;Git Kraken&lt;/a&gt; team at Axosoft for developing a great tool like Kraken.&lt;/p&gt;
+&lt;p&gt;You can find me as &lt;a href="https://twitter.com/durgaswaroop"&gt;@durgaswaroop&lt;/a&gt; on Twitter.&lt;/p&gt;
+&lt;h4 id="attributions"&gt;Attributions:&lt;/h4&gt;
+&lt;p&gt;Cthulhu Image  - CC BY-SA 3.0 -https://commons.wikimedia.org/wiki/File:Cthulhu_and_R'lyeh.jpg&lt;/p&gt;</content><category term="Git"></category><category term="Octopus Merge"></category><category term="Merge Conflicts"></category><category term="Source Control"></category></entry><entry><title>Navigating In Vim II | Your First Lesson in Vim</title><link href="/your-first-lesson-in-vim-4" rel="alternate"></link><published>2016-10-13T12:00:00+05:30</published><updated>2016-10-13T12:00:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-10-13:/your-first-lesson-in-vim-4</id><summary type="html">&lt;p&gt;This is the fourth article in the series titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth article in the series titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. This series is going to put an end to all of that.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"&gt;&lt;/p&gt;
+&lt;p&gt;In the last article &lt;a href="/your-first-lesson-in-vim-3"&gt;Navigating in Vim I&lt;/a&gt;, we have seen a lot of Vim motions. Most of these fall under the category of word-motions (&lt;code&gt;:help word-motions&lt;/code&gt;). We will learn some more motions in this article. And in case you still haven't tried &lt;a href="http://vim-adventures.com/"&gt;Vim Adventures&lt;/a&gt; you should do it. It will help you a lot with getting the hang of Vim motions and getting around in vim.&lt;/p&gt;
+&lt;p&gt;[]{#linemotions} Here are the list of Vim motions for this article.&lt;/p&gt;
+&lt;p&gt;Motion                                                                                                                            What it does?&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;0                                                                                                                                 Go to the &lt;em&gt;STARTING&lt;/em&gt; of the &lt;em&gt;CURRENT LINE&lt;/em&gt;
+  \^                                                                                                                                Go to the &lt;em&gt;FIRST NBC*&lt;/em&gt; of the &lt;em&gt;CURRENT LINE&lt;/em&gt;
+  -                                                                                                                                 Go to the &lt;em&gt;FIRST NBC*&lt;/em&gt; of the &lt;em&gt;PREVIOUS LINE&lt;/em&gt;
+  +                                                                                                                                 Go to the &lt;em&gt;FIRST NBC*&lt;/em&gt; of the &lt;em&gt;NEXT LINE&lt;/em&gt;
+    \$                                                                                                                                Go to the &lt;em&gt;END&lt;/em&gt; of the &lt;em&gt;CURRENT LINE&lt;/em&gt;
+    g_                                                                                                                               Go to the &lt;em&gt;LAST NBC*&lt;/em&gt; of the &lt;em&gt;CURRENT LINE&lt;/em&gt;
+    f{char}                                                                                                                           Find a character &lt;em&gt;FORWARD&lt;/em&gt; in the current line (Usage: to go to first occurance of c, you type &lt;code&gt;fc&lt;/code&gt;)
+    F{char}                                                                                                                           Find a character &lt;em&gt;BACKWARD&lt;/em&gt; in the current line (Usage: to go to first occurance of c to the left of the cursor, you type &lt;code&gt;Fc&lt;/code&gt;)
+    t{char}                                                                                                                           Like &lt;code&gt;f&lt;/code&gt; but places the cursor before the character (Mnemonic : t - till)
+    T{char}                                                                                                                           Like &lt;code&gt;T&lt;/code&gt; but places the cursor after the character
+    gg                                                                                                                                Move the cursor to the first line (compare this with &lt;code&gt;H&lt;/code&gt;)
+    G                                                                                                                                 Move the cursor to the last line (compare this with &lt;code&gt;L&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;* NBC - Non Blank Character&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Line motions Vim picture" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/line_motions.png" width="600"&gt;&lt;/p&gt;
+&lt;p&gt;These motions let you move very fast between lines. You can go to any character you want on the current line with just 2 or at 3 keys, which is insanely fast compared to any other text editor. The last two motions (gg, G) are super useful and are certainly two of my most used commands.&lt;/p&gt;
+&lt;p&gt;Now we have one final set of motions to learn called Text Object motions (&lt;code&gt;:help object-motions&lt;/code&gt;). Text objects is an important concept in Vim and we will cover that in depth in a future article. For now let's look at these motions.&lt;/p&gt;
+&lt;h3 id="textmotionstext-object-motions"&gt;[]{#textmotions}Text Object Motions&lt;/h3&gt;
+&lt;p&gt;Motion                                           What it does?&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;(                                                Go to the beginning of the &lt;em&gt;PREVIOUS&lt;/em&gt; sentence
+  )                                                Go to the beginning of the &lt;em&gt;NEXT&lt;/em&gt; sentence
+  {                                                Go one paragraph &lt;em&gt;BACKWARD&lt;/em&gt;
+  }                                                Go one paragraph &lt;em&gt;FORWARD&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;These four motions are very useful too. Especially if you're a programmer, the &lt;code&gt;{&lt;/code&gt; and &lt;code&gt;}&lt;/code&gt; will make navigating the code base a breeze.&lt;/p&gt;
+&lt;p&gt;And with that, we have covered all the basic Vim motions for you to get started. There is just one more important thing you need to know in conjunction with Motions. I haven't told you about this till now because I wanted you to get a full grasp of Vim motions before I explain this. Anyway, here it goes ..&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Every Vim Motion takes a count before it&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That's it. It might seem simple and it is simple, but its usefulness is just immeasurable.&lt;/p&gt;
+&lt;p&gt;Let's say you have to move eight lines down. To go eight lines down you don't have to frantically type &lt;code&gt;jjjjjjjj&lt;/code&gt;. Just simply type &lt;code&gt;*8j*&lt;/code&gt;. Similarly &lt;code&gt;4k&lt;/code&gt; to go four lines above, &lt;code&gt;6w&lt;/code&gt; to go to the sixth word from the cursor and so on. This is just such a useful feature that quite literally &lt;em&gt;Sky is the limit&lt;/em&gt; for what you can do with this. Want to go to the second &lt;code&gt;e&lt;/code&gt; after the cursor? Try &lt;code&gt;2fe&lt;/code&gt; and your cursor lands directly on &lt;code&gt;e&lt;/code&gt;. Similarly to go to the ending of the 5th line below just do &lt;code&gt;5$&lt;/code&gt; and B.A.M!&lt;/p&gt;
+&lt;p&gt;This opens up a whole new world of combinations for you to use and I hope you will make use of all of them. With these motions you can move to any place you want in the file with minimal number of keystrokes and your ultimate aim should be to accomplish everything with the minimum possible number of keystrokes. Be a Vim Ninja and conquer the world!&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim ninja image" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_text_motions.png" width="600px"&gt;&lt;/p&gt;
+&lt;p&gt;Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!&lt;/p&gt;
+&lt;p&gt;&lt;a class="navlinkleft" href="/your-first-lesson-in-vim-3"&gt;← Prev&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more Vim stuff : &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="attributions"&gt;Attributions:&lt;/h4&gt;
+&lt;p&gt;Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)&lt;/p&gt;
+&lt;p&gt;Vim Ninja image - https://goo.gl/QgTrsY (Originally from Practical Vim by Drew Neal)&lt;/p&gt;</content><category term="VimFirstLesson"></category><category term="Vim"></category><category term="Gvim"></category></entry><entry><title>Navigating in Vim I | Your First Lesson In Vim</title><link href="/your-first-lesson-in-vim-3" rel="alternate"></link><published>2016-10-09T00:00:00+05:30</published><updated>2016-10-09T00:00:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-10-09:/your-first-lesson-in-vim-3</id><summary type="html">&lt;p&gt;This is the third article in a series titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor there by extending the Vim community. Vim though quite powerful, has a bad rep for …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third article in a series titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. Hopefully this series will put those fears to bed.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"&gt;&lt;/p&gt;
+&lt;p&gt;In the last article &lt;a href="/your-first-lesson-in-vim-2"&gt;How To Exit Vim&lt;/a&gt;, we have seen what Vim modes are and what they do. So, If you know about Visual Mode, Insert Mode, Command Mode and Normal Mode, then continue with this article. Otherwise take a look again at the previous article. Vim modes are really important to understand this article and the upcoming ones.&lt;/p&gt;
+&lt;p&gt;I wanted this to be a part of the previous article but since this is really important and has a lot of potential information to discuss, I decided to give this its own full article. We will be spending most of our time in Normal mode here as that is where we will navigate in the file. You have seen how you navigate in Vim using &lt;code&gt;h j k l&lt;/code&gt;. If you haven't figured out already, Vim's main philosophy is increasing your productivity and because of this some of the things Vim does might seem different compared to the usual way you are used to in other editors. Using &lt;code&gt;h j k l&lt;/code&gt; is one of those things.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="vim navigation" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_navigation_hjkl.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;We have covered this in the last article but as promised I will expand about it here. If you look at your keyboard you will see that &lt;code&gt;h j k l&lt;/code&gt; are on your Home Row (unless you are using Dvorak Keyboard, in which case this article probably won't help you much). Having the navigation keys on the home row is such an advantage as you don't have to move your fingers at all to access them. Going to the arrow keys for navigating is tiresome and time consuming. Don't think so? Well try it out yourself. Rest your fingers on their normal positions on the Home row (&lt;code&gt;a s d f - j k l ;&lt;/code&gt;) and try to hit the UP arrow and come back. Did you see the travel involved in that? Do it again and see how you have moved your hand away from the keys and came back. Do it 5 more times and tell me If i am wrong when I say its just unnecessary travel, Especially since you have the navigation keys right on the home row in Vim. This is one of the reasons why Vim users are usually pretty fast. They don't keep moving their hands on and off the keyboard every time you have to go up or down. And again this could save you from potential RSI injuries.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="qwerty keyboard" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/qwerty_time_waste_small.png" width="600"&gt;&lt;/p&gt;
+&lt;p&gt;So, I strongly advise you to stop using UP and DOWN arrow keys. To use the &lt;code&gt;h j k l&lt;/code&gt; keys more, try playing &lt;a href="http://vim-adventures.com/"&gt;Vim Adventures&lt;/a&gt;. Its a fun game where you go around the textland collecting characters using Vim's navigation controls. It will help you use the &lt;code&gt;h j k l&lt;/code&gt; keys and just after a couple of tries it becomes muscle memory.&lt;/p&gt;
+&lt;p&gt;One more thing that you won't see Vim users (#VimRocks) using is Mouse. The argument against using Mouse is the same one as that for the arrow keys. You are taking your hands off your main row which not only breaks your typing flow but also is just plain annoying. Its the same for mouse except you're moving your hand even further which makes it that much worse.&lt;/p&gt;
+&lt;p&gt;Getting rid of Arrow keys and Mouse is not an easy thing. This is cert ainly something that takes time to get used to. But once you do, you will be that much faster in your work flow.&lt;/p&gt;
+&lt;h3 id="vim-motions"&gt;Vim Motions&lt;/h3&gt;
+&lt;p&gt;Vim Motions are the amazing things that make Vim users so fast. You already know about &lt;code&gt;h j k l&lt;/code&gt;. Motions are just about anything that moves your cursor from one place to another. Apart from that you also have &lt;code&gt;w W b B e E H M L&lt;/code&gt;. Let's see what they do.&lt;/p&gt;
+&lt;p&gt;Command                                                                                    What it does?&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;w                                                                                          Move the cursor to the starting of the next word
+  W                                                                                          Move the cursor to the starting of the next WORD
+  b                                                                                          Move the cursor to the starting of the previous word (Mnemonic - &lt;strong&gt;b&lt;/strong&gt;ack)
+  B                                                                                          Move the cursor to the starting of the previous WORD
+  e                                                                                          Move the cursor to the end of the current word (Mnemonic - &lt;strong&gt;e&lt;/strong&gt;nd)
+  E                                                                                          Move the cursor to the end of the current WORD
+  H                                                                                          Move the cursor to the First line of the current visible screen (Mnemonic - &lt;strong&gt;H&lt;/strong&gt;igh)
+  M                                                                                          Move the cursor to the Middle line of the current visible screen (Mnemonic - &lt;strong&gt;M&lt;/strong&gt;iddle)
+  L                                                                                          Move the cursor to the Last line of the current visible screen (Mnemonic - &lt;strong&gt;L&lt;/strong&gt;ow)&lt;/p&gt;
+&lt;p&gt;The usage of &lt;code&gt;H M L&lt;/code&gt; commands should be clear with this image below. They move your cursor to first, middle and last line of the screen respectively.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="vim hml motions" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/hml_vim.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;To understand about &lt;code&gt;w b e&lt;/code&gt; and their upper case variants we have to understand how &lt;em&gt;word&lt;/em&gt; and &lt;em&gt;WORD&lt;/em&gt; are defined in Vim. From the official documentation (&lt;code&gt;:help word&lt;/code&gt;),&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A &lt;strong&gt;word&lt;/strong&gt; consists of a sequence of letters, digits and underscores, or a sequence of other non-blank characters, separated with white space (spaces, tabs, &lt;eol&gt;)&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;WORD&lt;/strong&gt; consists of a sequence of non-blank characters, separated with white space&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In short, a group of characters with out a space between them is a &lt;em&gt;WORD&lt;/em&gt; and there can be multiple &lt;em&gt;words&lt;/em&gt; in that. With that definition let's take a look at some examples and identify the number of words and the number of WORDS in them.&lt;/p&gt;
+&lt;p&gt;Word                   # of words                           # of WORDS&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;hello world            2 (hello,world)                       2 (hello,world)
+  hello-world            3 (hello,-,world)                     1 (hello-world)
+  hello_world           1 (hello_world)                      1 (hello_world)&lt;/p&gt;
+&lt;p&gt;Once you understood the difference between &lt;em&gt;word&lt;/em&gt; and &lt;em&gt;WORD&lt;/em&gt;, all the motions explained in the first table would be clear. Just to make the foundation firm, try them out yourself. Type something in a file and try to see what each of the &lt;code&gt;w b e W B E H M L&lt;/code&gt; commands are doing and how they are moving the cursor. All the motions we have covered in this article are called &lt;em&gt;Word motions&lt;/em&gt; (&lt;code&gt;:help word-motions&lt;/code&gt;). There are some more Vim motion commands that you need to know to quickly navigate with ease. To keep this article simple, we will end this discussion here and will pickup again in the next article where we will discuss about the other motion commands. So, Keep practicing these motions combined with other commands discussed in &lt;a href="/your-first-lesson-in-vim-2"&gt;How To Exit Vim&lt;/a&gt; and you would be really fast already. Fast like a Puma!&lt;/p&gt;
+&lt;p&gt;Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!&lt;/p&gt;
+&lt;p&gt;&lt;a class="navlinkleft" href="/your-first-lesson-in-vim-2"&gt;← Prev&lt;/a&gt; &lt;a class="navlinkright" href="/your-first-lesson-in-vim-4"&gt;Next →&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For more Vim stuff : &lt;a href="/tags/vim"&gt;Vim&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="attributions"&gt;Attributions:&lt;/h4&gt;
+&lt;p&gt;Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)&lt;/p&gt;</content><category term="VimFirstLesson"></category><category term="Vim"></category><category term="Gvim"></category></entry><entry><title>How to Exit Vim? | Your First Lesson In Vim</title><link href="/your-first-lesson-in-vim-2" rel="alternate"></link><published>2016-10-02T17:00:00+05:30</published><updated>2016-10-02T17:00:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-10-02:/your-first-lesson-in-vim-2</id><summary type="html">&lt;p&gt;This is the second article in the series titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second article in the series titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. This series is going to put an end to all of that.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"&gt;&lt;/p&gt;
+&lt;p&gt;In the last article &lt;a href="/your-first-lesson-in-vim-1"&gt;Introduction &amp;amp; Installation&lt;/a&gt; we have seen why Vim is the best and coolest editor ever. Hopefully after watching Damian Conway's YouTube video given at the end of that article, you would agree. In this article we will experience Vim for the first time. We will learn about the various modes of operations in Vim. And, most importantly as the title of the article suggests, we will learn &lt;strong&gt;How to Exit Vim&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;First thing's first, You have to open Vim. Duh!. You can do that either by directly searching for &lt;code&gt;Vim&lt;/code&gt; in your Search box or by typing &lt;code&gt;vim&lt;/code&gt; in to your terminal. If you want to start off with &lt;code&gt;gvim&lt;/code&gt; then open that instead. Your Gvim or Mac Vim would look something like this.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Gvim startup picture" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/gvim_start.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;If you have already tried to type something, you would observe that there is something shady going on here. For example, if you type &lt;code&gt;hello world&lt;/code&gt; you might observe that only &lt;code&gt;world&lt;/code&gt; is displayed and &lt;code&gt;hello&lt;/code&gt; is no where to be seen. Try it out for yourself. This happens because of the infamous Vim modes. One of the first things you have to realize while using Vim is that its not like your typical run of the mill text editor. Vim works a bit differently and &lt;em&gt;Modes&lt;/em&gt; is one of the key things that makes vim different. So, let's take a look at them.&lt;/p&gt;
+&lt;p&gt;Broadly speaking Vim has Four major modes of operation. That number keeps changing depending on who you're talking to because there are a few more modes that can technically be called sub-modes but some people insist on treating them as Seperate modes. But to keep things simple here &lt;strong&gt;4&lt;/strong&gt; is the magic number for you and &lt;strong&gt;4&lt;/strong&gt; is the answer to Life, Universe and Everything. Not &lt;em&gt;42&lt;/em&gt;, &lt;em&gt;4&lt;/em&gt;!&lt;/p&gt;
+&lt;p&gt;The modes are :&lt;/p&gt;
+&lt;h3 id="normal-mode"&gt;Normal Mode&lt;/h3&gt;
+&lt;p&gt;Normal mode is the default mode you will be in when you open Vim. Normal mode is used for altering, deleting and formatting text. You won't be &lt;em&gt;inserting&lt;/em&gt; any new text into the document in this mode. Normal Mode is the mode you will be spending most of your time in. You can get to Normal mode by pressing &lt;code&gt;ESC&lt;/code&gt; from any other mode. One of the main things you will be doing in this mode is moving around your document.&lt;/p&gt;
+&lt;p&gt;To move around the file in the window you might usually be using arrow keys. In Vim they will work the way you expect them to, but instead vim advises to use &lt;code&gt;h .. j .. k .. l&lt;/code&gt; for moving the cursor. The reason why this came to be and the advantages of this will be apparent in the &lt;a href="/your-first-lesson-in-vim-3"&gt;next article&lt;/a&gt; but for now let's see how this works.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;h&lt;/code&gt; moves the cursor left, &lt;code&gt;l&lt;/code&gt; moves it right&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;j&lt;/code&gt; moves the cursor down, &lt;code&gt;k&lt;/code&gt; moves it up&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This following picture would make the idea clear.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="vim navigation" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_navigation_hjkl.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;If you are thinking to stick with the arrow keys instead of &lt;code&gt;h j k l&lt;/code&gt;, it is fine. There are a lot of people who use vim this way. But trust me when I say using &lt;code&gt;h j k l&lt;/code&gt; speeds up you work flow a lot. Once you get used to this you wouldn't want to use arrow keys anymore. But anyway we will discuss more about the this in the next article.&lt;/p&gt;
+&lt;p&gt;Working in Normal mode, you will see how everything you do get's easy in Vim. For a quick sneak peak of some commands.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Command&lt;/th&gt;
+&lt;th&gt;What it does?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;dd&lt;/td&gt;
+&lt;td&gt;Copy (&lt;em&gt;yank&lt;/em&gt;) the current line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;p&lt;/td&gt;
+&lt;td&gt;paste the copied text below the current line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;u&lt;/td&gt;
+&lt;td&gt;Undo your previous change&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;gg&lt;/td&gt;
+&lt;td&gt;Go to the beginning of the file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;G&lt;/td&gt;
+&lt;td&gt;Go to the end of the file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;From now on you don't have to awkwardly select the full line with your mouse to delete it. All you have to do is press &lt;code&gt;dd&lt;/code&gt; and that sucker goes away.&lt;/p&gt;
+&lt;p&gt;Didn't mean to delete it? No problem. Just hit &lt;code&gt;u&lt;/code&gt; and it undoes the delete. No more holding down &lt;code&gt;Ctrl&lt;/code&gt; and &lt;code&gt;z&lt;/code&gt;. Also&lt;code&gt;u&lt;/code&gt; for &lt;code&gt;undo&lt;/code&gt; is so simple to remember. What does &lt;code&gt;Z&lt;/code&gt; even mean in &lt;code&gt;Ctrl + z&lt;/code&gt;? And how did that become synonymous to Undo?&lt;/p&gt;
+&lt;p&gt;Similarly no more &lt;code&gt;Ctrl + c&lt;/code&gt; and &lt;code&gt;Ctrl + v&lt;/code&gt; to copy and paste. &lt;code&gt;yy&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; got you covered.&lt;/p&gt;
+&lt;p&gt;So you see, Vim sticks to its philosophy of making you productive. Imagine all the keystrokes you save per day, per year. So, switching to Vim doesn't just improve your productivity, it take care of your health too. With every Key you saved keeps you a key away from getting Carpel Tunnels and RSI. So, Use Vim - Stay healthy. :]&lt;/p&gt;
+&lt;p&gt;You might be happy with using &lt;code&gt;Ctrl+c&lt;/code&gt; to copy and &lt;code&gt;Ctrl+v&lt;/code&gt; to paste in your plain old editor. Its absolutely fine but Vim offers a simple and easy alternative and honestly the choice is pretty clear.&lt;/p&gt;
+&lt;p&gt;Anyways, that is about Normal mode for now. We will discuss more later when required. Let's look at Insert mode.&lt;/p&gt;
+&lt;h3 id="insert-mode"&gt;Insert Mode&lt;/h3&gt;
+&lt;p&gt;As the name suggests Insert mode is where you will inserting text and that is all you will be doing in here. You enter Insert mode by pressing &lt;code&gt;i&lt;/code&gt; in Normal mode . And in almost all Vim distributions you should see a noticeable change in the cursor right away. It would have changed from a block type cursor (&lt;code&gt;█&lt;/code&gt;) to an I-beam (|). That's your indication that you're in Insert mode. In another tutorial we will see how you make that even more apparent. Whatever you type in Insert mode would be displayed on the file literally. If you type &lt;code&gt;a b c&lt;/code&gt;, it types in those characters in to the file as you would expected. Contrast this from pressing &lt;code&gt;dd&lt;/code&gt; in Normal mode which doesn't print them on the file but instead does something to the file (In this case, a delete operation).&lt;/p&gt;
+&lt;p&gt;Unlike other editors you wont be spending much time here and Infact I'd advise you to get out of Insert mode once you are done typing. To go out of Insert mode you just have to press &lt;code&gt;Esc&lt;/code&gt; and you will be back in Normal Mode.&lt;/p&gt;
+&lt;p&gt;Now, Let's get to the fun part of insert mode. Remember before when I said you go from Normal mode to Insert mode by pressing &lt;code&gt;i&lt;/code&gt;, well, It turns out it is just one of the ways to get in to Insert mode. There are five more ways in which you can enter Insert mode and you can choose the best one based on what you need. Sounds complicated? Let's list them down first.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Command&lt;/th&gt;
+&lt;th&gt;What it does?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;Enters Insert mode with the cursor placed &lt;em&gt;before&lt;/em&gt; the current character&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;a&lt;/td&gt;
+&lt;td&gt;Enters Insert mode with the cursor placed &lt;em&gt;after&lt;/em&gt; the current character (Remember a - after)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;o&lt;/td&gt;
+&lt;td&gt;Enters Insert mode by opening a new line below the current line (Remember o - open)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;I&lt;/td&gt;
+&lt;td&gt;Enters Insert mode by placing the cursor at the beginning of the line (Remember big I - bigger version of i)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;Enters Insert mode by placing the cursor at the end of the line (Remember big A - bigger version of a)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;O&lt;/td&gt;
+&lt;td&gt;Enters Insert mode by opening a new line above the current line (Remember O - bigger version of o)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;As explained each one has a specific purpose.&lt;/p&gt;
+&lt;p&gt;If you want to quickly create a new line above the current line and start typing - You press &lt;code&gt;O&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If you want to insert a new line below the current line - You press &lt;code&gt;o&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To add something quickly at the end of a line - You press &lt;code&gt;A&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To add something at the beginning of a line - You press &lt;code&gt;I&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Could that be any more simpler? Surprisingly none of the other popular text editors do this. I can promise you that you won't be able to move so quickly in any other editor. This is Vim's power.&lt;/p&gt;
+&lt;p&gt;Let's look at another easy mode that will help you visualize things better, Enter Visual Mode.&lt;/p&gt;
+&lt;h3 id="visual-mode"&gt;Visual Mode&lt;/h3&gt;
+&lt;p&gt;If you have carefully looked at things till now you might have started to feel that Vim favours Keyboard commands using a mouse. If you thought so, you would be absolutely correct. So, in the spirit of &lt;em&gt;No Mouse&lt;/em&gt;, Visual mode tries to emulate Visual selections of your text similar to the way a mouse selects on Screen but instead with completely with the keyboard.&lt;/p&gt;
+&lt;p&gt;To enter in to Visual mode, just press &lt;code&gt;v&lt;/code&gt; and move your cursor with either &lt;code&gt;h j k l&lt;/code&gt; or the arrow keys and you will see that the text is getting highlighted indicating that it has been selected. Now, what can you do on this selected text? You can press &lt;code&gt;d&lt;/code&gt; and delete it completely or you can press &lt;code&gt;y&lt;/code&gt; and copy it. Notice that these are &lt;code&gt;d&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; and not &lt;code&gt;dd&lt;/code&gt; and &lt;code&gt;yy&lt;/code&gt; like in Normal mode. With &lt;code&gt;v&lt;/code&gt;, Visual selection happens character by character. But if you want to select the full line, press &lt;code&gt;V&lt;/code&gt; instead and you have the whole line highlighted and you can delete, copy or run any other command on the highlighted text.&lt;/p&gt;
+&lt;p&gt;This is how it looks like when you've something selected in Visual mode.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim visual mode selection" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/visual_mode_selection.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;And to exit out of Visual mode or to cancel the selection, just press &lt;code&gt;ESC&lt;/code&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Command&lt;/th&gt;
+&lt;th&gt;What it does?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;v&lt;/td&gt;
+&lt;td&gt;Visual selection by character&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;V&lt;/td&gt;
+&lt;td&gt;Visual selection by line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;We are finally down to the last mode, which is the Command mode &lt;em&gt;(You don't take Command, Son)&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id="command-mode"&gt;Command Mode&lt;/h3&gt;
+&lt;p&gt;Vim command mode is very powerful and one of the reasons why Vim is so versatile. Command mode is where you type Vim's commands, Vim configurations, Plugin settings, Open new files, close existing files and also access Vim's builtin help documentation. You enter to Command mode by typing &lt;code&gt;:&lt;/code&gt; and then you type in the command you want. After you press &lt;code&gt;:&lt;/code&gt; you will see the cursor at the bottom of the screen (called the &lt;em&gt;last line&lt;/em&gt; appropriately) and you type the command.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="vim command mode example" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/command_mode_vim.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;To open a file, you type in &lt;code&gt;:e file_name&lt;/code&gt; (&lt;code&gt;:e&lt;/code&gt; is short for &lt;code&gt;:edit&lt;/code&gt;)and hit &lt;code&gt;Enter&lt;/code&gt;. If the file exists Vim will open it for you and if doesn't exist Vim will open blank file for you and the file will be created when you save it.&lt;/p&gt;
+&lt;p&gt;To save or rather to &lt;em&gt;write&lt;/em&gt; the file to disk, you do &lt;code&gt;:w&lt;/code&gt; and hit &lt;code&gt;Enter&lt;/code&gt; for it to be saved. If the file doesn't yet have a name, You type &lt;code&gt;:w file_name&lt;/code&gt; and it will save the contents of the window with that file name.&lt;/p&gt;
+&lt;p&gt;And Now for the most important question in all of Vim's History and the given title of this article, &lt;strong&gt;How to exit Vim&lt;/strong&gt;! If you are using a Graphical version of Vim, then closing Vim is the same as closing the window and &lt;em&gt;poof&lt;/em&gt;, its gone. But If you're using a terminal (works in gvim and macvim too) then you quit Vim by typing &lt;code&gt;:q&lt;/code&gt; (short for &lt;code&gt;:quit&lt;/code&gt;) and that closes the current window. If you have unsaved changes in your buffer Vim will give an error saying &lt;code&gt;No Write Since Last Change&lt;/code&gt;. If you don't mind discarding unsaved changes, you append a &lt;code&gt;!&lt;/code&gt; and so the command becomes &lt;code&gt;:q!&lt;/code&gt;. That is all there is about how you exit Vim. The bang(&lt;code&gt;!&lt;/code&gt;) at the end is similar to &lt;code&gt;-f&lt;/code&gt; or &lt;code&gt;--force&lt;/code&gt; option in a lot of linux commands. It forces Vim to quit even when there are unsaved changes.&lt;/p&gt;
+&lt;p&gt;From now on if you ever saw a meme like this, you know what they are talking about.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="vim how to exit meme" class="aligncenter" src="https://comic.browserling.com/vim.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;Another important Vim command is &lt;code&gt;:help&lt;/code&gt;. It contains the full help manual for Vim and so should be one of your most used commands in the initial days of learning.&lt;/p&gt;
+&lt;p&gt;And similar to other modes, you exit command mode by pressing the &lt;code&gt;Esc&lt;/code&gt; key and you will be back in the Normal mode.&lt;/p&gt;
+&lt;p&gt;This image illustrates how you switch from one mode to another&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim_modes" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_modes_small.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;Okay. That's a lot of information for one article. Let's do a quick review.&lt;/p&gt;
+&lt;h3 id="story-recap"&gt;Story Recap&lt;/h3&gt;
+&lt;p&gt;There are four modes of operations in Vim.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="/your-first-lesson-in-vim-2#normal-mode"&gt;Normal Mode&lt;/a&gt; : moving around the document, deleting, copying, formatting are some of the common things you do in this mode&lt;/li&gt;
+&lt;li&gt;&lt;a href="#insert-mode"&gt;Insert Mode&lt;/a&gt;: Inserts text in to the document. Go into Insert mode by typing any one of &lt;code&gt;a A i I o O&lt;/code&gt; in Normal mode. Come out with &lt;code&gt;Esc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#visual-mode"&gt;Visual Mode&lt;/a&gt; : For visually selecting the text. Enter with &lt;code&gt;v&lt;/code&gt; or &lt;code&gt;V&lt;/code&gt; and exit with &lt;code&gt;Esc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#command-mode"&gt;Command Mode&lt;/a&gt; : To execute commands. &lt;code&gt;:w&lt;/code&gt; to save, &lt;code&gt;:help&lt;/code&gt; for documentation and &lt;code&gt;:q&lt;/code&gt; to quit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!&lt;/p&gt;
+&lt;p&gt;&lt;a class="navlinkleft" href="/your-first-lesson-in-vim-1"&gt;← Prev&lt;/a&gt; &lt;a class="navlinkright" href="/your-first-lesson-in-vim-3"&gt;Next →&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="attributions"&gt;Attributions:&lt;/h4&gt;
+&lt;p&gt;Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)&lt;/p&gt;
+&lt;p&gt;Vim Comic image - https://comic.browserling.com/vim.png&lt;/p&gt;</content><category term="Linux"></category><category term="VimFirstLesson"></category><category term="Vim"></category><category term="Gvim"></category></entry><entry><title>Introduction &amp; Installation | Your First Lesson In Vim</title><link href="/your-first-lesson-in-vim-1" rel="alternate"></link><published>2016-09-24T21:20:00+05:30</published><updated>2016-09-24T21:20:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-09-24:/your-first-lesson-in-vim-1</id><summary type="html">&lt;p&gt;This is the first article in a series of articles titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first article in a series of articles titled, "&lt;a href="/tags/vimfirstlesson"&gt;Your First Lesson In Vim&lt;/a&gt;". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. This series is going to put an end to all of that.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt; : After going through all the articles in this series you will love Vim so much that you would like to have Vim style keyboard bindings everywhere, in your browser, in your mail client, in your shell and every other place which has a text input, which might not always be possible. Proceed further at your own risk. YOU HAVE BEEN WARNED!&lt;/p&gt;
+&lt;p&gt;Vim is one of the best text editors available out there in the market. In fact it is one of the two best editors, the other being Emacs (This would be the last you'll see its name. From here on, it will be referred to as, &lt;em&gt;The Editor which shall not be named&lt;/em&gt; ). Now you might be wondering, what about Sublime Text ? or Atom ? or some other flashy editor that's getting attention. My answer to that is very simple - East or West, Vim is the best. Don't get me wrong, editors like Sublime, Atom are good and I was a fan of Sublime myself. But to be called the best, a Text Editor needs to customizable, extensible and most importantly should have a huge community of users helping out each other. None of these editors can beat Vim in those areas. Apart from that Vim is really fast and robust. It can open huge files that makes other editors crash. It has builtin syntax support for hundred's of file types. It has a huge plugin base that both extend vim's functionality and add more functionality to do pretty much any thing you want. And that's just a few reasons why its the best.&lt;/p&gt;
+&lt;p&gt;Since you are reading this article, I assume that you're interested in learning about what Vim is and about what Vim does. So, Let's start with some brief history of how the Vim editor came to be.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In 1970's, Bill Joy developed &lt;strong&gt;ex&lt;/strong&gt; editor for Unix which later came to be known as the &lt;em&gt;Vi&lt;/em&gt; editor for having a &lt;em&gt;Vi&lt;/em&gt;sual interface for editing.&lt;/li&gt;
+&lt;li&gt;1987 - &lt;strong&gt;Stevie&lt;/strong&gt; was developed as a clone of Vi for Atari ST systems. Stevie stands for 'ST Editor for Vi Enthusiasts'. The name might be a mouthful but the editor itself is quite popular.&lt;/li&gt;
+&lt;li&gt;1988 - Vim (Vi IMitation) was created by Bram Moolenaar (Remember the name ..) as a port of Stevie for AmigaOS. Though started as an imitation, Vim quickly started to add several new features with support for multiple operating systems.&lt;/li&gt;
+&lt;li&gt;1993 - Vim 2.0 released with name changed to 'Vi IMproved' because, by then Vim had a lot more features than original Vi.
+    .
+    . Fast forwarding history
+    .&lt;/li&gt;
+&lt;li&gt;2006 - Vim 7.0 released with support for tabs, code completion, undo branching and a lot more&lt;/li&gt;
+&lt;li&gt;2016 - Vim 8.0 released with a lot of exciting features like Asynchronous I/O, channels, Jobs, Timers, Packages and a lot more&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(Shout out to &lt;a href="https://buildingvts.com/a-brief-history-of-vim-1476ec4a6eb8#.dyvv00erx"&gt;buildingvts.com&lt;/a&gt; for putting this history together)&lt;/p&gt;
+&lt;p&gt;So, as you can see from our brief Time travel, Vim has been around for almost 30 years. Now you might be asking yourself, why the heck is this editor still used today after almost 30 years. That's a good question and one that needs to answered right now.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Floppy disks" class="aligncenter" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Floppy_disk_2009_G1.jpg/800px-Floppy_disk_2009_G1.jpg" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;Technology sure changes a lot and old things usually tend to get lost with all the new things that keep coming. But in the case of Vim or &lt;em&gt;The Editor which shall not be named&lt;/em&gt;, that is simply not the case. They fall in to the category of "Old is Gold". These editors are written during the days when floppy disks and magnetic tapes were all the rage and hence are written to be memory efficient. Though Vim has changed a lot over the years to add countless new features, the fundamental idea of being light weight and memory efficient is still one of its big selling points. That is the reason why Vim managed to stay relevant through three decades and that is also the reason why it will continue to be relevant for more decades to come.&lt;/p&gt;
+&lt;p&gt;So, If that answer convinced you to stay the course and explore the exciting and enticing world of Vim, then Welcome aboard! Make sure to remember that this is the day you have decided to take your text editing to the next level by learning Vim.&lt;/p&gt;
+&lt;p&gt;Now that we know the history of Vim, its time to install Vim on your Computers. If you are rocking a Linux Operating system, chances are you already have a version of Vim pre-installed. So, check if it exists by typing &lt;code&gt;vi&lt;/code&gt; or &lt;code&gt;vim&lt;/code&gt; in the command line. If it is available, you should see a screen that looks something like this.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Vim start screen image here" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_start_screen.png" width="450"&gt;&lt;/p&gt;
+&lt;p&gt;If you see this then Vim is already installed.&lt;/p&gt;
+&lt;p&gt;If you don't have it installed, don't worry. Vim is a freeware (correction: Charity ware) and so you can download it for free from Vim's official site &lt;a href="http://www.vim.org/"&gt;Vim.org&lt;/a&gt;. Vim is available for pretty much every major Operating system out there. I heard that there is a version of Vim available even for Toasters. I have no idea who might use that, but its there if you need it. And this is another reason why people like vim so much.No matter the OS, they can be sure that their favorite editor is available. So, Just download vim for your operating system and install it.&lt;/p&gt;
+&lt;p&gt;And by the way, did I mention that Vim is primarily a terminal based program? It was initially designed to be run in terminals to access files on remote systems. A lot of people to this day, prefer the terminal version of Vim. But to those of you who like to have a Graphical User Interface (GUI) you've that available as well.&lt;/p&gt;
+&lt;p&gt;For windows users, it can be downloaded from the vim.org site. Look for Gvim (stands for Graphical Vim) For mac users, you can download Mac Vim which provides a good GUI experience. For Linux users, there are Gvim versions available for most of the distros. So, download the one suitable for your distribution.&lt;/p&gt;
+&lt;p&gt;If you have successfully installed Vim on your systems open Vim either in Terminal or the GUI and you should see a welcome screen similar to the picture above. If you got that, then Congratulations, you have the power of Vim with you now.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don't forget what Uncle Ben said, "With great power comes, great responsibility". So, your responsibility as a Vim user is to spread the vim awesomeness with your co-workers and friends. It would be even better if you can share this article with them but that is entirely up to you. (Jedi mind tricks working implicitly)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;And before we finish this article I will give you a sneak peak at the power of Vim and what you can do with it. Watch Damian Conway's Video on Vim : &lt;a href="https://www.youtube.com/watch?v=aHm36-na4-4"&gt;More Instantly better Vim&lt;/a&gt;. Conway is one of the Vim geniuses whom I admire.. This video gives you a small window in to the world of Vim and what Vim can do in the hands of a seasoned user. You might not be able to  understand how Conway is doing his magic but that is entirely fine. You obviously won't be able to understand Linux Kernel module code  when you're just starting to write &lt;em&gt;Hello World&lt;/em&gt; programs. This video is just to show you how the masters use Vim and you will be able to do that too once you've mastered it.&lt;/p&gt;
+&lt;p&gt;Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!&lt;/p&gt;
+&lt;p&gt;&lt;a href="/your-first-lesson-in-vim-2"&gt;Next →&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="attributions"&gt;Attributions:&lt;/h4&gt;
+&lt;p&gt;Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)&lt;/p&gt;
+&lt;p&gt;Floppy Disks - https://goo.gl/0Ns2Dj&lt;/p&gt;</content><category term="vim"></category><category term="gvim"></category><category term="VimFirstLesson"></category></entry><entry><title>Word Count application with Apache Spark and Java</title><link href="/spark-word-count-with-java" rel="alternate"></link><published>2016-06-23T05:30:00+05:30</published><updated>2016-06-23T05:30:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-06-23:/spark-word-count-with-java</id><summary type="html">&lt;p&gt;Apache Spark is becoming ubiquitous by day and has been dubbed the next big thing in the Big Data world. Spark has been replacing MapReduce with its speed and scalability. In this series of articles on Spark we will try to solve various problems using &lt;a href="/tags/spark"&gt;Spark&lt;/a&gt; and &lt;a href="/tags/java"&gt;Java&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="spark-java-freblogg" src="http://www.datanami.com/wp-content/uploads/2014/12/spark-and-java-8.png"&gt;&lt;/p&gt;
+&lt;p&gt;Word count …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Apache Spark is becoming ubiquitous by day and has been dubbed the next big thing in the Big Data world. Spark has been replacing MapReduce with its speed and scalability. In this series of articles on Spark we will try to solve various problems using &lt;a href="/tags/spark"&gt;Spark&lt;/a&gt; and &lt;a href="/tags/java"&gt;Java&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="spark-java-freblogg" src="http://www.datanami.com/wp-content/uploads/2014/12/spark-and-java-8.png"&gt;&lt;/p&gt;
+&lt;p&gt;Word count program is the big data equivalent of the classic &lt;em&gt;Hello world&lt;/em&gt; program. The aim of this program is to scan a text file and display the number of times a word has occurred in that particular file. And for this word count application we will be using Apache spark 1.6 with Java 8.  &lt;/p&gt;
+&lt;p&gt;For this program, we will be running spark in a stand alone mode. So you don't need to setup a cluster. Even Hadoop is not required for this exercise. Assuming you have Spark, Java and Maven installed properly, let's proceed.&lt;/p&gt;
+&lt;h3 id="creating-pomxml"&gt;Creating pom.xml&lt;/h3&gt;
+&lt;p&gt;To compile Java programs with Maven, you will need a pom.xml file with the required dependencies. Use this pom.xml file if you don't have one available with you.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.freblogg.sparklearning&lt;span class="nt"&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;freblogg-spark-tutorial&lt;span class="nt"&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;modelVersion&amp;gt;&lt;/span&gt;4.0.0&lt;span class="nt"&gt;&amp;lt;/modelVersion&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;name&amp;gt;&lt;/span&gt;example&lt;span class="nt"&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;packaging&amp;gt;&lt;/span&gt;jar&lt;span class="nt"&gt;&amp;lt;/packaging&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.0.1&lt;span class="nt"&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class="c"&gt;&amp;lt;!-- Spark dependency --&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.spark&lt;span class="nt"&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spark-core_2.10&lt;span class="nt"&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.6.1&lt;span class="nt"&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;provided&lt;span class="nt"&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;java.version&amp;gt;&lt;/span&gt;1.8&lt;span class="nt"&gt;&amp;lt;/java.version&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;encoding&amp;gt;&lt;/span&gt;UTF-8&lt;span class="nt"&gt;&amp;lt;/encoding&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;spark.version&amp;gt;&lt;/span&gt;1.6.1&lt;span class="nt"&gt;&amp;lt;/spark.version&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;pluginManagement&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class="nt"&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-compiler-plugin&lt;span class="nt"&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.3&lt;span class="nt"&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;lt;source&amp;gt;&lt;/span&gt;${java.version}&lt;span class="nt"&gt;&amp;lt;/source&amp;gt;&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;lt;target&amp;gt;&lt;/span&gt;${java.version}&lt;span class="nt"&gt;&amp;lt;/target&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class="nt"&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-plugin-plugin&lt;span class="nt"&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.3&lt;span class="nt"&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/pluginManagement&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now, save this file as pom.xml and put it in the same folder as your &lt;strong&gt;src&lt;/strong&gt; directory.  &lt;/p&gt;
+&lt;h3 id="input-file"&gt;Input File&lt;/h3&gt;
+&lt;p&gt;After creating the POM file, you will need an input file on which we will run our Wordcount program, to count the number of occurrences of each word. This is the file I will be using. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;It is close to midnight and something evil is lurking in the dark
+Under the moonlight you see a sight that almost stops your heart
+You try to scream but terror takes the sound before you make it
+You start to freeze as horror looks you right between the eyes
+You are paralyzed
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/blockquote&gt;
+&lt;h3 id="java-program"&gt;Java Program&lt;/h3&gt;
+&lt;p&gt;Once we have the pom file ready, we can start with the code.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;org.apache.spark.api.java.*&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;org.apache.spark.SparkConf&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;scala.Tuple2&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.util.Arrays&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;WordCount&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+ &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+  &lt;span class="n"&gt;SparkConf&lt;/span&gt; &lt;span class="n"&gt;conf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;SparkConf&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;setMaster&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;local&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setAppName&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;wordCount&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;JavaSparkContext&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;JavaSparkContext&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Load our input data.&lt;/span&gt;
+  &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;inputFile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;file:///home/dsp/Desktop/sparkExamples/sample_testing/resources/inputFile&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+  &lt;span class="n"&gt;JavaRDD&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;input&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;textFile&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inputFile&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+  &lt;span class="c1"&gt;// Split in to list of words&lt;/span&gt;
+  &lt;span class="n"&gt;JavaRDD&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;words&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;flatMap&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Arrays&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;asList&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;split&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;)));&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Transform into pairs and count.&lt;/span&gt;
+  &lt;span class="n"&gt;JavaPairRDD&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Integer&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pairs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;mapToPair&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Tuple2&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
+
+  &lt;span class="n"&gt;JavaPairRDD&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Integer&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;counts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pairs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;reduceByKey&lt;/span&gt;&lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+
+  &lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;out&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;println&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;counts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;collect&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
+ &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3 id="execution"&gt;Execution&lt;/h3&gt;
+&lt;p&gt;Once we have everything ready, its time to execute our program and see the output.&lt;br&gt;
+To compile it, first execute this in the directory with the pom file.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; mvn clean &amp;amp;&amp;amp; mvn compile &amp;amp;&amp;amp; mvn package 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will take sometime to run the first time because maven will have to download and install the dependencies. After successful compilation, It creates the &lt;em&gt;target&lt;/em&gt; folder and a jar file named freblogg-spark-tutorial-0.0.1.jar.  &lt;/p&gt;
+&lt;p&gt;Then to execute the program you need to run the spark-submit script in your SPARK_HOME folder.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; $SPARK_HOME/bin/spark-submit --class &amp;quot;WordCount&amp;quot; target/freblogg-spark-tutorial-0.0.1.jar
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once this command is executed your screen will be completely filled with spark logs. If you scroll a bit to the top, you will see the following output, which is the output we are interested in.  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;{.prettyprint}
+ [(freeze,1), (are,1), (Under,1), (it,1), (is,2), (you,3), (takes,1), (lurking,1), (right,1), (that,1), (a,1), (You,3), (terror,1), (start,1), (dark,1), (between,1), (scream,1), (before,1), (to,3), (as,1), (in,1), (moonlight,1), (sound,1), (midnight,1), (see,1), (stops,1), (sight,1), (try,1), (something,1), (paralyzed,1), (evil,1), (It,1), (eyes,1), (make,1), (almost,1), (but,1), (and,1), (close,1), (heart,1), (looks,1), (your,1), (horror,1), (the,4)]&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That is the counts of each word in the file. So, there you go. You have successfully written your first Spark application. Congratulations. You're officially a Spark programmer now!  &lt;/p&gt;
+&lt;h3 id="understanding-the-code"&gt;Understanding the code&lt;/h3&gt;
+&lt;p&gt;Now that we have our application set up, let's see what the program is doing, step by step.&lt;/p&gt;
+&lt;p&gt;First we have the spark variables sc and conf. Don't worry too much about them right now. All you need to know is that every Spark program needs those two lines.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; SparkConf conf = new SparkConf().setMaster(&amp;quot;local&amp;quot;)                                                        .setAppName(&amp;quot;wordCount&amp;quot;);
+  JavaSparkContext sc = new JavaSparkContext(conf); 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, just copy paste the lines in every application you are going to work on.&lt;/p&gt;
+&lt;p&gt;Next we are reading the input file using RDD's. RDD's are essentially blob's of text that you read from various sources and you can transform them in to whatever you want using various operations.  Here we are reading the input file from our local file system. If you want to read from HDFS, then replace the &lt;strong&gt;file:///&lt;/strong&gt; with &lt;strong&gt;hdfs:///&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; &lt;span class="nt"&gt;String&lt;/span&gt; &lt;span class="nt"&gt;inputFile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;file:///home/dsp/Desktop/sparkExamples/sample_testing/resources/inputFile&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;JavaRDD&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;String&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;sc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;textFile&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;inputFile&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then we have our first transformation operation on the input RDD we have created in the above step.&lt;/p&gt;
+&lt;p&gt;Flat Map is an inbuilt function that takes one input and can provide any number of outputs depending on the operations used inside it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; JavaRDD &amp;lt;String&amp;gt; words = input.flatMap(l -&amp;gt; Arrays.asList(l.split(&amp;quot; &amp;quot;))); 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we are splitting the sentence on white space characters. So, the flatmap function here returns a list of all the words in the input document and that will be stored in the RDD named words. For more about Flatmap, read this : &lt;a href="/apache-spark-map-vs-flatmap"&gt;Spark FlatMap and Map&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Next, we have another transformation &lt;em&gt;mapToPair&lt;/em&gt; that returns a Tuple of word and the number 1.&lt;/p&gt;
+&lt;p&gt;And, a Tuple is very similar to ordered pairs in Cartesian coordinate system. Tuple2 looks like (x,y), where x is the Key. Similarly Tuple3 will be (x,y,z) and so on.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; JavaPairRDD&amp;lt;String, Integer&amp;gt; pairs = words.mapToPair(w -&amp;gt; new Tuple2(w, 1));
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As an example, the word &lt;strong&gt;&lt;em&gt;you &lt;/em&gt;&lt;/strong&gt;in the input will be mapped to &lt;strong&gt;&lt;em&gt;(you,1)&lt;/em&gt;&lt;/strong&gt; by &lt;code&gt;mapToPair&lt;/code&gt; function. And, since the result is a pair, we have to store it in a &lt;code&gt;JavaPairRDD&lt;/code&gt; which supports pairs.&lt;/p&gt;
+&lt;p&gt;And, then we are doing the final transformation on the pairs that will add up individual counts of each word.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;JavaPairRDD &amp;lt;String, Integer&amp;gt; counts = pairs.reduceByKey((x, y) -&amp;gt; x + y);
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;ReduceByKey&lt;/code&gt; method groups all the Tuple pairs with the same key. We have the word 'you' repeated thrice and so we have (you,1) three times. Now, &lt;strong&gt;&lt;em&gt;(you,1)&lt;/em&gt;&lt;/strong&gt; , &lt;strong&gt;&lt;em&gt;(you,1)&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;(you,1)&lt;/em&gt;&lt;/strong&gt; will become &lt;em&gt;(you,3) &lt;/em&gt; because of&lt;em&gt; &lt;/em&gt; the sum we are doing inside the function&lt;em&gt;.&lt;/em&gt; And similarly for the other words. &lt;/p&gt;
+&lt;p&gt;Then finally we are performing an action on the RDD which is where the actual computation of all the above steps takes place. &lt;em&gt;collect()&lt;/em&gt; will return all the elements in the RDD and we are printing that using &lt;code&gt;println&lt;/code&gt;, giving us the output we want.  &lt;/p&gt;
+&lt;p&gt;So there you go, Your first Spark application completed. To learn more go through the documentation and examples given on the Spark's webpage and subscribe to Freblogg for more tutorials.  &lt;/p&gt;
+&lt;p&gt;Happy Sparking! &lt;/p&gt;
+&lt;p&gt;Image : http://www.datanami.com/wp-content/uploads/2014/12/spark-and-java-8.png  &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Self Promotion:  &lt;/p&gt;
+&lt;p&gt;If you have liked this article and would like to see more, subscribe to our Facebook and G+ pages.  &lt;/p&gt;
+&lt;p&gt;Facebook page @ &lt;a href="https://www.facebook.com/freblogg"&gt;Facebook.com/freblogg&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;Google Plus Page @ &lt;a href="https://plus.google.com/102904658212987164302"&gt;Google.com/freblogg&lt;/a&gt;&lt;/p&gt;</content><category term="Programming"></category><category term="Java"></category><category term="Wordcount"></category><category term="Apache Spark"></category><category term="Maven"></category><category term="Hadoop"></category></entry><entry><title>Apache Spark | Map and FlatMap</title><link href="/apache-spark-map-vs-flatmap" rel="alternate"></link><published>2016-06-19T03:12:00+05:30</published><updated>2016-06-19T03:12:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2016-06-19:/apache-spark-map-vs-flatmap</id><summary type="html">&lt;p&gt;Map and FlatMap functions transform one collection in to another just like the map and flatmap functions in several other functional languages. In the context of Apache Spark, they transform one RDD in to another RDD.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Apache Spark Logo" height="212" src="https://spark.apache.org/images/spark-logo-trademark.png" width="400"&gt;&lt;/p&gt;
+&lt;p&gt;Here is how they differ from each other.  &lt;/p&gt;
+&lt;h2 id="map"&gt;Map&lt;/h2&gt;
+&lt;p&gt;Map converts an RDD of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Map and FlatMap functions transform one collection in to another just like the map and flatmap functions in several other functional languages. In the context of Apache Spark, they transform one RDD in to another RDD.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Apache Spark Logo" height="212" src="https://spark.apache.org/images/spark-logo-trademark.png" width="400"&gt;&lt;/p&gt;
+&lt;p&gt;Here is how they differ from each other.  &lt;/p&gt;
+&lt;h2 id="map"&gt;Map&lt;/h2&gt;
+&lt;p&gt;Map converts an RDD of size ’n’ in to another RDD of size ‘n’. The input and output size of the RDD's will be the same. Or to put it in another way, [one element in input gets mapped to only one element in the output.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Map venn diagram" height="125" src="https://qphs.fs.quoracdn.net/main-qimg-0cb8323fcae6acb7b6206bd000e0fd14.webp" width="320"&gt;&lt;/p&gt;
+&lt;p&gt;So, for example let’s say I have an array [1,2,3,4] and I want to increment each element by 10. The input size and output size are same, so we can use map for this transformation.&lt;/p&gt;
+&lt;p&gt;Required :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[1,2,3,4] -&amp;gt; [11,12,13,14]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Spark code :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;myRdd.map(x -&amp;gt; x+10)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, that is what &lt;em&gt;map&lt;/em&gt; function does. While using map, you can be sure that the size of input and output will remain the same and so even if you put a hundred map functions in series, the output and the input will have the same number of elements.&lt;/p&gt;
+&lt;h3 id="flatmap"&gt;FlatMap&lt;/h3&gt;
+&lt;p&gt;Coming to FlatMap, it does a similar job. Transforming one collection to another. Or in spark terms, one RDD to another RDD. But there is no condition that output size has to be equal to the input size. Or to put it in another way, [one element in input can map to zero or more elements in the output.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Flatmap venn diagram" height="174" src="https://qphs.fs.quoracdn.net/main-qimg-90a70c401636ad8d53ad0821a1deec95.webp" width="320"&gt;&lt;/p&gt;
+&lt;p&gt;Also, the output of flatMap is flattened . Though the function in flatMap returns a list of element(s) for each individual element of the input, the output of FlatMap will be an RDD which has all the elements flattened to a single list.&lt;/p&gt;
+&lt;p&gt;Let’s see this with an example.&lt;/p&gt;
+&lt;p&gt;Say you have a text file as follows&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Hello World
+Who are you
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now, if you run a flatMap on the textFile rdd,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;words = linesRDD.flatMap(x -&amp;gt; List(x.split(“ “)))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And, the value in the words RDD would be,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[“Hello”, “World”, “Who”, “are”, “you”]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;so, the transformation process looks like this,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; linesRDD -&amp;gt; [ [“Hello”, “World”],[“Who”,”are”,”you”] ]
+          -&amp;gt; [“Hello”, “World”, “Who”, “are”, “you”]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, those are the differences between Map and FlatMap of Apache Spark.&lt;br&gt;
+Keep Practicing and Keep Learning!&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you have liked this article and would like to see more, subscribe to our Facebook and G+ pages.&lt;br&gt;
+Facebook page @ &lt;a href="https://www.facebook.com/freblogg"&gt;Facebook.com/freblogg&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Google Plus Page @ &lt;a href="https://plus.google.com/102904658212987164302"&gt;Google.com/freblogg&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Image Credits : http://spark.apache.org/images/spark-logo-trademark.png&lt;/p&gt;</content><category term="java"></category><category term="spark"></category><category term="map"></category><category term="flatmap"></category></entry><entry><title>Matrix Rain / Falling Matrix code : Notepad trick</title><link href="/matrix-rain-falling-matrix-code-notepad" rel="alternate"></link><published>2013-05-11T21:16:00+05:30</published><updated>2013-05-11T21:16:00+05:30</updated><author><name>Durga Swaroop Perla</name></author><id>tag:None,2013-05-11:/matrix-rain-falling-matrix-code-notepad</id><summary type="html">&lt;p&gt;Have you watched the movie matrix? If you have watched it you would surely have noticed the green coded numbers running up and down (also called &lt;em&gt;Matrix Rain&lt;/em&gt;) on the screen. In this That falling code trick is very easy to create on your own. Now, I'll show you how …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Have you watched the movie matrix? If you have watched it you would surely have noticed the green coded numbers running up and down (also called &lt;em&gt;Matrix Rain&lt;/em&gt;) on the screen. In this That falling code trick is very easy to create on your own. Now, I'll show you how to do that.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="matrix movie stype command prompt" height="450" src="http://3.bp.blogspot.com/-bJ48CNFmyh8/UY5oSpXzn5I/AAAAAAAAAsE/PaR4cYZMTe8/s1600/matric+blog.png"&gt;&lt;/p&gt;
+&lt;h2 id="steps-to-generate-failling-matrix-code"&gt;Steps To  Generate  Failling  Matrix Code&lt;/h2&gt;
+&lt;p&gt;1)Open Notepad on your computer&lt;br&gt;
+2)Copy and paste the following code in to it  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;echo&lt;/span&gt; off
+&lt;span class="k"&gt;color&lt;/span&gt; 02
+&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;start&lt;/span&gt;
+&lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt; &lt;span class="nv"&gt;%random%&lt;/span&gt;
+&lt;span class="k"&gt;goto&lt;/span&gt; &lt;span class="nl"&gt;start&lt;/span&gt;&lt;span class="c1"&gt; &lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;3)Save it with any name you wish, but with the extension '.bat' (.bat stands for batch file). Save it wherever you want  in your file system.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="save the batch file" height="161" src="http://4.bp.blogspot.com/-_99MKgY-jWs/UY5gpc4H_KI/AAAAAAAAArg/Vf7KRr27QqE/s1600/pic1.png" width="640"&gt;&lt;/p&gt;
+&lt;p&gt;4)Now, double click on the file and feel like a bad ass programmer. Try showing this to your friends and feel proud of yourself when they look high of you.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="matrix failling live demo" src="http://4.bp.blogspot.com/-0G46z9Qs4b0/UY5hdyrRiVI/AAAAAAAAArw/Q5tjd2cKtc0/s1600/matrix.gif"&gt;&lt;/p&gt;
+&lt;p&gt;Watch the youtube video explaining the same&lt;/p&gt;
+&lt;iframe width="879" height="549" src="https://www.youtube.com/embed/kz5EzwswOFA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;5)You can also change the color of the numbers by changing the 'color 02' in the code to what ever number you want&lt;br&gt;
+Following are the colors for various possible numbers&lt;br&gt;
+&lt;br&gt;
+            00 - Black colored                                        &lt;br&gt;
+            01 - Blue&lt;br&gt;
+            02 - Green                                                    &lt;br&gt;
+            03 - Aqua Blue (greenish blue)&lt;br&gt;
+            04 - Red                                                       &lt;br&gt;
+            05 - Purple&lt;br&gt;
+            06 - Yellow                                                   &lt;br&gt;
+            07 - White&lt;br&gt;
+            08 - Grey                                                      &lt;br&gt;
+            09 - Light Blue&lt;br&gt;
+            0A - Light Green                                           &lt;br&gt;
+            0B - Light Aqua Blue&lt;br&gt;
+            0C - Light Red                                              &lt;br&gt;
+            0D - Light Purple&lt;br&gt;
+            0E - Light Yellow                                          &lt;br&gt;
+            0F - Bright White  &lt;/p&gt;
+&lt;p&gt;6)To change the background change the first digit of the number&lt;br&gt;
+Some examples are:&lt;br&gt;
+             1X - Blue Background + color of the letters corresponding to the number X&lt;br&gt;
+             2X - Green Background + Color of the letters corresponding to X&lt;br&gt;
+             AX - Light Green Background + Corresponding color of letters&lt;br&gt;
+            So on and you can keep going  &lt;/p&gt;
+&lt;p&gt;If No Argument is given, this command restores the color to what it was when CMD.EXE started. This value either comes from the current console window or from the DefaultColor registry value           &lt;/p&gt;
+&lt;p&gt;Thanks for stopping by. For more interesting and awesome tricks and tweaks subscribe to our blog feed.  &lt;/p&gt;</content><category term="How To"></category></entry></feed>

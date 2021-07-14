@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Publish Articles To Your Medium Blog In One Second</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/publish-articles-to-your-medium-blog" rel="bookmark"
+           title="Permalink to Publish Articles To Your Medium Blog In One Second">Publish Articles To Your Medium Blog In One Second</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-29T19:57:00+05:30">
+                Published: Fri 29 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/blogging-tips">Blogging tips</a> <a href="/tags/programming">Programming</a> <a href="/tags/python">Python</a> <a href="/tags/api">API</a> </p>
+</footer><!-- /.post-info -->      <p>In my article <a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a>, I have talked about my blogging workflow. There were two main things (actually one thing) in that flow that were not automated. i.e., automatically Uploading to Blogger and automatically Uploading to Medium. I have talked about the first one <a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901">here</a>. This article is about uploading posts to Medium automatically.</p>
+<p><img alt="Medium Logo" class="aligncenter" src="https://cdn.hashnode.com/res/hashnode/image/upload/w_400,h_300,c_thumb/z6odfvngwx1gp60murhe/1473332149.png"> </p>
+<p>Developer documentation for Medium is a breath of fresh air after the mess that is Google API’s. Of course, Google API’s are complex because they have so many different services, but they could’ve done a better job at organizing all that stuff. Anyway, Let’s see how you can use Medium API’s.</p>
+<h3 id="setting-up">Setting Up</h3>
+<p>We don’t really need any specific dependencies for what we’re doing in this article. You can do everything with <code>urllib</code> which is already part of the python standard library. I’ll be using <code>requests</code> as well to make it a bit more simpler but you can achieve the same without it.</p>
+<h3 id="getting-the-access-token">Getting the access token</h3>
+<p>To authenticate yourself with Medium, you need to get an access token that you’ll pass along to every request. There are two ways to get that token.</p>
+<ol>
+<li>Browser-based authentication</li>
+<li>Self-issues access tokens</li>
+</ol>
+<p>Which one you should go with, depends on what kind of application you’re trying to build. As you can probably guess based on the title, we’ll be covering the second method in this article. The first method needs an authentication server setup which can accept callback from Medium. But, since at this moment, I don’t have that setup, I’m going with the second option.</p>
+<p>The Self-issued access tokens method is quite easy to work with as you directly take the <code>access token</code> without having to have the user authenticate via the browser.</p>
+<p>To get the access token, Go to <a href="https://medium.com/me/settings">Profile Settings</a> and scroll down till you see <code>Integration tokens</code> section.</p>
+<p><img alt="Medium Integration tokens" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/7.Medium-integration-tokens-section.png"> </p>
+<p>There enter some description for what you’re going to use this token and click on <code>Get integration token</code>. Copy that generated token which looks something like <code>181d415f34379af07b2c11d144dfbe35d</code> and save it some where to be used in your program.</p>
+<h3 id="using-access-token-to-access-medium">Using Access token to access Medium</h3>
+<p>Once you have the access token, you’ll use that token as your password and send it along with every request to get the required data.</p>
+<p>Let’s get started then. As, I’ve said we’ll be using <code>requests</code> library for url connections. We’ll also be using the <code>json</code> libary for parsing the responses. So, Let’s import them.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+
+
+<p>Then use <code>access_token</code> you’ve got and put it in a <code>headers</code> dictionary.</p>
+<div class="highlight"><pre><span></span>access_token = &#39;181d415f34379af07b2c11d144dfbe35d&#39;
+headers = {
+    &#39;Authorization&#39;: &quot;Bearer &quot; + access_token,
+    &#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36&#39;
+}
+</pre></div>
+
+
+<p>The <code>User-Agent</code> in the above dictionary is required as Medium won’t accept your request otherwise. You don’t have to have the same value as I did.</p>
+<h4 id="validating-the-access-token">Validating the access token</h4>
+<p>First thing to check is if the access_token is valid. You can do that by making a <code>GET</code> request to <code>https://api.medium.com/v1/me</code> and checking the response.</p>
+<div class="highlight"><pre><span></span>me_url = base_url + &#39;me&#39;
+me_req = ureq.Request(me_url, headers=headers)
+me_response = ureq.urlopen(me_req).read()
+json_me_response = json.loads(me_response)
+print(json_me_response)
+</pre></div>
+
+
+<p>And, when I print the <code>json_me_response</code>, which is a json object, I get the following:</p>
+<div class="highlight"><pre><span></span>{
+&quot;data&quot;: {
+  &quot;id&quot;:&quot;5303d74c64f66366f00cb9b2a94f3251bf5adskak7623as&quot;,
+  &quot;username&quot;:&quot;durgaswaroop&quot;, 
+  &quot;name&quot;:&quot;Durga swaroop Perla&quot;, 
+  &quot;url&quot;:&quot;https://medium.com/@durgaswaroop&quot;,
+  &quot;imageUrl&quot;:&quot;https://cdn-images-1.medium.com/fit/c/400/400/0*qVDXEHT9DDYUOcrj.&quot;
+  }
+}
+</pre></div>
+
+
+<p>If we got that response like above, then we know that the access token we have is valid.</p>
+<p>From there, I extract, the <code>user_id</code> from the JSON string, with</p>
+<div class="highlight"><pre><span></span>user_id = json_me_response[&#39;data&#39;][&#39;id&#39;]
+</pre></div>
+
+
+<h4 id="get-users-publications">Get User’s Publications</h4>
+<p>From the above request, we’ve validated that the access token is correct and we also have got the <code>user_id</code>. Using that we can get access to the publications of a user. For that, we’ve to make a <code>GET</code> to <code>https://api.medium.com/v1/users/{{userId}}/publications</code> and you’ll see the list of the publications by that user.</p>
+<div class="highlight"><pre><span></span>user_url = base_url + &#39;users/&#39; + user_id
+publications_url = user_url + &#39;publications/&#39;
+publications_req = ureq.Request(publications_url, headers=headers)
+publications_response = ureq.urlopen(publications_req).read()
+print(publications_response)  
+</pre></div>
+
+
+<p>I don’t have any publications on my medium account, and so I got an empty array as response. But, if you have some publications, the response will be something like this.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;b969ac62a46b&quot;</span><span class="p">,</span>
+      <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;About Medium&quot;</span><span class="p">,</span>
+      <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;What is this thing and how does it work?&quot;</span><span class="p">,</span>
+      <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;https://medium.com/about&quot;</span><span class="p">,</span>
+      <span class="s">&quot;imageUrl&quot;</span><span class="o">:</span> <span class="s">&quot;https://cdn-images-1.medium.com/fit/c/200/200/0*ae1jbP_od0W6EulE.jpeg&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;b45573563f5a&quot;</span><span class="p">,</span>
+      <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;Developers&quot;</span><span class="p">,</span>
+      <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;Medium’s Developer resources&quot;</span><span class="p">,</span>
+      <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;https://medium.com/developers&quot;</span><span class="p">,</span>
+      <span class="s">&quot;imageUrl&quot;</span><span class="o">:</span> <span class="s">&quot;https://cdn-images-1.medium.com/fit/c/200/200/1*ccokMT4VXmDDO1EoQQHkzg@2x.png&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Now, one weird thing about Medium’s API is that they don’t have a <code>GET</code> for posts. From the API’s we can get a list of all the publications but you can’t get a user’s posts. You can only publish a new post. Although, it is odd for that to be missing, It is not something I’m looking for anyway, as I am only interested in publishing an article. But if you need that, you probably should check to see if there are any hacky ways of achieving the same (at your own volition).</p>
+<h4 id="create-a-new-post">Create a New Post</h4>
+<p>To create a new post, we have to make a <code>POST</code> request to <code>https://api.medium.com/v1/users/{{authorId}}/posts</code>. The <code>authorId</code> here would be the same as the <code>userId</code> of the user whose access-token you have.</p>
+<p>I’m using <code>requests</code> library for this as making a <code>POST</code> request becomes easy with it. Of course, first you need to create a payload to be uploaded. The payload should look something like the following, as described <a href="https://github.com/Medium/medium-api-docs#33-posts">here</a></p>
+<div class="highlight"><pre><span></span>    {
+      &quot;title&quot;: &quot;Liverpool FC&quot;,
+      &quot;contentFormat&quot;: &quot;html&quot;,
+      &quot;content&quot;: &quot;<span class="nt">&lt;h1&gt;</span>Liverpool FC<span class="nt">&lt;/h1&gt;&lt;p&gt;</span>You’ll never walk alone.<span class="nt">&lt;/p&gt;</span>&quot;,
+      &quot;tags&quot;: [&quot;football&quot;, &quot;sport&quot;, &quot;Liverpool&quot;],
+      &quot;publishStatus&quot;: &quot;public&quot;
+    }
+</pre></div>
+
+
+<p>So, for this, I did the following:</p>
+<div class="highlight"><pre><span></span>posts_url = user_url + &#39;posts/&#39;
+
+payload = {
+    &#39;title&#39;: &#39;Medium Test Post&#39;,
+    &#39;contentFormat&#39;: &#39;markdown&#39;,
+    &#39;tags&#39;: [&#39;medium&#39;, &#39;test&#39;, &#39;python&#39;],
+    &#39;publishStatus&#39;: &#39;draft&#39;,
+    &#39;content&#39;: open(&#39;7.Test_post.md&#39;).read()
+}
+
+response = requests.request(&#39;POST&#39;, posts_url, data=payload, headers=headers)
+print(response.text)
+</pre></div>
+
+
+<p>As you see, for <code>contentFormat</code>, I’ve set <code>markdown</code> and for <code>content</code> I read it straight from the file. I didn’t want to publish this as it is just a dummy post and so I’ve set the <code>publishStatus</code> to <code>draft</code>. And sure enough, it works as expected and I can see this draft added on my account.</p>
+<p><img alt="Draft post" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/blogimages/master/7.Medium-draft-posts.png"> </p>
+<p>Do note that the <code>title</code> in the payload object won’t actually be the title of the article. If you want to have a title, you add it in the <code>content</code> itself as a <code>&lt;h*&gt;</code> tag.</p>
+<p>The full code is available as a gist.</p>
+<script src="https://gist.github.com/durgaswaroop/a0c5e1f772ec231d2254db43e2b26b93.js"></script>
+
+<p>That is all for this article.</p>
+<hr>
+<p>For more programming and Python articles, checkout <a href="http://freblogg.com">Freblogg</a> and <a href="/tags/python">Freblogg/Python</a></p>
+<p>Some articles on automation:</p>
+<p><a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053">Web Scraping For Beginners with Python</a></p>
+<p><a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a></p>
+<hr>
+<p>This is the seventh article as part of my twitter challenge <a href="https://twitter.com/durgaswaroop/status/944503750340702208">#30DaysOfBlogging</a>. Twenty-three more articles on various topics including but not limited to <a href="/tags/java">Java</a>, <a href="/tags/git">Git</a>, <a href="/tags/vim">Vim</a>, <a href="/tags/software">Software Development</a>, <a href="/tags/python">Python</a>, to come.</p>
+<p>If you are interested in this, make sure to follow me on Twitter <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a>. While you’re at it, Go ahead and subscribe to this blog and my <a href="https://medium.com/@durgaswaroop/">blog on Medium</a> as well.</p>
+<hr>
+<p>If you are interested in contributing to any open source projects and haven’t found the right project or if you were unsure on how to begin, I would like to suggest my own project, <a href="https://github.com/durgaswaroop/delorean">Delorean</a> which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in the functionality.</p>
+<hr>
+<p>Thanks for reading. See you again in the next article.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

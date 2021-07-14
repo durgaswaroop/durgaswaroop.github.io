@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - Blogging</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/my-automated-blogging-workflow">My (Almost) Fully Automated Blogging Workflow</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-31T18:07:00+05:30">
+                Published: Sun 31 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/automation">Automation</a> <a href="/tags/medium">Medium</a> <a href="/tags/python">Python</a> <a href="/tags/blogging">Blogging</a> <a href="/tags/how-to">How To</a> <a href="/tags/vim">Vim</a> <a href="/tags/tweepy">Tweepy</a> <a href="/tags/twitter">Twitter</a> </p>
+</footer><!-- /.post-info --><p>In the article <a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a>, I have outlined what my blogging process is like and how I've started to automate it. Ofcourse, at the time of that article, the process was still in early stages and I hadn't automated everything I do. And, that's where this article comes in. This is the second attempt at automating my entire Blogging workflow.</p>
+<p><img alt="Medium blogger python logo" class="aligncenter" src="https://cdn-images-1.medium.com/max/800/1*dUMvQW8ynuO4qw2ceGF0BA.png"></p>
+<p>Just to give you some context, here are the things that I do when I'm blogging.</p>
+<ol>
+<li>Open a markdown file in Vim with the title of the article as the name along with some template text</li>
+<li>Open a browser with the html of the newly created markdown file</li>
+<li>Convert markdown to html with pandoc several times during the writing process</li>
+<li>Once the article is done and html is produced, edit the html to make some changes specific based on whether I'm publishing on <a href="https://medium.com/@durgaswaroop/">Medium</a> or if I'm publishing on <a href="http://freblogg.com">Blogger</a></li>
+<li>Read the tags/labels and other attributes from the file and Publish the code as draft on Medium or Blogger.</li>
+<li>Once it looks good, Schedule or Publish it (This is a manual process. There's no denying it.)</li>
+<li>Finally tweet about the post with the link to the article</li>
+</ol>
+<p>I have the individual pieces of this process ready. I have already written about them in the following articles.</p>
+<p><a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">Semi Automated Blogging Workflow</a></p>
+<p><a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901">Publish Articles To Blogger In One Second</a></p>
+<p><a href="/publish-articles-to-your-medium-blog">Publish Articles To Medium In One Second</a></p>
+<p><a href="/tweeting-with-python-and-tweepy">Tweeting With Python &amp; Tweepy</a></p>
+<p>Now, since the individual pieces are ready, it might seem that everything is done. But, as it turns out (unsurprisingly), the integration is of-course a big deal and took a lot more effort than I was expecting. And I am documenting that in this article along with the complete flow.</p>
+<p>It starts with the script <code>blog-it</code> which opens vim for me, opens chrome and also sets up a process for converting markdown to html, continuously.</p>
+<script src="https://gist.github.com/durgaswaroop/8ed9a5a55b8629f2180880665866f30e.js"></script>
+
+<p>That script calls <code>blog.py</code> which is what opens the vim along with the default text template. I would like to put the <a href="https://gist.github.com/durgaswaroop/78c51da2d74944d9e5a936cd18733f85">complete gist</a> here, but it is just too long and so instead I'm showing the meat of the script.</p>
+<div class="highlight"><pre><span></span>article_title = title.replace(&quot;_&quot;, &quot; &quot;).title()
+
+# Create the markdown file and add the title
+f = open(md_file, &quot;w+&quot;)
+f.write(generate_comments_header(article_title))
+f.write(article_title)  # Replace underscores and title case it
+f.write(&quot;\n&quot;)
+f.write(&quot;-&quot; * len(title))
+f.write(&quot;\n&quot;)
+f.write(generate_footer_text())
+f.close()
+
+# Now, create the html file
+html_file = title + &quot;.html&quot;
+open(html_file, &quot;w&quot;).close()
+
+# Start vim with the markdown file open on line #10
+subprocess.run([&#39;C:/Program Files (x86)/Vim/vim80/gvim.exe&#39;, &#39;+10&#39;, md_file])
+</pre></div>
+
+
+<p>Then comes <code>m2h</code> which continuously converts markdown to html.</p>
+<script src="https://gist.github.com/durgaswaroop/356c3aac4f8ce8f89501693b4d9bcb27.js"></script>
+
+<p>This ends one flow. Next comes, publishing. I have broken this down because publishing is a manual process for me unless I can complete the entire article in one sitting, which is never going to be possible. So, Once I'm doing with writing it, I'll start the publishing.</p>
+<p>I'll run <code>publish.py</code> which depending on the comments in the html publishes it to either <code>Blogger</code> or <code>Medium</code>. Again, I'm only showing a part of it. The full gist is available <a href="https://gist.github.com/durgaswaroop/4a81aabeca3bd91cccb0ceb9bda31663">here</a>.</p>
+<div class="highlight"><pre><span></span>with open(html_file) as file:
+    html_file_contents = file.read()
+
+re_comments = re.compile(&#39;\s*&lt;!--(.*)--&gt;&#39;, re.DOTALL)
+comments_text = re_comments.search(html_file_contents).group(1).strip()
+comments_parser = CommentParser.parse_comments(comments_text)
+
+if comments_parser.destination.lower() == &#39;blogger&#39;:
+    blogger_publish.publish(html_file, comments_parser.title, comments_parser.labels, comments_parser.post_id)
+elif comments_parser.destination.lower() == &#39;medium&#39;:
+    medium_publish.publish(html_file, comments_parser.title, comments_parser.labels)
+else:
+    print(
+        &#39;Unknown destination: &#39; + comments_parser.destination + &#39;. Supported destinations are Blogger and Medium.&#39;)
+</pre></div>
+
+
+<p>Then comes the individual publishing scripts that publish to blogger and medium.</p>
+<p>For <code>blogger-publish.py</code> (Gist <a href="https://gist.github.com/durgaswaroop/20bef02450137907d01f794ba99b965c">here</a>), I do any required modifications with <code>blogger_modifications.py</code> (Gist <a href="https://gist.github.com/durgaswaroop/dd9dcb1e592751c1aced5f0f42aeedc1">here</a>) which converts some tags as expected my blogger page.</p>
+<p>Then for <code>medium-publish.py</code> (Gist <a href="https://gist.github.com/durgaswaroop/f6fbcc910ddcc5b3fa7a0c1cdbd57401">here</a>), I take the parameters and publish to blogger as html. No, modifications needed to be done here.</p>
+<div class="highlight"><pre><span></span>access_token_file = &#39;~/.medium-access-token&#39;
+expanded_path = os.path.expanduser(access_token_file)
+with open(expanded_path) as file:
+  access_token = file.read().strip()
+
+headers = get_headers(access_token)
+user_url = get_user_url(headers)
+
+# Publish new post
+posts_url = user_url + &#39;posts/&#39;
+payload = generate_payload(title, labels, html_file)
+response = requests.request(&#39;POST&#39;, posts_url, data=payload, headers=headers)
+</pre></div>
+
+
+<p>Actually this publishing does send it to the site as a draft instead of actually publishing it. This is a step that I don't know how to automate as I have to manually take a look at how the article looks in preview. May be I should try doing this with selenium or something like that.</p>
+<p>Once, I've verified that the post looks good, I will publish it and take the URL of the published article and call the <code>tweeter.py</code> (Gist <a href="https://gist.github.com/durgaswaroop/2169cd8c89cc6a9d89134a414bb49b9c">here</a>) which then opens a Vim file with some default text for title, and URL already filled in along with some hashtags. I'll complete the tweet and once, I close it, It gets published on Twitter.</p>
+<p>And that completes the process. Obviously there are still a couple of manual steps. Although I can't eliminate all of them, I might be able to minimize them as well. But, so far it looks pretty good especially with just the little effort I've put into this in just one week. Of course, I'll keep on tuning it as needed to make it even better and may be I'll publish one final article for that.</p>
+<p>That is all for this article.</p>
+<hr>
+<p>For more programming articles, checkout <a href="http://freblogg.com">Freblogg</a>, <a href="/tags/python">Freblogg/Python</a></p>
+<p>Some articles on automation:</p>
+<p><a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053">Web Scraping For Beginners with Python</a> 
+<a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a> 
+<a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901">Publish articles to Blogger automatically</a> 
+<a href="/publish-articles-to-your-medium-blog">Publish articles to Medium automatically</a></p>
+<hr>
+<p>This is the 9th article as part of my twitter challenge <a href="https://twitter.com/durgaswaroop/status/944503750340702208">#30DaysOfBlogging</a>. Twenty one more articles on various topics, including but not limited to, <a href="/tags/java">Java</a>, <a href="/tags/git">Git</a>, <a href="/tags/vim">Vim</a>, <a href="/tags/software">Software Development</a>, <a href="/tags/python">Python</a>, to come.</p>
+<p>If you are interested in this, make sure to follow me on Twitter <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a>. </p>
+<hr>
+<p>If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, <a href="https://github.com/durgaswaroop/delorean">Delorean</a> which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in its functionality.</p>
+<hr>
+<p>Thanks for reading. See you again in the next article.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

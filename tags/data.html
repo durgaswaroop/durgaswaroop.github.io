@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>FreBlogg - Data</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/json-parsing-with-python">Json Parsing With Python</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2018-01-10T23:56:00+05:30">
+                Published: Wed 10 January 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/programming">Programming</a> <a href="/tags/data">Data</a> <a href="/tags/python">Python</a> <a href="/tags/how-to">How To</a> <a href="/tags/json">JSON</a> <a href="/tags/parsing">Parsing</a> </p>
+</footer><!-- /.post-info --><p>JSON has become an ubiquitous data exchange format everywhere. Pretty much every service has a JSON API. And since it is so popular, most of the programming languages have built-in JSON parsers. And Of course, Python is no exception. In this article, I'll show you how you can parse JSON with Python's <code>json</code> library.</p>
+<p><img alt="Python Logo" class="aligncenter" src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png">  </p>
+<p>JSON parsing in Python is quite straight forward and easy unlike in some languages, where it is unnecessarily cumbersome. Like everything else in Python, You start by importing the library you want.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+
+
+<p>In this article, I am going to use the following JSON I got from <a href="http://json.org/example.html">json.org</a></p>
+<div class="highlight"><pre><span></span>{
+  &quot;menu&quot;: {
+    &quot;id&quot;: &quot;file&quot;,
+    &quot;value&quot;: &quot;File&quot;,
+    &quot;popup&quot;: {
+      &quot;menuitem&quot;: [
+        {&quot;value&quot;: &quot;New&quot;, &quot;onclick&quot;: &quot;CreateNewDoc()&quot;},
+        {&quot;value&quot;: &quot;Open&quot;, &quot;onclick&quot;: &quot;OpenDoc()&quot;},
+        {&quot;value&quot;: &quot;Close&quot;, &quot;onclick&quot;: &quot;CloseDoc()&quot;}
+      ]
+    }
+  }
+}
+</pre></div>
+
+
+<p>We have got a good set of dictionaries and arrays to work with in this data. If you want to follow along, you can use the same JSON or you can use anything else as well.</p>
+<p>The first thing to do is to get this json string into a variable.</p>
+<div class="highlight"><pre><span></span>json_string = &quot;&quot;&quot;{&quot;menu&quot;: {
+  &quot;id&quot;: &quot;file&quot;,
+  &quot;value&quot;: &quot;File&quot;,
+  &quot;popup&quot;: {
+    &quot;menuitem&quot;: [
+      {&quot;value&quot;: &quot;New&quot;, &quot;onclick&quot;: &quot;CreateNewDoc()&quot;},
+      {&quot;value&quot;: &quot;Open&quot;, &quot;onclick&quot;: &quot;OpenDoc()&quot;},
+      {&quot;value&quot;: &quot;Close&quot;, &quot;onclick&quot;: &quot;CloseDoc()&quot;}
+    ]
+  }
+}}&quot;&quot;&quot;
+</pre></div>
+
+
+<p>And now we parse this string into a <code>dictionary</code> object with the help of the <code>json</code> library's <code>loads()</code> method.</p>
+<div class="highlight"><pre><span></span>json_dict = json.loads(json_string)
+</pre></div>
+
+
+<p>And you're done. The JSON is parsed and is stored in the <code>json_dict</code> object. The <code>json_dict</code> here is a python dictionary object. If you want to verify, you can do that by calling the <code>type()</code> on it with</p>
+<div class="highlight"><pre><span></span>print(type(json_dict))
+</pre></div>
+
+
+<p>And it will show that it is <code>&lt;class 'dict'&gt;</code>.</p>
+<p>Getting back, We have the entire json object as a dictionary in <code>json_dict</code> object and you can just drill down into the dictionary with the keys. On the top level, We just have one key in the dictionary which is <code>menu</code>. We get can get that by indexing the dictionary with that key.</p>
+<div class="highlight"><pre><span></span>menu = json_dict[&#39;menu&#39;]
+</pre></div>
+
+
+<p>And of course <code>menu</code> is a dictionary too with the keys <code>id</code>, <code>value</code>, and <code>popup</code>. We can access them and print them as well.</p>
+<div class="highlight"><pre><span></span>print(menu[&#39;id&#39;])            ## =&gt; &#39;file&#39;
+print(menu[&#39;value&#39;])         ## =&gt; &#39;File&#39;
+</pre></div>
+
+
+<p>And then finally we've got <code>popup</code> which is another dictionary as well with the key <code>menuitem</code> which is a list. We can verify this by checking the types of these objects.</p>
+<div class="highlight"><pre><span></span>popup = menu[&#39;popup&#39;]
+print(type(popup))           ## =&gt; &lt;class &#39;dict&#39;&gt;
+
+menuitem = popup[&#39;menuitem&#39;]
+print(type(menuitem))        ## =&gt; &lt;class &#39;list&#39;&gt;
+</pre></div>
+
+
+<p>And Since <code>menuitem</code> is a list, we can iterate on it and print the values.</p>
+<div class="highlight"><pre><span></span>for item in menuitem:
+    print(item)
+</pre></div>
+
+
+<p>And the output is</p>
+<div class="highlight"><pre><span></span>{&#39;value&#39;: &#39;New&#39;, &#39;onclick&#39;: &#39;CreateNewDoc()&#39;}
+{&#39;value&#39;: &#39;Open&#39;, &#39;onclick&#39;: &#39;OpenDoc()&#39;}
+{&#39;value&#39;: &#39;Close&#39;, &#39;onclick&#39;: &#39;CloseDoc()&#39;}
+</pre></div>
+
+
+<p>And of course each of these elements are dictionaries and so you can go further inside and access those keys and values.</p>
+<p>For example, If you want to access <code>New</code> from the above output, you can do this:</p>
+<div class="highlight"><pre><span></span>print(menuitem[0][&#39;value&#39;])  ## =&gt; New
+</pre></div>
+
+
+<p>And so on and so forth to get any value in the JSON.</p>
+<p>And not only that, <code>json</code> library can also accept JSON responses from web services. One cool thing here is that, web server responses are <code>byte</code> strings which means that if you want to use them in your program you'd have convert them to regular strings by using the <code>decode()</code> method. But for <code>json</code> you don't have to do that. You can directly feed in the <code>byte</code> string and it will give you a parsed object. That's pretty cool!</p>
+<p>That is all for this article.</p>
+<hr>
+<p>For more programming articles, checkout <a href="http://freblogg.com">Freblogg</a> <a href="/tags/python">Freblogg/Python</a></p>
+<p>Some of my other articles on automation:</p>
+<p><a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053">Web Scraping For Beginners with Python</a></p>
+<p><a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a></p>
+<p><a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901">Publish articles to Blogger automatically</a></p>
+<p><a href="/publish-articles-to-your-medium-blog">Publish articles to Medium automatically</a></p>
+<hr>
+<p>This is the 19th article as part of my twitter challenge <a href="https://twitter.com/durgaswaroop/status/944503750340702208">#30DaysOfBlogging</a>. Eleven more articles on various topics, including but not limited to, <a href="/tags/java">Java</a>, <a href="/tags/git">Git</a>, <a href="/tags/vim">Vim</a>,  <a href="/tags/python">Python</a>, to come.</p>
+<p>If you are interested in this, make sure to follow me on Twitter <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a>. While you're at it, Go ahead and subscribe <a href="https://medium.com/@durgaswaroop/">on medium</a> and my <a href="http://freblogg.com">blog</a> as well.</p>
+<hr>
+<p>If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, <a href="https://github.com/durgaswaroop/delorean">Delorean</a> which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in its functionality.</p>
+<hr>
+<p>Thanks for reading. See you again in the next article.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

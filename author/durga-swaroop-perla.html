@@ -2,37 +2,95 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Freblogg - Durga Swaroop Perla</title>
+        <title>FreBlogg - Durga Swaroop Perla</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Freblogg </a></h1>
+                <h1><a href="/">FreBlogg </a></h1>
                 <nav><ul>
-                    <li><a href="/categories/algorithms">Algorithms</a></li>
-                    <li><a href="/categories/misc">misc</a></li>
+                    <li><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/2019/12/my-first-article">My First Article</a></h1>
+                    <h1 class="entry-title"><a href="/webapp-with-flask-1">Build A Web Application With Flask In Python Part I</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2019-12-24T00:00:00+05:30">
-                Published: Tue 24 December 2019
+        <abbr class="published" title="2018-01-12T23:54:00+05:30">
+                Published: Fri 12 January 2018
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
         </address>
-<p>In <a href="/categories/misc">misc</a>.</p>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/flask">Flask</a> <a href="/tags/python">Python</a> <a href="/tags/web-framework">Web Framework</a> <a href="/tags/webapp">Webapp</a> </p>
+</footer><!-- /.post-info --><p>Flask is a popular micro web application framework for Python using which you can create web apps. Unlike another popular framework like Django, Flask keeps its foot print to a minimum providing only the basic functionality required instead of picking out the entire stack for you the way Django does. And we call it a micro framework for this very reason. Using flask's extensibility at the core, you can build any type of applications by picking the components you want to use. Several big name companies like LinkedIn, Pinterest use Flask for their products.</p>
+<p><img alt="Flask Logo" class="aligncenter" height="300" src="https://avatars1.githubusercontent.com/u/18305767">  </p>
+<p>In this tutorial we will get started with using <code>Flask</code> and create a simple web application with it.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>To follow along with this series you should have some knowledge of Python language. I'm using <code>3.6</code> for these tutorials and if you would like to follow along without any issues, I would suggest you to use the same version. For any of the previous versions, there might be a couple of changes in the syntax but the ideas and concepts will remain same.</p>
+<p>You will also need to install <code>Flask</code>. You can do that with <code>pip</code>.</p>
+<div class="highlight"><pre><span></span>pip install -U flask
+</pre></div>
 
-</footer><!-- /.post-info --><h1>My first article</h1>
-<p>Hi. This is my first article using Pelican static site generator. </p>
-<h2>This is heading 2</h2>
-<h3>This will be heading 3</h3>
-<p>And now this is another paragraph. </p>                </article>
+
+<p>This will install flask if you don't already have it and update the version to latest if you have a previous version installed.</p>
+<p>With those two things, you are good to go.</p>
+<h3 id="getting-started">Getting Started</h3>
+<p>Just like with anything else you start by importing the stuff you want.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</pre></div>
+
+
+<p>And this will make <code>Flask</code> ready for you to use. After this you have to create an <code>app</code> object by calling the <code>Flask</code> constructor like this:</p>
+<div class="highlight"><pre><span></span>app = Flask(&quot;hello&quot;)
+</pre></div>
+
+
+<p>This will create our <code>app</code> object. The name <code>hello</code> I've specified in the constructor can be anything. But the usual convention is to keep it <code>__main__</code>. Also, the app is just a variable. So, you can name it anything you want.</p>
+<p>Next you have to define the routes. Using routes you configure your server to do different actions. Let's say when you type in some website URL in to your browser, you will be taken to its home page. Now if you do a <code>&lt;website&gt;/info</code> it will take you to the info page. So, this mapping of the call to <code>/info</code> URL to the <code>info</code> page is what we call as a route. For the home page the route is simply <code>/</code>.</p>
+<p>Let's say we want our server's homepage to display <code>Hello World</code>. You can configure that with a method like this:</p>
+<div class="highlight"><pre><span></span>@app.route(&#39;/&#39;)
+def index():
+    return &quot;Hello World&quot;
+</pre></div>
+
+
+<p>With the <code>@app.route('/')</code>, we are defining a route on our server. So, when ever somebody opens that route, which for us i the homepage, the <code>index()</code> method associated with that route annotation will be called. And when the <code>index()</code> method is called it will return <code>Hello World</code> just as we expect it to.</p>
+<p>And there is one final command to start and run our server which is:</p>
+<div class="highlight"><pre><span></span>app.run(debug=True)
+</pre></div>
+
+
+<p>And that's it. This will run the app that we have created when you run the python file. The <code>debug=True</code> option is useful while developing and testing applications. So, we'll keep that for now.</p>
+<p>Just run your python script and you should output like this on the console:</p>
+<div class="highlight"><pre><span></span>* Debugger is active!
+* Debugger PIN: 127-398-124
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+</pre></div>
+
+
+<p>Now If you go to <a href="http://localhost:5000">http://localhost:5000</a>, you can see <code>Hello World</code> displayed.</p>
+<p>That's it. You have successfully created your first web application with flask in just 3 lines of code. Now, that is awesome. Stay tuned for the next part.</p>
+<p>That is all for this article.</p>
+<hr>
+<p>For more programming articles, checkout <a href="http://freblogg.com">Freblogg</a> <a href="/tags/python">Freblogg/Python</a></p>
+<p>Some articles on automation:</p>
+<p><a href="https://medium.com/@durgaswaroop/web-scraping-with-python-introduction-7b3c0bbb6053">Web Scraping For Beginners with Python</a></p>
+<p><a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a></p>
+<p><a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901">Publish articles to Blogger automatically</a></p>
+<p><a href="/publish-articles-to-your-medium-blog">Publish articles to Medium automatically</a></p>
+<hr>
+<p>This is the 21st article as part of my twitter challenge <a href="https://twitter.com/durgaswaroop/status/944503750340702208">#30DaysOfBlogging</a>. Nine more articles on various topics, including but not limited to, <a href="/tags/java">Java</a>, <a href="/tags/git">Git</a>, <a href="/tags/vim">Vim</a>, <a href="/tags/software">Software Development</a>, <a href="/tags/python">Python</a>, to come.</p>
+<p>If you are interested in this, make sure to follow me on Twitter <a href="https://twitter.com/durgaswaroop">@durgaswaroop</a>. </p>
+<hr>
+<p>If you are interested in contributing to any open source projects and haven't found the right project or if you were unsure on how to begin, I would like to suggest my own project, <a href="https://github.com/durgaswaroop/delorean">Delorean</a> which is a Distributed Version control system, built from scratch in scala. You can contribute not only in the form of code, but also with usage documentation and also by identifying any bugs in its functionality.</p>
+<hr>
+<p>Thanks for reading. See you again in the next article.</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -41,45 +99,217 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/2018/01/remove-duplicate-elements-from-an-array" rel="bookmark"
-                           title="Permalink to Remove Duplicate Elements From An Array">Remove Duplicate Elements From An Array</a></h1>
+                    <h1><a href="/json-parsing-with-python" rel="bookmark"
+                           title="Permalink to Json Parsing With Python">Json Parsing With Python</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2018-01-06T00:00:00+05:30">
-                Published: Sat 06 January 2018
+        <abbr class="published" title="2018-01-10T23:56:00+05:30">
+                Published: Wed 10 January 2018
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
         </address>
-<p>In <a href="/categories/algorithms">Algorithms</a>.</p>
-<p>tags: <a href="/tag/arrays.html">arrays</a> <a href="/tag/algorithms.html">algorithms</a> </p>
-</footer><!-- /.post-info -->                <h1>Remove Duplicate Elements From An Array</h1>
-<h2>Approach #1</h2>
-<h2>Approach #3</h2>
-                <a class="readmore" href="/2018/01/remove-duplicate-elements-from-an-array">read more</a>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/programming">Programming</a> <a href="/tags/data">Data</a> <a href="/tags/python">Python</a> <a href="/tags/how-to">How To</a> <a href="/tags/json">JSON</a> <a href="/tags/parsing">Parsing</a> </p>
+</footer><!-- /.post-info -->                <p>JSON has become an ubiquitous data exchange format everywhere. Pretty much every service has a JSON API. And since it is so popular, most of the programming languages have built-in JSON parsers. And Of course, Python is no exception. In this article, I'll show you how you can parse JSON …</p>
+                <a class="readmore" href="/json-parsing-with-python">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/my-automated-blogging-workflow" rel="bookmark"
+                           title="Permalink to My (Almost) Fully Automated Blogging Workflow">My (Almost) Fully Automated Blogging Workflow</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-31T18:07:00+05:30">
+                Published: Sun 31 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/automation">Automation</a> <a href="/tags/medium">Medium</a> <a href="/tags/python">Python</a> <a href="/tags/blogging">Blogging</a> <a href="/tags/how-to">How To</a> <a href="/tags/vim">Vim</a> <a href="/tags/tweepy">Tweepy</a> <a href="/tags/twitter">Twitter</a> </p>
+</footer><!-- /.post-info -->                <p>In the article <a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a>, I have outlined what my blogging process is like and how I've started to automate it. Ofcourse, at the time of that article, the process was still in early stages and I hadn't automated everything I do. And, that's where this …</p>
+                <a class="readmore" href="/my-automated-blogging-workflow">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/publish-articles-to-your-medium-blog" rel="bookmark"
+                           title="Permalink to Publish Articles To Your Medium Blog In One Second">Publish Articles To Your Medium Blog In One Second</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-29T19:57:00+05:30">
+                Published: Fri 29 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/blogging-tips">Blogging tips</a> <a href="/tags/programming">Programming</a> <a href="/tags/python">Python</a> <a href="/tags/api">API</a> </p>
+</footer><!-- /.post-info -->                <p>In my article <a href="https://medium.com/@durgaswaroop/my-semi-automated-blogging-workflow-62cba2827986">My semi automated workflow for blogging</a>, I have talked about my blogging workflow. There were two main things (actually one thing) in that flow that were not automated. i.e., automatically Uploading to Blogger and automatically Uploading to Medium. I have talked about the first one <a href="https://medium.com/@durgaswaroop/publish-articles-on-blogger-in-just-one-second-2ef45586901">here …</a></p>
+                <a class="readmore" href="/publish-articles-to-your-medium-blog">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/tweeting-with-python-and-tweepy" rel="bookmark"
+                           title="Permalink to Tweeting with Python and Tweepy">Tweeting with Python and Tweepy</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-25T19:00:00+05:30">
+                Published: Mon 25 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/programming">Programming</a> <a href="/tags/pip">Pip</a> <a href="/tags/python">Python</a> <a href="/tags/how-to">How To</a> <a href="/tags/tweepy">Tweepy</a> <a href="/tags/twiiter">Twiiter</a> <a href="/tags/api">API</a> <a href="/tags/scraping">Scraping</a> </p>
+</footer><!-- /.post-info -->                <p>Programmers love to automate things and I'm no exception. I always like automate my common tasks. Whether it is checking for stock prices or checking to see when the next episode of my favorite show is coming, I've automated scripts for that. Today I am going to add one more …</p>
+                <a class="readmore" href="/tweeting-with-python-and-tweepy">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/git-merge-vs-git-rebase" rel="bookmark"
+                           title="Permalink to Git Merge Vs. Git Rebase">Git Merge Vs. Git Rebase</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-01-31T09:00:00+05:30">
+                Published: Tue 31 January 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/git-merge">Git merge</a> <a href="/tags/rebase">Rebase</a> <a href="/tags/vcs">VCS</a> <a href="/tags/git">Git</a> <a href="/tags/merge-conflicts">Merge Conflicts</a> </p>
+</footer><!-- /.post-info -->                <p>Merge and Rebase are two strategies available in Git to combine two ( or more) branches into one branch.<br>
+Let’s say we have two branches <em>feature1</em> and <em>feature2</em> that have diverged from a common commit “<em>a</em>” to have four commits each.  </p>
+<p><img alt="git two branches" src="https://qphs.fs.quoracdn.net/main-qimg-27b4c373471ccb22663c3189b051dcc3.webp">  </p>
+<p>Now we want to combine both the features into …</p>
+                <a class="readmore" href="/git-merge-vs-git-rebase">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/git-octopus-merge" rel="bookmark"
+                           title="Permalink to Understanding Git Octopus Merge">Understanding Git Octopus Merge</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-12-21T05:00:00+05:30">
+                Published: Wed 21 December 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/git">Git</a> <a href="/tags/octopus-merge">Octopus Merge</a> <a href="/tags/merge-conflicts">Merge Conflicts</a> <a href="/tags/source-control">Source Control</a> </p>
+</footer><!-- /.post-info -->                <p>The Code for Git merge is one of the most sophisticated pieces of software ever written. There is so much stuff that goes inside during a merge that its just mind boggling. Just for that alone, Linus could be considered a programming genius. Too bad for other geniuses, he also …</p>
+                <a class="readmore" href="/git-octopus-merge">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/your-first-lesson-in-vim-4" rel="bookmark"
+                           title="Permalink to Navigating In Vim II | Your First Lesson in Vim">Navigating In Vim II | Your First Lesson in Vim</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-13T12:00:00+05:30">
+                Published: Thu 13 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->                <p>This is the fourth article in the series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep …</p>
+                <a class="readmore" href="/your-first-lesson-in-vim-4">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/your-first-lesson-in-vim-3" rel="bookmark"
+                           title="Permalink to Navigating in Vim I | Your First Lesson In Vim">Navigating in Vim I | Your First Lesson In Vim</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-09T00:00:00+05:30">
+                Published: Sun 09 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->                <p>This is the third article in a series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor there by extending the Vim community. Vim though quite powerful, has a bad rep for …</p>
+                <a class="readmore" href="/your-first-lesson-in-vim-3">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/your-first-lesson-in-vim-2" rel="bookmark"
+                           title="Permalink to How to Exit Vim? | Your First Lesson In Vim">How to Exit Vim? | Your First Lesson In Vim</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-02T17:00:00+05:30">
+                Published: Sun 02 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/linux">Linux</a> <a href="/tags/vimfirstlesson">VimFirstLesson</a> <a href="/tags/vim">Vim</a> <a href="/tags/gvim">Gvim</a> </p>
+</footer><!-- /.post-info -->                <p>This is the second article in the series titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep …</p>
+                <a class="readmore" href="/your-first-lesson-in-vim-2">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 2
+        <a href="/author/durga-swaroop-perla2.html">&raquo;</a>
+</p>
                 </section><!-- /#content -->
         <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
                 <div class="social">
                         <h2>social</h2>
                         <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
                         </ul>
                 </div><!-- /.social -->
         </section><!-- /#extras -->

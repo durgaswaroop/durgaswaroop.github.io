@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Introduction & Installation | Your First Lesson In Vim</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">FreBlogg </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/categories/software">Software</a></li>
+                    <li><a href="/categories/technology">Technology</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/your-first-lesson-in-vim-1" rel="bookmark"
+           title="Permalink to Introduction & Installation | Your First Lesson In Vim">Introduction & Installation | Your First Lesson In Vim</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-09-24T21:20:00+05:30">
+                Published: Sat 24 September 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/durga-swaroop-perla.html">Durga Swaroop Perla</a>
+        </address>
+<p>In <a href="/categories/software">Software</a>.</p>
+<p>tags: <a href="/tags/vim">vim</a> <a href="/tags/gvim">gvim</a> <a href="/tags/vimfirstlesson">VimFirstLesson</a> </p>
+</footer><!-- /.post-info -->      <p>This is the first article in a series of articles titled, "<a href="/tags/vimfirstlesson">Your First Lesson In Vim</a>". These articles are written with a goal of helping out new Vim users by teaching the awesomeness of the Vim editor and there by extending the Vim community. Vim though quite powerful, has a bad rep for being hard to learn and hard to get started with. So, even when someone is interested in learning about Vim, that infamous learning curve seem to be scaring them off. This series is going to put an end to all of that.</p>
+<p><img alt="Vim Logo" class="aligncenter" src="http://wolfrosch.com/_img/works/goodies/icon/vim@2x" width="150"></p>
+<p><strong>Warning</strong> : After going through all the articles in this series you will love Vim so much that you would like to have Vim style keyboard bindings everywhere, in your browser, in your mail client, in your shell and every other place which has a text input, which might not always be possible. Proceed further at your own risk. YOU HAVE BEEN WARNED!</p>
+<p>Vim is one of the best text editors available out there in the market. In fact it is one of the two best editors, the other being Emacs (This would be the last you'll see its name. From here on, it will be referred to as, <em>The Editor which shall not be named</em> ). Now you might be wondering, what about Sublime Text ? or Atom ? or some other flashy editor that's getting attention. My answer to that is very simple - East or West, Vim is the best. Don't get me wrong, editors like Sublime, Atom are good and I was a fan of Sublime myself. But to be called the best, a Text Editor needs to customizable, extensible and most importantly should have a huge community of users helping out each other. None of these editors can beat Vim in those areas. Apart from that Vim is really fast and robust. It can open huge files that makes other editors crash. It has builtin syntax support for hundred's of file types. It has a huge plugin base that both extend vim's functionality and add more functionality to do pretty much any thing you want. And that's just a few reasons why its the best.</p>
+<p>Since you are reading this article, I assume that you're interested in learning about what Vim is and about what Vim does. So, Let's start with some brief history of how the Vim editor came to be.</p>
+<ul>
+<li>In 1970's, Bill Joy developed <strong>ex</strong> editor for Unix which later came to be known as the <em>Vi</em> editor for having a <em>Vi</em>sual interface for editing.</li>
+<li>1987 - <strong>Stevie</strong> was developed as a clone of Vi for Atari ST systems. Stevie stands for 'ST Editor for Vi Enthusiasts'. The name might be a mouthful but the editor itself is quite popular.</li>
+<li>1988 - Vim (Vi IMitation) was created by Bram Moolenaar (Remember the name ..) as a port of Stevie for AmigaOS. Though started as an imitation, Vim quickly started to add several new features with support for multiple operating systems.</li>
+<li>1993 - Vim 2.0 released with name changed to 'Vi IMproved' because, by then Vim had a lot more features than original Vi.
+    .
+    . Fast forwarding history
+    .</li>
+<li>2006 - Vim 7.0 released with support for tabs, code completion, undo branching and a lot more</li>
+<li>2016 - Vim 8.0 released with a lot of exciting features like Asynchronous I/O, channels, Jobs, Timers, Packages and a lot more</li>
+</ul>
+<p>(Shout out to <a href="https://buildingvts.com/a-brief-history-of-vim-1476ec4a6eb8#.dyvv00erx">buildingvts.com</a> for putting this history together)</p>
+<p>So, as you can see from our brief Time travel, Vim has been around for almost 30 years. Now you might be asking yourself, why the heck is this editor still used today after almost 30 years. That's a good question and one that needs to answered right now.</p>
+<p><img alt="Floppy disks" class="aligncenter" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Floppy_disk_2009_G1.jpg/800px-Floppy_disk_2009_G1.jpg" width="450"></p>
+<p>Technology sure changes a lot and old things usually tend to get lost with all the new things that keep coming. But in the case of Vim or <em>The Editor which shall not be named</em>, that is simply not the case. They fall in to the category of "Old is Gold". These editors are written during the days when floppy disks and magnetic tapes were all the rage and hence are written to be memory efficient. Though Vim has changed a lot over the years to add countless new features, the fundamental idea of being light weight and memory efficient is still one of its big selling points. That is the reason why Vim managed to stay relevant through three decades and that is also the reason why it will continue to be relevant for more decades to come.</p>
+<p>So, If that answer convinced you to stay the course and explore the exciting and enticing world of Vim, then Welcome aboard! Make sure to remember that this is the day you have decided to take your text editing to the next level by learning Vim.</p>
+<p>Now that we know the history of Vim, its time to install Vim on your Computers. If you are rocking a Linux Operating system, chances are you already have a version of Vim pre-installed. So, check if it exists by typing <code>vi</code> or <code>vim</code> in the command line. If it is available, you should see a screen that looks something like this.</p>
+<p><img alt="Vim start screen image here" class="aligncenter" src="https://raw.githubusercontent.com/durgaswaroop/Your_First_Lesson_In_Vim/master/pictures/vim_start_screen.png" width="450"></p>
+<p>If you see this then Vim is already installed.</p>
+<p>If you don't have it installed, don't worry. Vim is a freeware (correction: Charity ware) and so you can download it for free from Vim's official site <a href="http://www.vim.org/">Vim.org</a>. Vim is available for pretty much every major Operating system out there. I heard that there is a version of Vim available even for Toasters. I have no idea who might use that, but its there if you need it. And this is another reason why people like vim so much.No matter the OS, they can be sure that their favorite editor is available. So, Just download vim for your operating system and install it.</p>
+<p>And by the way, did I mention that Vim is primarily a terminal based program? It was initially designed to be run in terminals to access files on remote systems. A lot of people to this day, prefer the terminal version of Vim. But to those of you who like to have a Graphical User Interface (GUI) you've that available as well.</p>
+<p>For windows users, it can be downloaded from the vim.org site. Look for Gvim (stands for Graphical Vim) For mac users, you can download Mac Vim which provides a good GUI experience. For Linux users, there are Gvim versions available for most of the distros. So, download the one suitable for your distribution.</p>
+<p>If you have successfully installed Vim on your systems open Vim either in Terminal or the GUI and you should see a welcome screen similar to the picture above. If you got that, then Congratulations, you have the power of Vim with you now.</p>
+<blockquote>
+<p>Don't forget what Uncle Ben said, "With great power comes, great responsibility". So, your responsibility as a Vim user is to spread the vim awesomeness with your co-workers and friends. It would be even better if you can share this article with them but that is entirely up to you. (Jedi mind tricks working implicitly)</p>
+</blockquote>
+<p>And before we finish this article I will give you a sneak peak at the power of Vim and what you can do with it. Watch Damian Conway's Video on Vim : <a href="https://www.youtube.com/watch?v=aHm36-na4-4">More Instantly better Vim</a>. Conway is one of the Vim geniuses whom I admire.. This video gives you a small window in to the world of Vim and what Vim can do in the hands of a seasoned user. You might not be able to  understand how Conway is doing his magic but that is entirely fine. You obviously won't be able to understand Linux Kernel module code  when you're just starting to write <em>Hello World</em> programs. This video is just to show you how the masters use Vim and you will be able to do that too once you've mastered it.</p>
+<p>Well, That is all for this article folks. Will see you again in the next one. Until then, Keep practicing and Happy Vimming!</p>
+<p><a href="/your-first-lesson-in-vim-2">Next →</a></p>
+<h4 id="attributions">Attributions:</h4>
+<p>Vim Logo - Vim Replacement Icon http://wolfrosch.com/works/goodies/vim (CC BY-NC-ND 3.0)</p>
+<p>Floppy Disks - https://goo.gl/0Ns2Dj</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/durgaswaroop">Twitter</a></li>
+                            <li><a href="https://medium.com/@durgaswaroop">Medium Blog</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
